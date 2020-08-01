@@ -15,13 +15,9 @@ const contentModule = BDModules.get(e => e.contents)[0];
 const verticalSeparatorModule = BDModules.get(e => e.verticalSeparator)[0];
 const loginModule = BDModules.get(e => e.default && e.default.loginToken)[0].default;
 
-class TokenLogin extends React.PureComponent {
+class TokenLogin extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      value: "",
-      error: null
-    };
   }
 
   render() {
@@ -37,7 +33,42 @@ class TokenLogin extends React.PureComponent {
       className: `${authBoxModule.block} ${marginModule.marginTop20}`
     }, /*#__PURE__*/React.createElement("div", {
       className: marginModule.marginBottom20
-    }, /*#__PURE__*/React.createElement("h5", {
+    }, /*#__PURE__*/React.createElement(TokenInput, {
+      ref: "input"
+    })), /*#__PURE__*/React.createElement("button", {
+      type: "submit",
+      className: `${marginModule.marginBottom8} ${authBoxModule.button} ${contentModule.button} ${contentModule.lookFilled} ${contentModule.colorBrand} ${contentModule.sizeLarge} ${contentModule.fullWidth} ${contentModule.grow}`,
+      onClick: () => {
+        if (!this.refs.input.state.value) {
+          this.refs.input.setState({
+            error: "This field is necessary"
+          });
+          return;
+        }
+
+        loginModule.loginToken(this.refs.input.state.value);
+        ev.stopPropagation();
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      className: contentModule.contents
+    }, "Login"))))];
+  }
+
+}
+
+exports.default = TokenLogin;
+
+class TokenInput extends React.Component {
+  constructor() {
+    super(...arguments);
+    this.state = {
+      value: "",
+      error: null
+    };
+  }
+
+  render() {
+    return [/*#__PURE__*/React.createElement("h5", {
       className: `${colors.colorStandard} ${sizes.size14} ${titleModule.h5} ${titleModule.defaultMarginh5}${this.state.error ? " " + titleModule.error : ""}`
     }, "Token", this.state.error ? /*#__PURE__*/React.createElement("span", {
       class: titleModule.errorMessage
@@ -56,27 +87,11 @@ class TokenLogin extends React.PureComponent {
       spellCheck: "false",
       value: this.state.value,
       onChange: ev => {
-        this.state.value = ev.target.value;
+        this.setState({
+          value: ev.target.value
+        });
       }
-    }))), /*#__PURE__*/React.createElement("button", {
-      type: "submit",
-      className: `${marginModule.marginBottom8} ${authBoxModule.button} ${contentModule.button} ${contentModule.lookFilled} ${contentModule.colorBrand} ${contentModule.sizeLarge} ${contentModule.fullWidth} ${contentModule.grow}`,
-      onClick: () => {
-        if (!this.state.value) {
-          this.setState({
-            error: "This field is necessary"
-          });
-          this.forceUpdate();
-          return;
-        }
-
-        loginModule.loginToken(this.state.value);
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      className: contentModule.contents
-    }, "Login"))))];
+    }))];
   }
 
 }
-
-exports.default = TokenLogin;

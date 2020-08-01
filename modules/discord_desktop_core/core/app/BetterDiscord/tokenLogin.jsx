@@ -10,14 +10,9 @@ const verticalSeparatorModule = BDModules.get(e => e.verticalSeparator)[0]
 
 const loginModule = BDModules.get(e => e.default && e.default.loginToken)[0].default
 
-export default class TokenLogin extends React.PureComponent {
+export default class TokenLogin extends React.Component {
     constructor(props){
         super(props)
-
-        this.state = {
-            value: "",
-            error: null
-        }
     }
 
     render(){
@@ -32,29 +27,18 @@ export default class TokenLogin extends React.PureComponent {
                 </div>
                 <div className={`${authBoxModule.block} ${marginModule.marginTop20}`}>
                     <div className={marginModule.marginBottom20}>
-                        <h5 className={`${colors.colorStandard} ${sizes.size14} ${titleModule.h5} ${titleModule.defaultMarginh5}${this.state.error ? " "+titleModule.error : ""}`}>
-                            Token
-                            {this.state.error ? <span class={titleModule.errorMessage}>
-	                            <span class={titleModule.errorSeparator}>-</span>{this.state.error}
-                            </span> : null}
-                        </h5>
-                        <div className={inputModule.inputWrapper}>
-                            <input className={`${inputModule.inputDefault}${this.state.error ? " "+inputModule.inputError : ""}`} name="token" type="token" placeholder aria-label="Token" autoComplete="off" maxLength={999} spellCheck="false" value={this.state.value} onChange={(ev) => {
-                                this.state.value = ev.target.value
-                                this.forceUpdate()
-                            }}/>
-                        </div>
+                        <TokenInput ref="input"/>
                     </div>
                     <button type="submit" className={`${marginModule.marginBottom8} ${authBoxModule.button} ${contentModule.button} ${contentModule.lookFilled} ${contentModule.colorBrand} ${contentModule.sizeLarge} ${contentModule.fullWidth} ${contentModule.grow}`} onClick={() => {
-                        if(!this.state.value){
-                            this.setState({
+                        if(!this.refs.input.state.value){
+                            this.refs.input.setState({
                                 error: "This field is necessary"
                             })
-                            this.forceUpdate()
                             return
                         }
 
-                        loginModule.loginToken(this.state.value)
+                        loginModule.loginToken(this.refs.input.state.value)
+                        ev.stopPropagation()
                     }}>
                         <div className={contentModule.contents}>
                             Login
@@ -63,5 +47,34 @@ export default class TokenLogin extends React.PureComponent {
                 </div>
             </div>
         ]);
+    }
+}
+
+class TokenInput extends React.Component {
+    constructor(){
+        super(...arguments)
+
+        this.state = {
+            value: "",
+            error: null
+        }
+    }
+
+    render(){
+        return [
+            <h5 className={`${colors.colorStandard} ${sizes.size14} ${titleModule.h5} ${titleModule.defaultMarginh5}${this.state.error ? " "+titleModule.error : ""}`}>
+                Token
+                {this.state.error ? <span class={titleModule.errorMessage}>
+                    <span class={titleModule.errorSeparator}>-</span>{this.state.error}
+                </span> : null}
+            </h5>,
+            <div className={inputModule.inputWrapper}>
+                <input className={`${inputModule.inputDefault}${this.state.error ? " "+inputModule.inputError : ""}`} name="token" type="token" placeholder aria-label="Token" autoComplete="off" maxLength={999} spellCheck="false" value={this.state.value} onChange={(ev) => {
+                    this.setState({
+                        value: ev.target.value
+                    })
+                }}/>
+            </div>
+        ]
     }
 }
