@@ -13,7 +13,11 @@ import cloneNullProto from "../modules/cloneNullProto"
 import Tooltip from "./general/Tooltip"
 import ColorPicker from "./inputs/ColorPicker"
 import AlertBox from "./general/AlertBox"
-import { createProxyErrorCatcherClass } from "./private/ErrorCatcher"
+import ErrorCatcher, { createProxyErrorCatcherClass } from "./general/ErrorCatcher"
+import Flex, { FlexChild } from "./general/Flex"
+import Text from "./general/Text"
+import DateRange from "./inputs/DateRange"
+import DateInput from "./inputs/DateInput"
 
 const RadioGroupProxied = createProxyErrorCatcherClass(RadioGroup)
 export default cloneNullProto({
@@ -25,7 +29,9 @@ export default cloneNullProto({
         TextArea: createProxyErrorCatcherClass(TextArea),
         TextInput: createProxyErrorCatcherClass(TextInput),
         Dropdown: createProxyErrorCatcherClass(Dropdown),
-        ColorPicker: createProxyErrorCatcherClass(ColorPicker)
+        ColorPicker: createProxyErrorCatcherClass(ColorPicker),
+        //DateRange: createProxyErrorCatcherClass(DateRange),
+        //DateInput: createProxyErrorCatcherClass(DateInput)
     }),
     general: cloneNullProto({
         Title: createProxyErrorCatcherClass(Title),
@@ -34,6 +40,10 @@ export default cloneNullProto({
         Tabs: createProxyErrorCatcherClass(Tabs),
         CodeBlock: createProxyErrorCatcherClass(CodeBlock),
         Tooltip: createProxyErrorCatcherClass(Tooltip),
-        AlertBox: createProxyErrorCatcherClass(AlertBox)
+        AlertBox: createProxyErrorCatcherClass(AlertBox),
+        Flex: createProxyErrorCatcherClass(Flex),
+        FlexChild: createProxyErrorCatcherClass(FlexChild),
+        ErrorCatcher: ErrorCatcher,
+        Text: Text
     })
 })

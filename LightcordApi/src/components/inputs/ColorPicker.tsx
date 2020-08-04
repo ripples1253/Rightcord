@@ -1,8 +1,6 @@
 import NOOP from "../../modules/noop"
 import WebpackLoader from "../../modules/WebpackLoader"
-import Tooltip from "../general/Tooltip"
 import Utils from "../../modules/Utils"
-import { createProxyErrorCatcherClass } from "../private/ErrorCatcher"
 
 const Constants = {
     defaultColor: 10070709,

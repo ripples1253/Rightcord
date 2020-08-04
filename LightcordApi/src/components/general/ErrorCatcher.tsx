@@ -3,6 +3,8 @@ import WebpackLoader from "../../modules/WebpackLoader";
 import DiscordTools from "../../modules/DiscordTools";
 import NOOP from "../../modules/noop";
 import uuid from "../../modules/uuid";
+import Title from "./Title";
+import AlertBox from "./AlertBox";
 
 
 type ErrorCatcherProps = {
@@ -16,6 +18,10 @@ export default class ErrorCatcher extends React.Component<ErrorCatcherProps, {er
             error: false,
             hasSentNotification: false
         }
+    }
+
+    static get original(){
+        return ErrorCatcher
     }
 
     get modules():any[]{
@@ -71,7 +77,19 @@ export default class ErrorCatcher extends React.Component<ErrorCatcherProps, {er
             error: true
         })
     }
+
+    static get AllPreviews(){
+        return AllPreviews || (AllPreviews = [
+            [
+                {
+                    children: <AlertBox type="info">This AlertBox is protected by an ErrorCatcher.</AlertBox>
+                }
+            ]
+        ])
+    }
 }
+
+let AllPreviews
 
 export function createProxyErrorCatcherClass<base = Function>(Class:base):base & {
     readonly original: base
