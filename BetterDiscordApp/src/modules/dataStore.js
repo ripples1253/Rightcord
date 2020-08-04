@@ -22,8 +22,8 @@ export default new class DataStore {
 
     initialize() {
         try {
-            if (!fs.existsSync(this.BDFile)) fs.writeFileSync(this.BDFile, JSON.stringify(this.data, null, 4), "binary");
-            const data = JSON.parse(fs.readFileSync(this.BDFile, "binary"))
+            if (!fs.existsSync(this.BDFile)) fs.writeFileSync(this.BDFile, JSON.stringify(this.data, null, 4), "utf-8");
+            const data = JSON.parse(fs.readFileSync(this.BDFile, "utf-8"))
             if (data.hasOwnProperty("settings")) this.data = data;
             if (!fs.existsSync(this.settingsFile)) return;
             let settings = __non_webpack_require__(this.settingsFile);
@@ -62,7 +62,7 @@ export default new class DataStore {
 
     setSettingGroup(key, data) {
         this.data.settings[releaseChannel][key] = data;
-        fs.writeFileSync(this.BDFile, JSON.stringify(this.data, null, 4), "binary");
+        fs.writeFileSync(this.BDFile, JSON.stringify(this.data, null, 4), "utf-8");
     }
 
     getBDData(key) {
@@ -71,7 +71,7 @@ export default new class DataStore {
 
     setBDData(key, value) {
         this.data[key] = value;
-        fs.writeFileSync(this.BDFile, JSON.stringify(this.data, null, 4), "binary");
+        fs.writeFileSync(this.BDFile, JSON.stringify(this.data, null, 4), "utf-8");
     }
 
     getPluginData(pluginName, key) {
@@ -85,12 +85,12 @@ export default new class DataStore {
         if (value === undefined) return;
         if (this.pluginData[pluginName] === undefined) this.pluginData[pluginName] = {};
         this.pluginData[pluginName][key] = value;
-        fs.writeFileSync(this.getPluginFile(pluginName), JSON.stringify(this.pluginData[pluginName], null, 4), "binary");
+        fs.writeFileSync(this.getPluginFile(pluginName), JSON.stringify(this.pluginData[pluginName], null, 4), "utf-8");
     }
 
     deletePluginData(pluginName, key) {
         if (this.pluginData[pluginName] === undefined) this.pluginData[pluginName] = {};
         delete this.pluginData[pluginName][key];
-        fs.writeFileSync(this.getPluginFile(pluginName), JSON.stringify(this.pluginData[pluginName], null, 4), "binary");
+        fs.writeFileSync(this.getPluginFile(pluginName), JSON.stringify(this.pluginData[pluginName], null, 4), "utf-8");
     }
 };

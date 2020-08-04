@@ -43,6 +43,14 @@ export default class Settings {
     this.settings[key] = value;
   }
 
+  delete(key){
+    delete this.settings[key]
+  }
+
+  exists(key){
+    return key in this.settings
+  }
+
   save() {
     if (this.lastModified && this.lastModified !== this._lastModified()) {
       console.warn('Not saving settings, it has been externally modified.');

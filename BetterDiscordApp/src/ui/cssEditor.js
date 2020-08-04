@@ -72,7 +72,7 @@ export default class V2C_CssEditor extends BDV2.reactComponent {
         const _ccss = DataStore.getBDData("bdcustomcss");
         let ccss = "";
         if (_ccss && _ccss !== "") {
-            ccss = atob(_ccss);
+            ccss = Buffer.from(_ccss, "base64").toString("utf8");
         }
         return ccss;
     }
@@ -193,7 +193,7 @@ export default class V2C_CssEditor extends BDV2.reactComponent {
     }
 
     saveCss() {
-        DataStore.setBDData("bdcustomcss", btoa(this.editor.session.getValue()));
+        DataStore.setBDData("bdcustomcss", Buffer.from(this.editor.session.getValue(), "utf-8").toString("base64"));
     }
 
     detach() {

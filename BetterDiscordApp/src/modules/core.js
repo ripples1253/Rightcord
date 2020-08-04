@@ -82,7 +82,7 @@ Core.prototype.init = async function() {
     Utils.log("Startup", "Loading Themes");
     await themeModule.loadThemes();
 
-    DOM.addStyle("customcss", atob(DataStore.getBDData("bdcustomcss")));
+    DOM.addStyle("customcss", Buffer.from(DataStore.getBDData("bdcustomcss"), "base64").toString("utf8"));
 
     window.addEventListener("beforeunload", function() {
         if (settingsCookie["bda-dc-0"]) document.querySelector(".btn.btn-disconnect").click();
