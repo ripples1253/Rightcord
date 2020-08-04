@@ -151,6 +151,8 @@ function saveWindowConfig(browserWindow) {
       return;
     }
 
+    if(settings.get("NO_WINDOWS_BOUND"))return
+
     settings.set('IS_MAXIMIZED', browserWindow.isMaximized());
     settings.set('IS_MINIMIZED', browserWindow.isMinimized());
     if (!settings.get('IS_MAXIMIZED') && !settings.get('IS_MINIMIZED')) {
@@ -203,14 +205,14 @@ function doAABBsOverlap(a, b) {
 }
 
 function applyWindowBoundsToConfig(mainWindowOptions) {
-  if (!settings.get('WINDOW_BOUNDS')) {
+  const bounds = settings.get('WINDOW_BOUNDS')
+  if (!bounds) {
     mainWindowOptions.center = true;
     return;
   }
 
-  const bounds = settings.get('WINDOW_BOUNDS');
-  bounds.width = Math.max(MIN_WIDTH, bounds.width);
-  bounds.height = Math.max(MIN_HEIGHT, bounds.height);
+  bounds.width = typeof bounds.width === "number" ? Math.max(MIN_WIDTH, bounds.width) : mainWindowOptions.width;
+  bounds.height = typeof bounds.height === "number" ? Math.max(MIN_HEIGHT, bounds.height) : mainWindowOptions.height;
 
   let isVisibleOnAnyScreen = false;
   const displays = electron.screen.getAllDisplays();

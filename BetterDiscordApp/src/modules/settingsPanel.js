@@ -243,6 +243,11 @@ export default new class V2_SettingsPanel {
         if (id === "no_window_bound"){
             let appSettings = remote.getGlobal("appSettings")
             appSettings.set("NO_WINDOWS_BOUND", enabled)
+
+            appSettings.delete("IS_MAXIMIZED")
+            appSettings.delete("IS_MINIMIZED") 
+            appSettings.delete("WINDOW_BOUNDS")
+            
             appSettings.save()
             remote.app.relaunch()
             remote.app.exit()
