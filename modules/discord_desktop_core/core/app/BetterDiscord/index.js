@@ -16,11 +16,15 @@ const appSettings = electron.remote.getGlobal("appSettings")
 let hasInit = false
 let tries = 0
 
+const browserWindow = electron.remote.getCurrentWindow()
+const UserAgent = browserWindow.webContents.userAgent
+
 exports.init = function(){
     if(hasInit == true){
         console.warn(new Error("Lightcord has already inited."))
         return
     }
+    formatLogger.log("The app is", isPackaged ? "packaged." : "not packaged.")
     
     hasInit = true
     let readyInterval = setInterval(()=>{
@@ -441,7 +445,9 @@ async function privateInit(){
                     }
                     data.friend_suggestion_count = data.friend_suggestion_count || 0
                     data.presences = data.presences || []
+                    browserWindow.webContents.userAgent = `DiscordBot (https://github.com/lightcord/lightcord, v${electron.remote.getGlobal("BuildInfo").version})`
                 }else{
+                    browserWindow.webContents.userAgent = UserAgent
                     logger.log(`Logged in as an user. Skipping user spoofing.`)
                 }
             }
@@ -1260,10 +1266,8 @@ function isBlacklisted(id){
 }
 
 const formatLogger = new Logger("RequireFormat")
-formatLogger.log("The app is", isPackaged ? "packaged." : "not packaged.")
 function formatMinified(path){
     let result = path.replace("{min}", isPackaged ? ".min": "")
-    formatLogger.log(`Formatting ${path} into ${result}.`)
     return result
 }
 
