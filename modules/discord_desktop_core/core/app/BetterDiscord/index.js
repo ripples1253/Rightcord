@@ -211,7 +211,7 @@ async function privateInit(){
 
         /** Glasscord Example */
         const GlasscordExamplePath = path.join(themePath, "glasscord_example.theme.css")
-        fetch("https://raw.githubusercontent.com/AryToNeX/Glasscord/master/extras/discord_example.theme.css")
+        fetch("https://raw.githubusercontent.com/AryToNeX/Glasscord/master/extras/discord_example_theme/discord_example.theme.css")
         .then(async res => {
             if(res.status !== 200)return
             const content = await res.buffer()
