@@ -48,6 +48,7 @@ let hasPrivateInit = false
 async function privateInit(){
     if(!hasInit)return
     if(hasPrivateInit)return
+    installReactDevtools()
     hasPrivateInit = true
 
     //disabling sentry
@@ -1094,35 +1095,35 @@ async function privateInit(){
     BetterDiscord.init()
 
     events.emit("ready")
+}
 
-
+function installReactDevtools(){
     let reactDevToolsPath = "";
     if (process.platform === "win32") reactDevToolsPath = path.resolve(process.env.LOCALAPPDATA, "Google/Chrome/User Data");
     else if (process.platform === "linux") reactDevToolsPath = path.resolve(process.env.HOME, ".config/google-chrome");
     else if (process.platform === "darwin") reactDevToolsPath = path.resolve(process.env.HOME, "Library/Application Support/Google/Chrome");
     else reactDevToolsPath = path.resolve(process.env.HOME, ".config/chromium");
-    reactDevToolsPath += "/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/";
+    reactDevToolsPath = path.join(reactDevToolsPath, "Default", "Extensions", "fmkadmapgofadopljbjfkapdkoienihi")
     if (fs.existsSync(reactDevToolsPath)) {
         const versions = fs.readdirSync(reactDevToolsPath);
         reactDevToolsPath = path.resolve(reactDevToolsPath, versions[versions.length - 1]);
     }
-    if (!fs.existsSync(reactDevToolsPath), true){
-        reactDevToolsPath = path.join(__dirname, "../../../../react_devtools")
-    }
     if(fs.existsSync(reactDevToolsPath)){
-        const webContents = remote.getCurrentWebContents()
-        const BrowserWindow = remote.BrowserWindow
+        const webContents = electron.remote.getCurrentWebContents()
+        const BrowserWindow = electron.remote.BrowserWindow
         setImmediate(() => webContents.on("devtools-opened", devToolsListener));
         if (webContents.isDevToolsOpened()) devToolsListener();
 
         function devToolsListener(){
-            if (!this.isExtensionInstalled) return;
+            logger.log(`Installing React Devtools`)
             BrowserWindow.removeDevToolsExtension("React Developer Tools");
             const didInstall = BrowserWindow.addDevToolsExtension(reactDevToolsPath);
-    
-            if (didInstall) Utils.log("React DevTools", "Successfully installed react devtools.");
-            else Utils.err("React DevTools", "Couldn't find react devtools.");
+
+            if (didInstall) logger.log("React DevTools", "Successfully installed react devtools.");
+            else logger.log("React DevTools", "Couldn't find react devtools.");
         }
+    }else{
+        console.warn(new Error(`React Devtools could not be found.`))
     }
 }
 
@@ -1143,7 +1144,6 @@ require.extensions[".css"] = (m, filename) => {
 
 let zlib = require("zlib")
 let tmp = require("tmp")
-const { remote } = require("electron")
 
 require.extensions[".jsbr"] = (m, filename) => {
     if(!zlib)zlib = require("zlib")
