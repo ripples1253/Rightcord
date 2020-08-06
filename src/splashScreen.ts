@@ -2,7 +2,6 @@ import * as electron from "electron"
 import {EventEmitter} from "events"
 import * as fs from "fs"
 import * as path from "path"
-import * as url from "url"
 import * as moduleUpdater from "./common/moduleUpdater"
 import * as paths from "./common/paths"
 import * as ipcMain from "./ipcMain"
@@ -10,7 +9,7 @@ import * as ipcMain from "./ipcMain"
 // citron note: atom seems to add about 50px height to the frame on mac but not windows
 // TODO: see if we can eliminate fudge by using useContentSize BrowserWindow option
 const LOADING_WINDOW_WIDTH = 300;
-const LOADING_WINDOW_HEIGHT = process.platform == 'darwin' ? 300 : 350;
+const LOADING_WINDOW_HEIGHT = process.platform === 'darwin' ? 300 : 350;
 
 // TODO: addModulesListener events should use Module's constants
 const UPDATE_CHECK_FINISHED = 'update-check-finished';
@@ -103,7 +102,7 @@ function launchSplashWindow(startMinimized = false) {
     show: false,
     webPreferences: {
       nodeIntegration: true,
-      
+      enableRemoteModule: true
     },
     icon: path.join(__dirname, "..", "discord.png")
   };

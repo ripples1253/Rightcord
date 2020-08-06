@@ -22,7 +22,7 @@ export function cleanOldVersions(buildInfo) {
   const entries = fs.readdirSync(userDataPath) || [];
   entries.forEach(entry => {
     const fullPath = path.join(userDataPath, entry);
-    if (fs.statSync(fullPath).isDirectory() && entry.indexOf(buildInfo.version) === -1) {
+    if (fs.lstatSync(fullPath).isDirectory() && entry.indexOf(buildInfo.version) === -1) {
       if (entry.match('^[0-9]+.[0-9]+.[0-9]+') != null) {
         console.log('Removing old directory ', entry);
         rimraf(fullPath, originalFs, error => {
