@@ -30,8 +30,8 @@ export default cloneNullProto({
         TextInput: createProxyErrorCatcherClass(TextInput),
         Dropdown: createProxyErrorCatcherClass(Dropdown),
         ColorPicker: createProxyErrorCatcherClass(ColorPicker),
-        //DateRange: createProxyErrorCatcherClass(DateRange),
-        //DateInput: createProxyErrorCatcherClass(DateInput)
+        DateRange: createProxyErrorCatcherClass(DateRange),
+        DateInput: createProxyErrorCatcherClass(DateInput)
     }),
     general: cloneNullProto({
         Title: createProxyErrorCatcherClass(Title),

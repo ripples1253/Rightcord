@@ -30,6 +30,7 @@ const LightcordApi = {
 
 declare global {
     var React:typeof import("react")
+    var ReactDOM: typeof import("react-dom")
     interface Window {
         /**
          * Lightcord is only availlaible in Lightcord (native)
@@ -45,7 +46,9 @@ declare global {
             get(ids: [number|((mod:any)=>boolean)], modules?:any[]):any
         },
         BdApi: typeof bandagedbdApi.BdApi,
-        EDApi: typeof bandagedbdApi.BdApi
+        EDApi: typeof bandagedbdApi.BdApi,
+        ReactDOM: typeof import("react-dom"),
+        React:typeof import("react")
     }
     var Lightcord:LightcordGlobal
     var BdApi: typeof bandagedbdApi.BdApi

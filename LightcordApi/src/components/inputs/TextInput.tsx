@@ -18,6 +18,10 @@ type TextInputProps = {
     onBlur?: (ev, name: string, input: TextInput) => void
 }
 
+export function getInternalTextInput(){
+    return TextInput.prototype.modules[0]
+}
+
 let TextInputModules
 export default class TextInput extends React.PureComponent<TextInputProps, {value: string}> {
     hasSet: boolean

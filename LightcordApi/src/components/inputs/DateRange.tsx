@@ -7,6 +7,7 @@ import Text from "../general/Text"
 export const DateConstants = {
     DATE_FORMAT: "yyyy-MM-dd"
 }
+import DateInput from "./DateInput"
 export type DateRangeProps = {
     dateFormat?: string,
     defaultEnd: Date,
@@ -92,7 +93,8 @@ export default class DateRange extends React.Component<DateRangeProps, {
                 </Text>
             </FlexChild>
             <FlexChild grow={0}>
-                
+                <DateInput defaultValue={start} minDate={this.getMinDate()} maxDate={end} onChange={this.handleStartChange.bind(this)} 
+                startDate={start} endDate={end} filterDate={filterDate} selectsStart={true} showMonthYearPicker={showMonthYearPicker} />
             </FlexChild>
             <FlexChild grow={0}>
                 <Text className="lc-dateLabel" size="small" 
@@ -101,7 +103,8 @@ export default class DateRange extends React.Component<DateRangeProps, {
                 </Text>
             </FlexChild>
             <FlexChild grow={0}>
-                
+                <DateInput defaultValue={end} minDate={start} maxDate={this.getMaxDate()} onChange={this.handleEndChange.bind(this)} 
+                startDate={start} endDate={end} filterDate={filterDate} selectsStart={true} showMonthYearPicker={showMonthYearPicker} />
             </FlexChild>
         </Flex>
     }

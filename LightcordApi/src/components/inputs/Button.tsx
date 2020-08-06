@@ -1,12 +1,12 @@
 import WebpackLoader from "../../modules/WebpackLoader"
-import { ReactNode, CSSProperties } from "react"
+import { ReactNode, CSSProperties, MouseEventHandler, MouseEvent } from "react"
 import NOOP from "../../modules/noop"
 
 let ButtonModules
 
 type ButtonProps = {
     children?: ReactNode,
-    onClick?: () => void,
+    onClick?: (ev: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => void,
     color?: ButtonColor,
     wrapper?: boolean,
     look?: ButtonLook,
@@ -14,7 +14,9 @@ type ButtonProps = {
     hoverColor?: ButtonHovers,
     disabled?: boolean,
     style?: CSSProperties,
-    onRightClick?: () => void
+    onRightClick?: () => void,
+    className?: string,
+    onMouseDown?: (ev: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => void
 }
 export default class Button extends React.Component<ButtonProps, {hover: boolean}> {
     constructor(props:ButtonProps){
@@ -57,6 +59,9 @@ export default class Button extends React.Component<ButtonProps, {hover: boolean
             }
             if("onClick" in this.props){
                 props.onClick = this.props.onClick
+            }
+            if("onMouseDown" in this.props){
+                props.onMouseDown = this.props.onMouseDown
             }
             if("wrapper" in this.props){
                 props.wrapper = !!this.props.wrapper
@@ -129,21 +134,28 @@ export default class Button extends React.Component<ButtonProps, {hover: boolean
         let hoverColor = props.hoverColor ? colorsModule.ButtonHovers[props.hoverColor.toUpperCase()] || "" : ""
         if(hoverColor)hoverColor = " " + hoverColor
 
-        props.onClick = typeof props.onClick === "function" ? props.onClick : () => {}
+        props.onClick = typeof props.onClick === "function" ? props.onClick : NOOP
         if(typeof props.wrapper !== "boolean")props.wrapper = true
+
+        props.onMouseDown = typeof props.onMouseDown === "function" ? props.onMouseDown : NOOP
 
         let hover = this.state.hover ? euhModule1.hasHover : ""
         if(hover)hover = " " + hover
 
+        let classListButton = `${flexModule.flexChild} ${euhModule1.button} ${colorsModule.ButtonLooks[props.look.toUpperCase()]} ${colorsModule.ButtonColors[props.color.toUpperCase()]}${buttonSize}${hoverColor}${hover} ${euhModule1.grow}`.split(" ")
+        if(typeof this.props.className === "string" && this.props.className){
+            classListButton = this.props.className.split(" ").concat(classListButton)
+        }
         let button = <button type="button" 
-            ref="button" className={`${flexModule.flexChild} ${euhModule1.button} ${colorsModule.ButtonLooks[props.look.toUpperCase()]} ${colorsModule.ButtonColors[props.color.toUpperCase()]}${buttonSize}${hoverColor}${hover} ${euhModule1.grow}`} 
-            style={{flex: "0 1 auto", ...props.style}} onClick={() => props.onClick()} onMouseEnter={(ev) => {
+            ref="button" className={classListButton.join(" ")} 
+            style={{flex: "0 1 auto", ...props.style}} onClick={props.onClick} onMouseEnter={(ev) => {
                 if(!hoverColor)return
                 this.setState({hover: true})
             }} onMouseLeave={(ev) => {
                 if(!hoverColor)return
                 this.setState({hover: false})
-            }} disabled={props.disabled} onContextMenu={() => props.onRightClick()}>
+            }} disabled={props.disabled} onContextMenu={() => props.onRightClick()}
+                onMouseDown={props.onMouseDown}>
             <div className={euhModule1.contents}>{props.children}</div>
         </button>
 

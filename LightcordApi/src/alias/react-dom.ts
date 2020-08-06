@@ -1,5 +1,3 @@
-import { ReactDOMSelector } from "./selectors"
-
 // bait typescript into thinking this is not reactDOM so no circular dependency.
 window.ReactDOM = (window["Reac"+"tDOM"] || // If in Lightcord
     (()=>{ // If in Standard BetterDiscord

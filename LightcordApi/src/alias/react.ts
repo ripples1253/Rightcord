@@ -1,5 +1,3 @@
-import { ReactSelector } from "./selectors";
-
 window.React = (window.React || // If in Lightcord
     (()=>{ // If in Standard BetterDiscord
         try{
