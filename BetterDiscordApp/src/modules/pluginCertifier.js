@@ -119,7 +119,11 @@ export function checkHash(hash, data, filename, resultCallback, removeCallback){
             cache[hash] = result
 
             resultCallback(result)
-        }).catch(console.error)
+        }).catch((err) => {
+            console.error(`Could not read from github. ${err}`)
+            if(filename.endsWith(".theme.css"))return removeCallback(hash)
+            checkViruses(hash, data, resultCallback, removeCallback, filename)
+        })
     }else{
         const result = cache[hash]
 
