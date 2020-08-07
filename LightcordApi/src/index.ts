@@ -10,6 +10,8 @@ import NOOP from "./modules/noop"
 import unfreeze from "./modules/Unfreeze"
 import { isNative, isImported } from "./modules/environnement"
 import * as bandagedbdApi from "@bandagedbd/bdapi"
+import "./alias/react"
+import "./alias/react-dom"
 patchers.patch()
 
 const LightcordApi = {
@@ -30,7 +32,7 @@ const LightcordApi = {
 
 declare global {
     var React:typeof import("react")
-    var ReactDOM: typeof import("react-dom")
+    var ReactDOM:typeof import("../node_modules/@types/react-dom")
     interface Window {
         /**
          * Lightcord is only availlaible in Lightcord (native)
@@ -47,8 +49,8 @@ declare global {
         },
         BdApi: typeof bandagedbdApi.BdApi,
         EDApi: typeof bandagedbdApi.BdApi,
-        ReactDOM: typeof import("react-dom"),
-        React:typeof import("react")
+        ReactDOM: typeof ReactDOM;
+        React:typeof React
     }
     var Lightcord:LightcordGlobal
     var BdApi: typeof bandagedbdApi.BdApi

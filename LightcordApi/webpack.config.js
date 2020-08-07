@@ -29,8 +29,8 @@ module.exports = {
     resolve: {
         extensions: [".js", ".jsx", ".json", ".ts", ".tsx"],
         alias: {
-            "react$": path.resolve(__dirname, "src", "alias", "react.ts"),
-            "react-dom$": path.resolve(__dirname, "src", "alias", "react-dom.ts")
+            "react$": path.resolve(__dirname, "src", "alias", "react.js"),
+            "react-dom$": path.resolve(__dirname, "src", "alias", "react-dom.js")
         }
     },
     module: {

@@ -1,7 +1,8 @@
-window.React = (window.React || // If in Lightcord
+// bait typescript into thinking this is not reactDOM so no circular dependency.
+window.ReactDOM = (window["Reac"+"tDOM"] || // If in Lightcord
     (()=>{ // If in Standard BetterDiscord
         try{
-            return window.BdApi.React
+            return window.BdApi.ReactDOM
         }catch(e){
             return null
         }
@@ -9,17 +10,17 @@ window.React = (window.React || // If in Lightcord
     (()=>{ // If in Powercord
         try{
             const webpack = require("powercord/webpack")
-            return webpack.React
+            return webpack.ReactDOM
         }catch(e){
             return null
         }
     })() || 
     (()=>{ // If in EnhancedDiscord
         try{
-            return window.EDApi.React
+            return window.EDApi.ReactDOM
         }catch(e){
             return null
         }
-    })()) as typeof import("react")
+    })())
 
-export = window.React
+module.exports = window.ReactDOM
