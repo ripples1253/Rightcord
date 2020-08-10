@@ -180,10 +180,6 @@ export default new class V2_SettingsPanel {
             else dMode.stopCopySelector();
         }
 
-        if (id === "reactDevTools") {
-            if (enabled) reactDevTools.start();
-            else reactDevTools.stop();
-        }
         if (id === "lightcord-1") {
             if (enabled) window.Lightcord.Settings.devMode = true
             else window.Lightcord.Settings.devMode = false
@@ -268,7 +264,6 @@ export default new class V2_SettingsPanel {
     }
 
     async initializeSettings() {
-        if (settingsCookie.reactDevTools) reactDevTools.start();
         if (settingsCookie["bda-gs-2"]) DOM.addClass(document.body, "bd-minimal");
         if (settingsCookie["bda-gs-3"]) DOM.addClass(document.body, "bd-minimal-chan");
         if (settingsCookie["bda-gs-1"]) publicServersModule.addButton();

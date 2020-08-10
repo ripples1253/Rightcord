@@ -45,7 +45,6 @@ export const settings = {
     /* Developer */
     "Developer Mode":         	  {id: "bda-gs-8", info: "Developer Mode Toggle", implemented: true, hidden: false, cat: "core", category: "developer settings"},
     "Copy Selector":			  {id: "fork-dm-1", info: "Adds a \"Copy Selector\" option to context menus when developer mode is active", implemented: true, hidden: false, cat: "core", category: "developer settings"},
-    "React DevTools":			  {id: "reactDevTools", info: "Adds react developer tools to the devtools. Must be installed in Google Chrome on your pc.", implemented: true,  hidden: true, cat: "core", category: "developer settings"},
 
     /** Lightcord */
     "Disable BetterDiscord":      {id: "bd-disable",  info: "Disable Betterdiscord (plugins, themes, etc) (Not implemented).", implemented: false, hidden: false, cat: "lightcord", category: "Lightcord"},
@@ -101,7 +100,6 @@ export const defaultCookie = {
     "fork-wp-1": false,
     "fork-wp-2": false,
     "fork-beta": true,
-    "reactDevTools": false,
     "lightcord-1": false,
     "lightcord-2": true,
     "lightcord-presence-1": false,
