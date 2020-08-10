@@ -610,27 +610,39 @@ let PopoutProps
 class Popout extends React.Component {
     get modules(){
         return popoutModules || (popoutModules = [
-            BDV2.WebpackModules.find(e => e.default && e.default.displayName === "FluxContainer(ForwardRef(SubscribeGuildMembersContainer(UserPopout)))"),
+            BDV2.WebpackModules.find(e => e.default && e.default.displayName === "UserPopout"),
             BDV2.WebpackModules.find(e => e.default && e.default.getCurrentUser)
         ])
     }
 
-    render(){
+    getComponent(){
         let [
             UserPopout,
             userModule
         ] = this.modules
 
         const user = userModule.default.getCurrentUser()
-        if(!UserPopoutComponent){
-            if(!UserPopout)throw new Error(`Couldn't find the UserPopout component.`)
-            const render1 = new UserPopout.default({userId: user.id, guildId: null, channelId: null, disableUserProfileLink: true}).render()
+        return React.createElement(() => {
+            let render1 = UserPopout.default({
+                userId: user.id, 
+                guildId: null, 
+                channelId: null, 
+                disableUserProfileLink: true
+            })
+            UserPopoutComponent = render1.type
             PopoutProps = render1.props
-            const render2 = render1.type.render(PopoutProps, null)
-            const render3 = new render2.type(render2.props).render()
-            UserPopoutComponent = render3.type
-        }
-        if(!UserPopoutComponent)throw new Error(`Couldn't find the UserPopoutComponent component.`)
+            return this.render()
+        }, null)
+    }
+
+    render(){
+        if(!UserPopoutComponent)return this.getComponent()
+        let [
+            _UserPopout,
+            userModule
+        ] = this.modules
+
+        const user = userModule.default.getCurrentUser()
 
         let data = Object.assign({}, defaultRPC, this.props.preview.props.settings.state.data)
         const activity = (function(){
@@ -654,9 +666,9 @@ class Popout extends React.Component {
             game: data
         })
 
-        PopoutProps = new UserPopout.default({userId: user.id, guildId: null, channelId: null, disableUserProfileLink: true}).render().props
         const popout = new UserPopoutComponent(Object.assign({}, PopoutProps, {
-            activity: activity
+            activity: activity,
+            userId: user.id
         })).render().props.children // bypass tracking
 
         // remove the stop propagation shit.
