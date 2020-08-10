@@ -209,6 +209,7 @@ export default class DateInput extends React.Component<DateInputProps, {
             color: "transparent",
             onMouseDown: this.toggleCalendarVisibility.bind(this),
             wrapper: false
+            //TODO: Add icon
         }, /*React.createElement(v.default, {
             className: _.default.calendarIcon,
             name: v.IconNames.CALENDAR
@@ -217,7 +218,117 @@ export default class DateInput extends React.Component<DateInputProps, {
             transitionAppear: false
         }, this.renderCalendarPicker()), window.document.body))
     }
+
+    static help = {
+        warn: "This component is still `experimental`. Please report issues to [Lightcord's developers](https://github.com/Lightcord/Lightcord/issues)."
+    }
+
+    static get AllPreviews(){
+        return AllPreviews || (AllPreviews = [
+            [
+                {
+                    dateFormat: DateConstants.DATE_FORMAT
+                },
+                {
+                    dateFormat: "dd/MM/yyyy"
+                },
+                {
+                    dateFormat: "MM/dd/yyyy"
+                }
+            ],
+            [
+                {
+                    defaultValue: new Date()
+                },
+                {
+                    defaultValue: null
+                },
+                {
+                    defaultValue: new Date(1597061085498)
+                }
+            ],
+            [
+                {
+                    filterDate: (date) => true
+                },
+                {
+                    filterDate: (date) => {
+                        if(date.getDay() !== 0)return false
+                        return true
+                    }
+                }
+            ],
+            [
+                {
+                    isModalInput: true
+                },
+                {
+                    isModalInput: false
+                }
+            ],
+            [
+                {
+                    maxDate: null
+                },
+                {
+                    maxDate: new Date(Date.now() + 6.048e+8)
+                }
+            ],
+            [
+                {
+                    minDate: null
+                },
+                {
+                    minDate: new Date(Date.now() - 6.048e+8)
+                }
+            ],
+            [
+                {
+                    onChange: (value, name) => {}
+                }
+            ],
+            [
+                {
+                    selectsStart: null
+                },
+                {
+                    selectsStart: new Date(Date.now() - (8.64e+7*2))
+                }
+            ],
+            [
+                {
+                    selectsEnd: null
+                },
+                {
+                    selectsEnd: new Date(Date.now() + (8.64e+7*2))
+                }
+            ],
+            [
+                {
+                    showMonthYearPicker: false
+                },
+                {
+                    showMonthYearPicker: true
+                }
+            ],
+            [
+                {
+                    startDate: null
+                },
+                {
+                    endDate: null
+                }
+            ],
+            [
+                {
+                    name: "api-preview-dateinput"
+                }
+            ]
+        ])
+    }
 }
+
+let AllPreviews
 
 export function isDateValid(date:Date){
     return (date instanceof Date || typeof date === "object" || Object.prototype.toString.call(date) === "[object Date]") && !isNaN(date.valueOf())
@@ -257,22 +368,22 @@ export class AnimatedCalendarPicker extends React.Component<any, {
 
     render(){
         let props = this.props, 
-        r = props.value, 
-        n = props.onClickOutside, 
-        a = props.onSelect, 
-        i = props.minDate, 
-        o = props.maxDate, 
-        u = props.endDate, 
-        f = props.filterDate, 
-        c = props.startDate, 
-        d = props.selectsEnd, 
-        y = props.selectsStart, 
-        v = props.top, 
-        g = props.right, 
+        value = props.value, 
+        onClickOutside = props.onClickOutside, 
+        onSelect = props.onSelect, 
+        minDate = props.minDate, 
+        maxDate = props.maxDate, 
+        endDate = props.endDate, 
+        filterDate = props.filterDate, 
+        startDate = props.startDate, 
+        selectsEnd = props.selectsEnd, 
+        selectsStart = props.selectsStart, 
+        top = props.top, 
+        right = props.right, 
         isModalInput = props.isModalInput, 
-        h = props.showMonthYearPicker, 
+        showMonthYearPicker = props.showMonthYearPicker, 
         menuAnimation = this.state.menuAnimation, 
-        E = menuAnimation.interpolate({
+        interpolation = menuAnimation.interpolate({
             inputRange: [0, 1],
             outputRange: ["-10px", "0px"]
         });
@@ -288,24 +399,24 @@ export class AnimatedCalendarPicker extends React.Component<any, {
             }) : null].filter(e=>e).join(" "),
             style: {
                 opacity: menuAnimation,
-                right: g,
-                top: v,
+                right: right,
+                top: top,
                 transform: [{
-                    translateY: E
+                    translateY: interpolation
                 }]
             }
         }, React.createElement(CalendarPicker, {
-            minDate: i,
-            maxDate: o,
-            endDate: u,
-            filterDate: f,
-            startDate: c,
-            selectsEnd: d,
-            selectsStart: y,
-            value: r,
-            onSelect: a,
-            onClickOutside: n,
-            showMonthYearPicker: h,
+            minDate: minDate,
+            maxDate: maxDate,
+            endDate: endDate,
+            filterDate: filterDate,
+            startDate: startDate,
+            selectsEnd: selectsEnd,
+            selectsStart: selectsStart,
+            value: value,
+            onSelect: onSelect,
+            onClickOutside: onClickOutside,
+            showMonthYearPicker: showMonthYearPicker,
             onChange: console.log
         }))
     }

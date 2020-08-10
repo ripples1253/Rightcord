@@ -19,10 +19,50 @@ export type DateRangeProps = {
     filterDate?:() => void,
     showMonthYearPicker: boolean
 }
+let AllPreviews
 export default class DateRange extends React.Component<DateRangeProps, {
     end: Date,
     start: Date
 }> {
+    static get AllPreviews(){
+        return AllPreviews || (AllPreviews = [
+            [{
+                dateFormat: DateConstants.DATE_FORMAT
+            },{
+                dateFormat: "dd/MM/yyyy"
+            },{
+                dateFormat: "MM/dd/yyyy"
+            }],
+            [{
+                defaultEnd: new Date(Date.now() + 6.048e+8)
+            }],
+            [{
+                defaultStart: new Date(Date.now() - 6.048e+8)
+            }],
+            [{
+                onChange: (start, end) => {}
+            }],
+            [{
+                maxDate: new Date(Date.now() + (6.048e+8 * 2))
+            },{
+                maxDate: null
+            }],
+            [{
+                minDate: new Date(Date.now() - (6.048e+8 * 2))
+            },{
+                minDate: null
+            }],
+            [{
+                filterDate: (date) => true
+            }],
+            [{
+                showMonthYearPicker: false
+            },{
+                showMonthYearPicker: true
+            }]
+        ])
+    }
+
     static defaultProps:Partial<DateRangeProps> = {
         dateFormat: DateConstants.DATE_FORMAT
     }
@@ -107,5 +147,9 @@ export default class DateRange extends React.Component<DateRangeProps, {
                 startDate={start} endDate={end} filterDate={filterDate} selectsStart={true} showMonthYearPicker={showMonthYearPicker} />
             </FlexChild>
         </Flex>
+    }
+
+    static help = {
+        warn: "This component is still `experimental`. Please report issues to [Lightcord's developers](https://github.com/Lightcord/Lightcord/issues)."
     }
 }
