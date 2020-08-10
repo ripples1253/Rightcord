@@ -45,7 +45,7 @@ export default class Title extends React.Component<TitleProps> {
             AllPreviews = []
             AllPreviews.push([
                 {
-                    children: "Exemple title"
+                    children: "Example title"
                 }
             ])
             return AllPreviews

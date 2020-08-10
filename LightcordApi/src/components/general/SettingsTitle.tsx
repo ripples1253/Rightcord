@@ -42,7 +42,7 @@ export default class SettingsTitle extends React.Component<SettingsTitleProps> {
             AllPreviews = []
             AllPreviews.push([
                 {
-                    children: "Exemple title"
+                    children: "Example title"
                 }
             ])
             return AllPreviews

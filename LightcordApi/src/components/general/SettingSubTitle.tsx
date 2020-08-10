@@ -44,7 +44,7 @@ export default class SettingSubTitle extends React.Component<SettingSubTitleProp
             AllPreviews = []
             AllPreviews.push([
                 {
-                    children: "Exemple title"
+                    children: "Example title"
                 }
             ])
             return AllPreviews
