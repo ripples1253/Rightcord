@@ -111,7 +111,7 @@ commit: ${buildInfo.commit}`);
 
 	if (!allowMultipleInstances) {
 		electron.app.on("second-instance", (_event, args, _workingDirectory) => {
-			if(args && args[0] === "--overlay-host"){
+			if(args && args[1] === "--overlay-host"){
 				// this is a patch for Lightcord that focus itself when the user is playing a game.
 				//console.warn("OVERLAY HOST DÉTECTÉ. EVENNEMENT IGNORÉ MAIS POURRAIT CAUSER UN PROBLÈME.")
 				return;
