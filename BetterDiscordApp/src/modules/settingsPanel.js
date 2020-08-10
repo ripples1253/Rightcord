@@ -30,6 +30,7 @@ import webpackModules from "./webpackModules";
 import tooltipWrap from "../ui/tooltipWrap";
 import History from "../ui/icons/history";
 import core from "./core";
+import popoutWindow from "./popoutWindow";
 
 class BDSidebarHeader extends React.PureComponent {
     render(){
@@ -236,6 +237,9 @@ export default new class V2_SettingsPanel {
             remote.app.relaunch()
             remote.app.exit()
         }
+        if (id === "lightcord-9") {
+            popoutWindow[enabled ? "enable" : "disable"]()
+        }
         if (id === "lightcord-10"){
             core.methods.NotificationsUseShim(enabled)
             return
@@ -280,6 +284,7 @@ export default new class V2_SettingsPanel {
         if (settingsCookie["lightcord-4"]) AntiAdDM.enable()
         if (settingsCookie["lightcord-6"]) blurPrivate.enable()
         if (settingsCookie["lightcord-7"]) disableTyping.enable()
+        if (settingsCookie["lightcord-9"]) popoutWindow.enable()
 
         if (settingsCookie["fork-ps-5"]) {
             ContentManager.watchContent("plugin");

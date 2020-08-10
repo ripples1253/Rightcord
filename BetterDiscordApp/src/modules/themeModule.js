@@ -4,6 +4,7 @@ import DataStore from "./dataStore";
 import BDEvents from "./bdEvents";
 import Utils from "./utils";
 import DOM from "./domtools";
+import bdEvents from "./bdEvents";
 
 class ThemeModule {
     constructor(){
@@ -36,6 +37,7 @@ ThemeModule.prototype.enableTheme = function(name, reload = false) {
     this.saveThemeData();
     const theme = bdthemes[name];
     DOM.addStyle(DOM.escapeID(theme.id), unescape(theme.css));
+    bdEvents.dispatch("theme-enabled")
     if (settingsCookie["fork-ps-2"] && !reload) Utils.showToast(`${theme.name} v${theme.version} has been applied.`);
 };
 
@@ -48,6 +50,7 @@ ThemeModule.prototype.disableTheme = function(name, reload = false) {
     this.saveThemeData();
     const theme = bdthemes[name];
     DOM.removeStyle(DOM.escapeID(theme.id));
+    bdEvents.dispatch("theme-disabled")
     if (settingsCookie["fork-ps-2"] && !reload) Utils.showToast(`${theme.name} v${theme.version} has been disabled.`);
 };
 
@@ -60,8 +63,8 @@ ThemeModule.prototype.toggleTheme = function(theme) {
     else this.enableTheme(theme);
 };
 
-ThemeModule.prototype.toggle = function (name, reload = false) {
-    return this.toggleTheme(name, reload);
+ThemeModule.prototype.toggle = function (name) {
+    return this.toggleTheme(name);
 };
 
 ThemeModule.prototype.loadTheme = async function(filename) {

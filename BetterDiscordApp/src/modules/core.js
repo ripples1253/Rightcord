@@ -116,7 +116,6 @@ Core.prototype.init = async function() {
     Utils.suppressErrors(this.patchMessageHeader.bind(this), "BD Badge Chat Patch")();
     Utils.suppressErrors(this.patchMemberList.bind(this), "BD Badge Member List Patch")();
     Utils.suppressErrors(this.patchAttachment.bind(this), "LC Plugin Certifier Patch")();
-    Utils.suppressErrors(this.patchPopoutWindow.bind(this), "BD Popout Window Patch")();
 
     if(bdConfig.haveInstalledDefault){
         let alert = Utils.alert("First Installation", "As it is the first time you install Lightcord, We added two default themes and one default plugin in your plugin/theme folder. Check it in the Plugin/Theme settings.")
@@ -133,49 +132,6 @@ Core.prototype.init = async function() {
     <polygon fill="currentColor" points="0 9.97 6.5 10 6.5 7.63 2.41 7.63 2.41 0.26 0 2.26 0 9.97"/>
 </svg>`
     }
-};
-
-Core.prototype.patchPopoutWindow = async function() {
-    let canceled = false
-    this.cancelPatchPopoutWindow = () => {
-        canceled = true
-    }
-
-    window.Lightcord.Api.ensureExported(e => e.default && e.default.getWindow)
-    .then(popoutModule => {
-        if(canceled)return
-
-        /*
-        // Not a good idea to do it like that.
-        const interceptor = window.Lightcord.DiscordModules.dispatcher._interceptor
-        window.Lightcord.DiscordModules.dispatcher.setInterceptor(function(action){
-            if(action && action.type === "POPOUT_WINDOW_OPEN"){
-                const render = action.render
-                action.render = function(){
-                    const render1 = render.call(this, ...arguments)
-                    const type1 = render1.type
-                    render1.type = function(props){
-                        const render2 = type1(props)
-                        console.log(props, render2)
-                        return render2
-                    }
-                    console.log(render1)
-                    return render1
-                }
-            }
-            return interceptor.call(this, action)
-        })
-        window.Lightcord.DiscordModules.dispatcher.subscribe("POPOUT_WINDOW_OPEN", (ev) => {
-            if(!settingsCookie["lightcord-9"])return
-            if(canceled)return
-            Utils.log("POPOUT THEME", "Popout opened, Adding theme")
-            setImmediate(() => {
-                console.log(ev)
-                const window = popoutModule.default.getWindow(ev.key)
-                console.log(window)
-            })
-        })*/
-    })
 };
 
 Core.prototype.patchAttributes = async function() {
