@@ -12,6 +12,7 @@ import { isNative, isImported } from "./modules/environnement"
 import * as bandagedbdApi from "@bandagedbd/bdapi"
 import "./alias/react"
 import "./alias/react-dom"
+import { LazyLoad } from "./modules/lazyLoader"
 patchers.patch()
 
 const LightcordApi = {
@@ -27,7 +28,8 @@ const LightcordApi = {
         unfreeze: unfreeze
     },
     get isNative(){return isNative},
-    get isImported(){return isImported}
+    get isImported(){return isImported},
+    LazyLoad: LazyLoad
 }
 
 declare global {
