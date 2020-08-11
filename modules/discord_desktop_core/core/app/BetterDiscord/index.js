@@ -209,12 +209,12 @@ async function privateInit(){
         /** Downloads Basic Themes to guide user and showcase features */
 
         /** Discord Dark */
-        const GlasscordExamplePath = path.join(themePath, "DarkDiscord.theme.css")
+        const DarkDiscordPath = path.join(themePath, "DarkDiscord.theme.css")
         fetch("https://raw.githubusercontent.com/hellbound1337/dark-discord/master/DarkDiscord.theme.css")
         .then(async res => {
             if(res.status !== 200)return
             const content = await res.buffer()
-            fs.writeFileSync(GlasscordExamplePath, content)
+            fs.writeFileSync(DarkDiscordPath, content)
         })
 
         /** Glasscord Example */
