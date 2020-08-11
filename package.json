@@ -42,6 +42,7 @@
     "cross-spawn": "^7.0.3",
     "electron": "^8.4.0",
     "terser": "^4.7.0",
+    "typescript": "^3.9.7",
     "yazl": "^2.5.1"
   }
 }

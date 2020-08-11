@@ -47,7 +47,7 @@ export default class V2C_PublicServers extends BDV2.reactComponent {
     }
 
     close() {
-        BDV2.reactDom.unmountComponentAtNode(document.getElementById(this.props.rootId));
+        this.props.close()
     }
 
     search(query, clear) {
@@ -157,8 +157,8 @@ export default class V2C_PublicServers extends BDV2.reactComponent {
     get bdServer() {
         const server = {
             name: "BetterDiscord",
-            online: "7500+",
-            members: "20000+",
+            online: "30000+",
+            members: "70000+",
             categories: ["community", "programming", "support"],
             description: "Official BetterDiscord server for support etc",
             identifier: "86004744966914048",
@@ -169,12 +169,12 @@ export default class V2C_PublicServers extends BDV2.reactComponent {
         };
         const server2 = {
             name: "Lightcord",
-            online: "30+",
-            members: "50+",
+            online: "100+",
+            members: "300+",
             categories: ["community", "programming", "support"],
             description: "Official Lightcord server for support etc",
-            identifier: "86004744966914048",
-            iconUrl: "https://avatars3.githubusercontent.com/u/65690058?s=200&v=4",
+            identifier: "705908350218666117",
+            iconUrl: "https://github.com/lightcord.png",
             nativejoin: true,
             invite_code: "7eFff2A",
             pinned: true
@@ -211,7 +211,20 @@ export default class V2C_PublicServers extends BDV2.reactComponent {
                     "Content-Type": "application/json"
                 }
             });
-            const data = await response.json();
+            const text = await response.text()
+            if(!text){
+                self.setState({
+                    title: "Not connected to discordservers.com!",
+                    loading: true,
+                    selectedCategory: -1,
+                    connection: {
+                        state: 1,
+                        user: null
+                    }
+                });
+                return
+            }
+            const data = JSON.parse(text)
             self.setState({
                 selectedCategory: 0,
                 connection: {
@@ -236,7 +249,9 @@ export default class V2C_PublicServers extends BDV2.reactComponent {
     }
 
     render() {
-        return BDV2.react.createElement(SidebarView, {ref: "sbv"}, this.component);
+        return BDV2.react.createElement("div", {id: "pubslayerroot"}, 
+            BDV2.react.createElement("div", {id: "pubslayer"}, BDV2.react.createElement(SidebarView, {ref: "sbv"}, this.component))
+        );
     }
 
     get component() {

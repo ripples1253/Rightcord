@@ -5,7 +5,7 @@ import Utils from "./utils";
 import DOM from "./domtools";
 
 import V2C_PublicServers from "../ui/publicservers/publicServers";
-import Layer from "../ui/publicservers/layer";
+import Layers from "./Layers";
 
 export default new class V2_PublicServers {
 
@@ -14,38 +14,10 @@ export default new class V2_PublicServers {
         window.Lightcord.BetterDiscord.V2_PublicServers = this
     }
 
-    get component() {
-        return BDV2.react.createElement(Layer, {rootId: "pubslayerroot", id: "pubslayer"}, BDV2.react.createElement(V2C_PublicServers, {rootId: "pubslayerroot"}));
-    }
-
-    get root() {
-        const _root = document.getElementById("pubslayerroot");
-        if (!_root) {
-            if (!this.injectRoot()) return null;
-            return this.root;
-        }
-        return _root;
-    }
-
-    injectRoot() {
-        let [
-            classNameLayers
-        ] = [
-            Utils.removeDa(BDModules.get(e => e.layers && e.layer)[0].layers)
-        ]
-        const layers = DOM.query(".layers, ."+classNameLayers);
-        if (!layers) return false;
-        layers.append(DOM.createElement("<div id='pubslayerroot'>"));
-        return true;
-    }
-
     render() {
-        const root = this.root;
-        if (!root) {
-            console.log("FAILED TO LOCATE ROOT: .layers");
-            return;
-        }
-        BDV2.reactDom.render(this.component, root);
+        Layers.createLayer((close) => {
+            return BDV2.react.createElement(V2C_PublicServers, {rootId: "pubslayerroot", close})
+        })
     }
 
     get button() {
