@@ -62,14 +62,15 @@ function hasArgvFlag(flag) {
 	if (process.argv.includes("--should-create-shortcut")) {
 		console.log(`Creating shortcuts.`);
 		if (process.platform === "win32") {
+			let options = {
+				appUserModelId: Constants.APP_ID,
+				description: Constants.packageJSON.description,
+				target: process.execPath,
+			}
 			electron.shell.writeShortcutLink(
 				join(homedir(), "Desktop", "Lightcord.lnk"),
 				"create",
-				{
-					appUserModelId: Constants.APP_ID,
-					description: Constants.packageJSON.description,
-					target: process.execPath,
-				}
+				options
 			);
 			electron.shell.writeShortcutLink(
 				join(
@@ -81,12 +82,12 @@ function hasArgvFlag(flag) {
 					"Lightcord.lnk"
 				),
 				"create",
-				{
-					appUserModelId: Constants.APP_ID,
-					description: Constants.packageJSON.description,
-					target: process.execPath,
-				}
+				options
 			);
+			autoStart.isInstalled((installed) => {
+				if(installed)return
+				autoStart.install(console.log)
+			})
 		}
 	}
 
