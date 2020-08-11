@@ -48,8 +48,12 @@ let hasPrivateInit = false
 async function privateInit(){
     if(!hasInit)return
     if(hasPrivateInit)return
-    installReactDevtools()
     hasPrivateInit = true
+    installReactDevtools()
+    let cached = require.cache[path.join(__dirname, "loaders", "modules.js")]
+    if(cached){
+        cached.exports = window.BDModules
+    }
 
     //disabling sentry
     ModuleLoader.get(e => e.getCurrentHub)[0].getCurrentHub().getClient().getOptions().enabled = false
