@@ -1,5 +1,5 @@
-export const minimumDiscordVersion = "0.0.306";
-export const currentDiscordVersion = (window.DiscordNative && window.DiscordNative.remoteApp && window.DiscordNative.remoteApp.getVersion && window.DiscordNative.remoteApp.getVersion()) || "0.0.306";
+export const minimumDiscordVersion = "0.0.307";
+export const currentDiscordVersion = (window.DiscordNative && window.DiscordNative.remoteApp && window.DiscordNative.remoteApp.getVersion && window.DiscordNative.remoteApp.getVersion()) || "0.0.307";
 export const minSupportedVersion = "0.3.0";
 export const bbdVersion = "0.3.5";
 export const bbdChangelog = {
