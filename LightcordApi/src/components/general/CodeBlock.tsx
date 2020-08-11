@@ -17,7 +17,7 @@ export default class CodeBlock extends React.Component<CodeBlockProps> {
             WebpackLoader.find(e => e.markup),
             WebpackLoader.find(e => e.messageContent),
             WebpackLoader.find(e => e.scrollbarGhostHairline),
-            WebpackLoader.find(e => e.highlight),
+            WebpackLoader.find(e => e.listLanguages),
             WebpackLoader.find(e => e.marginBottom8)
         ])
     }

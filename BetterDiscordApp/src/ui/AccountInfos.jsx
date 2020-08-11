@@ -119,7 +119,7 @@ class CodeContent extends React.Component {
         if(!messageModule1)messageModule1 = BDModules.get(e => e.markup)[0]
         if(!messageModule2)messageModule2 = BDModules.get(e => e.messageContent)[0]
         if(!scrollbarModule1)scrollbarModule1 = BDModules.get(e => e.scrollbarGhostHairline)[0]
-        if(!hightlightJS)hightlightJS = BDModules.get(e => e.highlight)[0]
+        if(!hightlightJS)hightlightJS = BDModules.get(e => e.listLanguages)[0]
         return (<div class={`${messageModule1.markup} ${messageModule2.messageContent}`}>
             <pre>
                 <code class={`${scrollbarModule1.scrollbarGhostHairline} hljs`} dangerouslySetInnerHTML={{__html: hightlightJS.highlight(this.props.language, this.props.content).value}}>
