@@ -17,7 +17,8 @@ let hasInit = false
 let tries = 0
 
 const browserWindow = electron.remote.getCurrentWindow()
-const UserAgent = browserWindow.webContents.userAgent
+const UserAgent = browserWindow.webContents.userAgent.replace(/lightcord\/[^ ]+/g, "discord/"+require("../discord_native/renderer/app").getVersion())
+browserWindow.webContents.userAgent = UserAgent
 
 exports.init = function(){
     if(hasInit == true){
@@ -230,10 +231,13 @@ async function privateInit(){
     }
     
     // setting Discord Internal Developer Mode for developement and test purposes.
-    Object.defineProperty(ModuleLoader.get(e => e.default && typeof e.default === "object" && ("isDeveloper" in e.default))[0].default, "isDeveloper", {
-        get(){return !!window.Lightcord.Settings.devMode},
-        set(data){return !!window.Lightcord.Settings.devMode}
-    })
+    let developerModule = ModuleLoader.get(e => e.default && typeof e.default === "object" && ("isDeveloper" in e.default))[0]
+    if(developerModule){
+        Object.defineProperty(developerModule.default, "isDeveloper", {
+            get(){return !!window.Lightcord.Settings.devMode},
+            set(data){return !!window.Lightcord.Settings.devMode}
+        })
+    }
 
     /**
      * @type {typeof import("../../../../../DiscordJS").default}
