@@ -13,9 +13,12 @@ console.log = (...args) => {
 console.info = (...args) => {
     console.log(`\x1b[34m[INFO]\x1b[0m`, ...args)
 }
+let commit = child_process.execSync("git rev-parse HEAD").toString().split("\n")[0].trim()
+console.info(`Obtained commit ${commit} for the build`)
 
 async function main(){
-    console.log(__dirname, process.cwd())
+    let startTimestamp = Date.now()
+    console.info("Starting build")
     
     console.info("Reseting existent directory...")
     await fs.promises.rmdir("./distApp", {"recursive": true})
@@ -41,7 +44,8 @@ async function main(){
                 if([
                     "ts",
                     "md",
-                    "gitignore"
+                    "gitignore",
+                    "map"
                 ].includes(type)){
                     console.warn(`\x1b[33mIgnored file ${path.relative(folders.startDir, filepath)} because of type ${type}\x1b[0m`)
                     continue
@@ -67,7 +71,32 @@ async function main(){
                 if(!isMinified && predicate(filepath) && filepath.split(/[\\/]+/).reverse()[1] !== "js"){
                     await compile(filepath, path.join(filepath.replace(folders.startDir, folders.newDir)), "..")
                 }else{
-                    await fs.promises.copyFile(filepath, filepath.replace(folders.startDir, folders.newDir))
+                    if(["js", "css"].includes(type)){
+                        let fileContent = (await fs.promises.readFile(filepath, "utf8"))
+                        let sourceMap = fileContent.split(/[\n\r]+/g).pop()
+                        if(!sourceMap.startsWith("//# sourceMappingURL=")){
+                            await fs.promises.copyFile(filepath, filepath.replace(folders.startDir, folders.newDir))
+                            continue
+                        }
+                        let sourceMapContent
+                        if(sourceMap.slice(21).startsWith("data:")){
+                            sourceMapContent= Buffer.from(sourceMap.split("=").slice(1).join("="), "base64")
+                        }else{
+                            await fs.promises.copyFile(filepath, filepath.replace(folders.startDir, folders.newDir))
+                            continue
+                            //let file = path.dirname(filepath)+"/"+sourceMap.slice(21)
+                            //sourceMapContent = fs.readFileSync(file)
+                        }
+                        let sourceMapPath = filepath + ".map"
+                        let pth = path.posix.resolve(sourceMapPath.replace(__dirname, "").replace(/\\/g, "/"))
+                        fileContent = fileContent
+                        // source map
+                        .replace(sourceMap, "//# sourceMappingURL=https://rawcdn.githack.com/Lightcord/Lightcord/"+commit+pth)
+                        await fs.promises.writeFile(filepath.replace(folders.startDir, folders.newDir), fileContent)
+                        await fs.promises.writeFile(sourceMapPath, sourceMapContent)
+                    }else{
+                        await fs.promises.copyFile(filepath, filepath.replace(folders.startDir, folders.newDir))
+                    }
                 }
             }else if(file.isDirectory()){
                 if(ignoreModules && file.name === "node_modules")continue
@@ -79,13 +108,12 @@ async function main(){
     }
     await processNextDir(startDir, {
         startDir,
-        newDir
-    }, ((filepath) => filepath.endsWith(".js") && (!production ? !filepath.includes("node_modules") : true)), async (filepath, newpath) => {
+        newDir,
+        exclude: /node_modules/g
+    }, ((filepath) => filepath.endsWith(".js")), async (filepath, newpath) => {
         console.info(`Minifying ${filepath} to ${newpath}`)
 
         if(filepath.endsWith("git.js")){
-            let commit = child_process.execSync("git rev-parse HEAD").toString().split("\n")[0].trim()
-            console.info(`Obtained commit ${commit} for the build`)
             await fs.promises.writeFile(newpath, terser.minify(fs.readFileSync(filepath, "utf8").replace(/"{commit}"/g, `"${commit}"`)).code, "utf8")
         }else{
             await fs.promises.writeFile(newpath, terser.minify(await fs.promises.readFile(filepath, "utf8")).code, "utf8")
@@ -96,9 +124,9 @@ async function main(){
     
     await processNextDir(path.join(__dirname, "modules"), {
         startDir: path.join(__dirname, "modules"),
-        newDir: path.join(__dirname, "distApp", "modules")
-    }, ((filepath) => filepath.endsWith(".js") && (!production ? !filepath.includes("node_modules") : true)), async (filepath, newpath) => {
-        if(filepath.includes("node_modules"))return // don't minify node_modules, and don't include them at all. Installing later
+        newDir: path.join(__dirname, "distApp", "modules"),
+        exclude: /node_modules/g
+    }, ((filepath) => filepath.endsWith(".js")), async (filepath, newpath) => {
         console.info(`Minifying ${filepath} to ${newpath}`)
         await fs.promises.writeFile(newpath, terser.minify(await fs.promises.readFile(filepath, "utf8")).code, "utf8")
     }, true).then(() => {
@@ -130,7 +158,10 @@ async function main(){
     }, ((filepath) => filepath.endsWith(".js") && (!production ? !filepath.includes("node_modules") : true)), async (filepath, newpath) => {
         if(filepath.includes("node_modules"))return // don't minify node_modules, and don't include them at all. Installing later
         console.info(`Minifying ${filepath} to ${newpath}`)
-        await fs.promises.writeFile(newpath, terser.minify(await fs.promises.readFile(filepath, "utf8")).code, "utf8")
+        let fileContent = (await fs.promises.readFile(filepath, "utf8"))
+        // source map
+        .replace(/\/\/# sourceMappingURL=/, "//# sourceMappingURL=https://raw.githubusercontent.com/Lightcord/Lightcord/"+commit+"/LightcordApi/js/")
+        await fs.promises.writeFile(newpath, fileContent, "utf8")
     }, true).then(() => {
         console.info(`Copied files and minified them from ${path.join(__dirname, "LightcordApi")}.`)
     })
@@ -144,9 +175,9 @@ async function main(){
         fs.mkdirSync(path.join(__dirname, "distApp", "DiscordJS", dir), {recursive: true})
         return processNextDir(path.join(__dirname, "DiscordJS", dir), {
             startDir: path.join(__dirname, "DiscordJS", dir),
-            newDir: path.join(__dirname, "distApp", "DiscordJS", dir)
-        }, ((filepath) => filepath.endsWith(".js") && (!production ? !filepath.includes("node_modules") : true)), async (filepath, newpath) => {
-            if(filepath.includes("node_modules"))return // don't minify node_modules, and don't include them at all
+            newDir: path.join(__dirname, "distApp", "DiscordJS", dir),
+            exclude: /node_modules/g
+        }, ((filepath) => filepath.endsWith(".js")), async (filepath, newpath) => {
             console.info(`Minifying ${filepath} to ${newpath}`)
             await fs.promises.writeFile(newpath, terser.minify(await fs.promises.readFile(filepath, "utf8")).code, "utf8")
         }).then(() => {
@@ -174,7 +205,8 @@ async function main(){
     await fs.promises.mkdir(path.join(__dirname, "distApp", "splash", "videos"), {recursive: true})
     await processNextDir(path.join(__dirname, "splash"), {
         startDir: path.join(__dirname, "splash"),
-        newDir: path.join(__dirname, "distApp", "splash")
+        newDir: path.join(__dirname, "distApp", "splash"),
+        exclude: /node_modules/g
     }, (filepath) => {
         if(filepath.endsWith(".js"))return true
         return false
@@ -197,6 +229,7 @@ async function main(){
         encoding: "binary",
         cwd: path.join(__dirname, "distApp")
     }))
+    console.info("Build took "+(Date.now() - startTimestamp) +"ms.")
 }
 main()
 .catch(err => {

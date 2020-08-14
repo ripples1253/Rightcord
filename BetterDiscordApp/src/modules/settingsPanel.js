@@ -1,4 +1,4 @@
-import {settings, settingsCookie, settingsRPC} from "../0globals";
+import {settings, settingsCookie, settingsRPC, lightcordSettings} from "../0globals";
 import DataStore from "./dataStore";
 import V2_SettingsPanel_Sidebar from "./settingsPanelSidebar";
 import Utils from "./utils";
@@ -295,11 +295,14 @@ export default new class V2_SettingsPanel {
     saveSettings() {
         DataStore.setSettingGroup("settings", settingsCookie);
         DataStore.setSettingGroup("rpc", settingsRPC);
+        DataStore.setSettingGroup("lightcord-settings", lightcordSettings);
     }
 
     loadSettings() {
         Object.assign(settingsCookie, DataStore.getSettingGroup("settings"));
         Object.assign(settingsRPC, DataStore.getSettingGroup("rpc"));
+        console.log(lightcordSettings, DataStore.getSettingGroup("lightcord-settings"))
+        Object.assign(lightcordSettings, DataStore.getSettingGroup("lightcord-settings"));
     }
 
     renderSidebar(sidebar) {

@@ -17,11 +17,12 @@
     "devInstall:64": "npm i --save-dev --arch=x64 electron@8.4.0 && node installSubModules.js && echo \"Everything is installed. You should be able to do `npm run test` to compile everything and launch.\"",
     "versions": "echo Electron: && electron -v && echo Typescript: && tsc -v"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "JeanOUINA",
+  "license": "MIT",
   "dependencies": {
     "auto-launch": "^5.0.5",
     "custom-electron-titlebar": "^3.2.2-hotfix62",
+    "electron": "^8.4.0",
     "glasstron": "0.0.3",
     "mkdirp": "^1.0.4",
     "node-fetch": "^2.6.0",
@@ -40,7 +41,6 @@
     "@types/uuid": "^8.0.0",
     "@types/yauzl": "^2.9.1",
     "cross-spawn": "^7.0.3",
-    "electron": "^8.4.0",
     "terser": "^4.7.0",
     "typescript": "^3.9.7",
     "yazl": "^2.5.1"

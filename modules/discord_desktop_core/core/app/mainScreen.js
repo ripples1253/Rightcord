@@ -364,7 +364,7 @@ function launchMainAppWindow(isVisible) {
         preload: _path.join(__dirname, 'mainScreenPreload.js')
       })
     },
-    icon: _path.join(__dirname, 'discord.png')
+    icon: _path.join(__dirname, "images", 'discord.png')
   };
 
   if (process.platform === 'linux') {

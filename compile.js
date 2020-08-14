@@ -4,8 +4,8 @@ const { join } = require("path")
 /** Main Project */
 spawnSync("tsc")
 /** BetterDiscord */
-spawnSync("npm run build-prod", join(__dirname, "BetterDiscordApp"))
 spawnSync("npm run build", join(__dirname, "BetterDiscordApp"))
+spawnSync("npm run build-prod", join(__dirname, "BetterDiscordApp"))
 spawnSync("npm run minify-css", join(__dirname, "BetterDiscordApp"))
 /** DiscordJS */
 spawnSync("npm run build", join(__dirname, "DiscordJS"))

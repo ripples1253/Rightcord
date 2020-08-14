@@ -128,6 +128,9 @@ export const defaultRPC = {
     "assets.large": "712323821037682791"
 }
 
+export const lightcordSettings = {};
+export const defaultLightcordSettings = {};
+
 export const bdpluginErrors = [];
 export const bdthemeErrors = []; // define for backwards compatibility
 

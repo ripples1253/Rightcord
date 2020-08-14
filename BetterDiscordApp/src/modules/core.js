@@ -1,4 +1,4 @@
-import {bdConfig, minSupportedVersion, bbdVersion, settingsCookie, bdpluginErrors, bdthemeErrors, bbdChangelog, defaultCookie, currentDiscordVersion, defaultRPC, settingsRPC} from "../0globals";
+import {bdConfig, minSupportedVersion, bbdVersion, settingsCookie, bdpluginErrors, bdthemeErrors, bbdChangelog, defaultCookie, currentDiscordVersion, defaultRPC, settingsRPC, lightcordSettings} from "../0globals";
 import Utils from "./utils";
 
 import BDV2 from "./v2";
@@ -231,13 +231,16 @@ Core.prototype.injectExternals = async function() {
 
 Core.prototype.initSettings = function () {
     DataStore.initialize();
-    if(!DataStore.getSettingGroup("settings") && !DataStore.getSettingGroup("rpc")){
-        if (!DataStore.getSettingGroup("settings")) {
+    if(!DataStore.getSettingGroup("lightcord-settings")){
+        for(let key in lightcordSettings){
+            delete lightcordSettings[key]
+        }
+    }
+    if(!DataStore.getSettingGroup("rpc")){
+        Object.assign(settingsRPC, defaultRPC);
+    }
+    if(!DataStore.getSettingGroup("settings")){
             Object.assign(settingsCookie, defaultCookie);
-        }
-        if (!DataStore.getSettingGroup("rpc")) {
-            Object.assign(settingsRPC, defaultRPC);
-        }
         settingsPanel.saveSettings();
     } else {
         settingsPanel.loadSettings();
