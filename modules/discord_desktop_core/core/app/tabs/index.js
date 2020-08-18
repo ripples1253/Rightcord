@@ -97,6 +97,7 @@ window.onload = () => {
         webview.shadowRoot.childNodes.item(1).style.height = "100%"
         webview.enableremotemodule = true
         webview.nodeintegration = false
+        webview.spellcheck = true
         webview.webpreferences = "nativeWindowOpen=yes"
         webview.enableblinkfeatures = "EnumerateDevices,AudioOutputDevices"
         webview.addEventListener("ipc-message", function(...ev){ // TODO: Why don't we receive Ipc Messages, but they get processed anyway (notification, etc) ?
