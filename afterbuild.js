@@ -12,6 +12,9 @@ winZip.outputStream.pipe(fs.createWriteStream(__path.join(__dirname, "builds", "
 const linuxZip = new yazl.ZipFile()
 linuxZip.outputStream.pipe(fs.createWriteStream(__path.join(__dirname, "builds", "lightcord-linux-x64.zip")))
 
+const darwinZip = new yazl.ZipFile()
+darwinZip.outputStream.pipe(fs.createWriteStream(__path.join(__dirname, "builds", "lightcord-darwin-x64.zip")))
+
 async function processNextDir(dir, zip, bpath, platform){
     if(!bpath)bpath = dir
     if(dir.replace(bpath, ""))zip.addEmptyDirectory(dir.replace(bpath, "").slice(1))
@@ -24,9 +27,14 @@ async function processNextDir(dir, zip, bpath, platform){
             if(!path.includes("node_modules")){
                 if(platform === "win"){
                     if(file.name.endsWith("_linux.node"))return
+                    if(file.name.endsWith("_darwin.node"))return
                 }else if(platform === "lin"){
                     if(file.name.endsWith(".node")){
                         if(!file.name.endsWith("_linux.node"))return
+                    }else if(platform === "dar"){
+                        if(file.name.endsWith(".node")){
+                            if(!file.name.endsWith("_darwin.node"))return
+                        }
                     }
                     if(file.name.endsWith(".dll"))return
                 }
@@ -51,4 +59,10 @@ processNextDir(__path.join(__dirname, "builds", "lightcord-linux-x64"), linuxZip
 .then(() => {
     console.log(`Zipped linux.`)
     linuxZip.end()
+})
+
+processNextDir(__path.join(__dirname, "builds", "lightcord-darwin-x64", darwinZip, undefined, "dar"))
+.then(()=> {
+    console.log('Zipped Darwin')
+    darwinZip.end()
 })

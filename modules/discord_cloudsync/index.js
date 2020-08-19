@@ -2,7 +2,9 @@ const EventEmitter = require('events');
 let addon = './discord_cloudsync.node'
 if(process.platform === "linux"){
   addon = './discord_cloudsync_linux.node'
-}
+}else if(process.platform === "darwin") {
+  addon = './discord_cloudsync_darwin.node'
+} 
 const {CloudSync: CloudSyncNative} = require(addon);
 
 function makeCallback(resolve, reject) {
