@@ -4,6 +4,8 @@ const superagent = require('superagent');
 let addon = './discord_utils.node'
 if(process.platform === "linux"){
   addon = './discord_utils_linux.node'
+} else if (process.platform === "darwin"){
+  addon = './discord_utils_darwin.node'
 }
 
 module.exports = require(addon);
