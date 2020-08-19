@@ -115,3 +115,6 @@ distApp
 # discord_voice debug
 discord-last-webrtc_0
 discord-webrtc_0
+
+# macOS Stuff
+.DS_Store
