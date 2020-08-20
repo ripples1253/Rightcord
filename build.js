@@ -221,6 +221,7 @@ async function main(){
     let packageJSON = require("./package.json")
     packageJSON.scripts["build:electron_linux"] = packageJSON.scripts["build:electron_linux"].replace("./distApp", ".")
     packageJSON.scripts["build:electron_win"] = packageJSON.scripts["build:electron_win"].replace("./distApp", ".")
+    packageJSON.scripts["build:electron_darwin"] = packageJSON.scripts["build:electron_darwin"].replace("./distApp", ".")
     
     fs.writeFileSync(path.join(__dirname, "distApp", "package.json"), JSON.stringify(packageJSON), "utf8")
     
