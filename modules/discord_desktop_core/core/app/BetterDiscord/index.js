@@ -17,7 +17,7 @@ let hasInit = false
 let tries = 0
 
 const browserWindow = electron.remote.getCurrentWindow()
-const UserAgent = browserWindow.webContents.userAgent.replace(/lightcord\/[^ ]+/g, "discord/"+require("../discord_native/renderer/app").getVersion())
+const UserAgent = electron.ipcRenderer.sendSync("LIGHTCORD_GET_USER_AGENT").replace(/lightcord\/[^ ]+/g, "discord/"+require("../discord_native/renderer/app").getVersion())
 browserWindow.webContents.userAgent = UserAgent
 
 exports.init = function(){
@@ -376,6 +376,9 @@ async function privateInit(){
     const DOMTools = window.Lightcord.BetterDiscord.DOM
 
     let isBot = false
+    dispatcher.subscribe("LOGOUT", () => {
+        isBot = false
+    })
     ;(async function(){
         const gatewayModule = await ensureExported(e => e.default && e.default.prototype && e.default.prototype._handleDispatch)
         if(!gatewayModule)return

@@ -6,8 +6,8 @@
   "scripts": {
     "build": "webpack --progress --colors",
     "watch": "webpack --progress --colors --watch",
-    "build-prod": "webpack --progress --colors --mode production -o js/main.min.js --devtool source-map",
-    "watch-prod": "webpack --progress --colors --watch --mode production -o js/main.min.js --devtool source-map",
+    "build-prod": "webpack --progress --colors --config prod.config.js",
+    "watch-prod": "webpack --progress --colors --watch --config prod.config.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "docs": "typedoc --out ../../LightcordApiDocs ./src"
   },

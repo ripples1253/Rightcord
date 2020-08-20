@@ -8,7 +8,7 @@ export default class V2C_Scroller extends BDV2.reactComponent {
 
     render() {
         //scrollerWrap-2lJEkd scrollerThemed-2oenus themeGhostHairline-DBD-2d scrollerFade-1Ijw5y
-        let scrollerModule1 = BDModules.get(e => e.scrollerHorizontal)[0]
+        let scrollerModule1 = BDModules.get(e => e.scrollerWrap)[0]
         let scrollerModule2 = BDModules.get(e => e.sidebarRegionScroller)[0]
         let wrapperClass = `${scrollerModule1.scrollerWrap} ${scrollerModule1.scrollerThemed} ${scrollerModule1.themeGhostHairline}${this.props.fade ? " "+scrollerModule1.scrollerFade : ""}`;
         let scrollerClass = scrollerModule1.scroller+" scroller";                                          /* fuck */

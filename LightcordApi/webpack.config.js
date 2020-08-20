@@ -2,10 +2,6 @@ const path = require("path");
 const TerserPlugin = require("terser-webpack-plugin")
 const child_process = require("child_process")
 
-const commit = child_process.execSync("git rev-parse --short HEAD", {
-    cwd: __dirname
-}).toString("utf-8")
-
 module.exports = {
     mode: "development",
     target: "node",
@@ -15,8 +11,7 @@ module.exports = {
         filename: "main.js",
         path: path.resolve(__dirname, "js"),
         library: "LightcordApi",
-        libraryTarget: "commonjs2",
-        publicPath: "https://rawcdn.githack.com/Lightcord/Lightcord/"+commit+"/LightcordApi/js/"
+        libraryTarget: "commonjs2"
     },
     externals: {
         electron: `electron`,

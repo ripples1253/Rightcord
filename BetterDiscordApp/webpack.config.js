@@ -3,10 +3,6 @@ const CircularDependencyPlugin = require("circular-dependency-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const child_process = require("child_process")
 
-const commit = child_process.execSync("git rev-parse HEAD", {
-    cwd: __dirname
-}).toString("utf-8").replace(/[^\w\d]/g, "")
-
 module.exports = {
   mode: "development",
   target: "node",
@@ -16,8 +12,7 @@ module.exports = {
     filename: "index.js",
     path: path.resolve(__dirname, "dist"),
     library: "BetterDiscord",
-    libraryTarget: "commonjs2",
-    publicPath: "https://rawcdn.githack.com/Lightcord/Lightcord/"+commit+"/LightcordApi/dist/"
+    libraryTarget: "commonjs2"
   },
   externals: {
     electron: `electron`,

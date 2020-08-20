@@ -26,7 +26,7 @@ fs.readdirSync(MODULES_DIRNAME, {withFileTypes: true})
 
 const MODULE_DIRNAME = path.join(__dirname, "modules", "discord_desktop_core", "core")
 const BETTERDISCORD_DIRNAME = path.join(__dirname, "BetterDiscordApp")
-const DISCORDJS_DIRNAME = path.join(__dirname, "BetterDiscordApp")
+const DISCORDJS_DIRNAME = path.join(__dirname, "DiscordJS")
 
 child_process.spawn((process.platform === "win32" ? "npm.cmd" : "npm"), ["i"], {
     cwd: MODULE_DIRNAME,

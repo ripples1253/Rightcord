@@ -30,7 +30,7 @@ To run from source, follow these instructions:
 ```sh
 git clone https://github.com/Lightcord/Lightcord
 cd Lightcord
-npm run devInstall
+npm run devInstall # Mac/Linux, run "npm run devInstall:64"
 npm test
 ```
 *You will have to do that everytime you pull/clone*
