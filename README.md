@@ -82,7 +82,3 @@ The freeze caused by the emotes downloading at startup was annoying. So we remov
 Plugins and themes are not in the standard BetterDiscord folder. They have been moved because betterdiscord supports only stable, ptb and canary release. Using the same directory could cause problems with settings.
 
 They are located in `%AppData%/Lightcord_BD`. This is the main folder for BetterDiscord.
-
-## Developers
-* https://github.com/jeanouina
-* https://github.com/phorcysed
