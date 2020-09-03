@@ -11,7 +11,7 @@ import DOM from "./domtools";
 
 import BDLogo from "../ui/bdLogo";
 import TooltipWrap from "../ui/tooltipWrap";
-import LightcordLogo from "../svg/lightcord";
+import LightcordLogo from "../svg/Lightcord";
 import PluginCertifier from "./pluginCertifier";
 import distant, { uuidv4 } from "./distant";
 import EmojiModule from "./emojiModule"
@@ -195,6 +195,7 @@ Core.prototype.patchAttributes = async function() {
 
             return div
         }
+        DiscordTag.default.displayName = DiscordTagComp.displayName
     })
 
     attribsPatchs.push(Utils.monkeyPatch(v2.MessageComponent, "default", {after: (data) => {
@@ -273,6 +274,7 @@ Core.prototype.initSettings = function () {
                     result.push(poped.pop())
                 }
             }
+            console.log(result)
             return result
         }
     })
