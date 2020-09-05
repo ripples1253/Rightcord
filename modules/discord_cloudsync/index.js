@@ -1,11 +1,5 @@
 const EventEmitter = require('events');
-let addon = './discord_cloudsync.node'
-if(process.platform === "linux"){
-  addon = './discord_cloudsync_linux.node'
-}else if(process.platform === "darwin") {
-  addon = './discord_cloudsync_darwin.node'
-} 
-const {CloudSync: CloudSyncNative} = require(addon);
+const {CloudSync: CloudSyncNative} = require('./discord_cloudsync_'+process.platform+'.node');
 
 function makeCallback(resolve, reject) {
   return (err, result) => {
@@ -31,4 +25,12 @@ class CloudSync extends EventEmitter {
   }
 }
 
-module.exports = CloudSync;
+function cloudSyncConstructor() {
+  const instance = new CloudSync();
+  return {
+    on: instance.on.bind(instance),
+    sync: instance.sync.bind(instance),
+  };
+}
+
+module.exports = cloudSyncConstructor;

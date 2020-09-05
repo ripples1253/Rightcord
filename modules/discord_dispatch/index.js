@@ -1,1 +1,11 @@
-module.exports = require((process.platform === "linux") ? './discord_dispatch_linux.node' : (process.platform === "darwin") ? './discord_dispatch_darwin.node' : './discord_dispatch.node');
+const {Dispatch: DispatchNative} = require('./discord_dispatch_'+process.platform+'.node');
+
+function dispatchConstructor(jsonConfigString, updateCallback, errorCallback, analyticsCallback) {
+  const instance = new DispatchNative(jsonConfigString, updateCallback, errorCallback, analyticsCallback);
+  return {
+    command: instance.command.bind(instance),
+    destroy: instance.destroy.bind(instance),
+  };
+}
+
+module.exports = {Dispatch: dispatchConstructor};
