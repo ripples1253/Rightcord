@@ -15,6 +15,7 @@
         "./js/**",
         "./webpack.config.js",
         "./dist/**",
-        "./prod.config.js"
+        "./prod.config.js",
+        "./docs"
     ]
 }

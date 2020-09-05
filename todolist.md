@@ -17,4 +17,4 @@ discord links are on [Lightcord's support server](https://discord.gg/7eFff2A)
 - [ ] Fixing #21
 - [ ] Update electron version to fix spellchecker problems.
 - [ ] fix all the shit with folders structure (native addons, building, etc)
-- [ ] update glasstron to the latest version.
+- [x] update glasstron to the latest version.
