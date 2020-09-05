@@ -15,6 +15,8 @@
     "build:electron_darwin": "electron-packager ./distApp --ignore\"(distApp|builds|\\.ts\\.so\\.4\\.dll)\" --arch=x64  --protocol=discord  --platform=\"darwin\" --out=builds --icon=app_icon_darwin.icns --executable-name=\"Lightcord\" --asar.unpack='*.{node,dylib}' --overwrite",
     "build:minify": "node build.js",
     "build:after": "node afterbuild.js",
+    "clean": "node scripts/clean.js",
+    "clean:all": "node scripts/clean.js --all",
     "devInstall": "npm i --save-dev --arch=ia32 electron@8.5.0 && node installSubModules.js && echo \"Everything is installed. You should be able to do `npm run test` to compile everything and launch.\"",
     "devInstall:64": "npm i --save-dev --arch=x64 electron@8.5.0 && node installSubModules.js && echo \"Everything is installed. You should be able to do `npm run test` to compile everything and launch.\"",
     "versions": "echo Electron: && electron -v && echo Typescript: && tsc -v"
@@ -44,6 +46,8 @@
     "asar": "^3.0.3",
     "cross-spawn": "^7.0.3",
     "electron": "^8.5.0",
+    "fast-glob": "^3.2.4",
+    "fs-extra": "^9.0.1",
     "terser": "^4.7.0",
     "typescript": "^3.9.7",
     "yazl": "^2.5.1"
