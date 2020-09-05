@@ -18,6 +18,8 @@ function spawnNpmInstallProcess (targetDir) {
     })
 }
 
+spawnNpmInstallProcess(__dirname)
+
 fs.readdirSync(MODULES_DIRNAME, {withFileTypes: true})
 .forEach(e => {
     if(!e.isDirectory())return
