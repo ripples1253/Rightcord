@@ -373,13 +373,20 @@ function launchMainAppWindow(isVisible) {
 
   if(!settings.get("NO_WINDOWS_BOUND", false))applyWindowBoundsToConfig(mainWindowOptions);
 
-  mainWindow = new electron.BrowserWindow(mainWindowOptions);
+  mainWindow = new glasstron.BrowserWindow(mainWindowOptions);
   mainWindowId = mainWindow.id;
   global.mainWindowId = mainWindowId;
   if(settings.get("GLASSTRON", true)){
+    let blurType = mainWindow.blurType
     mainWindow.blurType = settings.get("GLASSTRON_BLUR", "blurbehind")
     mainWindow.setVibrancy("fullscreen-ui")
-    mainWindow.setBlur(true)
+    try {
+      mainWindow.setBlur(true)
+    } catch (e){
+      console.error(e)
+      console.error("Could not setBlur(), transparency effects will not work.")
+      mainWindow.blurType = blurType
+    }
   }
   
   mainWindow.webContents.session.webRequest.onHeadersReceived(function(details, callback) {

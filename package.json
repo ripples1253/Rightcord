@@ -8,7 +8,7 @@
     "test": "npm run compile && electron .",
     "run": "electron .",
     "build": "npm run build:minify && npm run build:electron",
-    "build:electron": "npm run build:electron_win && npm run build:electron_linux && npm run build:electron_mac",
+    "build:electron": "node build_electron.js",
     "build:electron_win": "electron-builder build --config electron-builder.yaml --win",
     "build:electron_linux": "electron-builder build --config electron-builder.yaml --linux",
     "build:electron_mac": "electron-builder build --config electron-builder.yaml --mac",
