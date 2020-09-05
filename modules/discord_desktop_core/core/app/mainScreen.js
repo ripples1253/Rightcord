@@ -377,11 +377,9 @@ function launchMainAppWindow(isVisible) {
   mainWindowId = mainWindow.id;
   global.mainWindowId = mainWindowId;
   if(settings.get("GLASSTRON", true)){
-    glasstron.update(mainWindow, {
-      windows: {blurType: 'blurbehind'},
-      macos: {vibrancy: 'fullscreen-ui'},
-      linux: {requestBlur: true} // KWin
-    });
+    mainWindow.blurType = settings.get("GLASSTRON_BLUR", "blurbehind")
+    mainWindow.setVibrancy("fullscreen-ui")
+    mainWindow.setBlur(true)
   }
   
   mainWindow.webContents.session.webRequest.onHeadersReceived(function(details, callback) {
