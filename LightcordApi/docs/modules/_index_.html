@@ -4,8 +4,9 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>&quot;index&quot; | lightcordapi</title>
-	<meta name="description" content="Documentation for lightcordapi">
+	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://fonts.googleapis.com/css?family=Noto+Sans&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="../assets/css/main.css">
 </head>
 <body>
@@ -13,7 +14,7 @@
 	<div class="tsd-page-toolbar">
 		<div class="container">
 			<div class="table-wrap">
-				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.json" data-base="..">
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.js" data-base="..">
 					<div class="field">
 						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
 						<input id="tsd-search-field" type="text" />
@@ -59,493 +60,536 @@
 					<a href="_index_.html">&quot;index&quot;</a>
 				</li>
 			</ul>
-			<h1>Module &quot;index&quot;</h1>
 		</div>
 	</div>
 </header>
-<div class="container container-main">
-	<div class="row">
-		<div class="col-8 col-content">
-			<section class="tsd-panel-group tsd-index-group">
-				<h2>Index</h2>
-				<section class="tsd-panel tsd-index-panel">
-					<div class="tsd-index-content">
-						<section class="tsd-index-section tsd-is-not-exported">
-							<h3>Namespaces</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-namespace tsd-parent-kind-module tsd-is-not-exported"><a href="_index_.__global.html" class="tsd-kind-icon">__global</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section ">
-							<h3>Interfaces</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/_index_.lightcordglobal.html" class="tsd-kind-icon">Lightcord<wbr>Global</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section tsd-is-not-exported">
-							<h3>Type aliases</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported"><a href="_index_.html#lightcordapiglobal" class="tsd-kind-icon">Lightcord<wbr>Api<wbr>Global</a></li>
-								<li class="tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported"><a href="_index_.html#lightcordapimainexports" class="tsd-kind-icon">lightcord<wbr>Api<wbr>Main<wbr>Exports</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section ">
-							<h3>Object literals</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-object-literal tsd-parent-kind-module"><a href="_index_.html#lightcordapi" class="tsd-kind-icon">Lightcord<wbr>Api</a></li>
-							</ul>
-						</section>
-					</div>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
-				<h2>Type aliases</h2>
-				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
-					<a name="lightcordapiglobal" class="tsd-anchor"></a>
-					<h3>Lightcord<wbr>Api<wbr>Global</h3>
-					<div class="tsd-signature tsd-kind-icon">Lightcord<wbr>Api<wbr>Global<span class="tsd-signature-symbol">:</span> <a href="_index_.html#lightcordapimainexports" class="tsd-signature-type">lightcordApiMainExports</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">typeof </span><a href="_index_.html#lightcordapi" class="tsd-signature-type">LightcordApi</a></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in lightcordapi/src/index.ts:119</li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>The main Api. Can be accessed with <code>window.Lightcord.Api</code></p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
-					<a name="lightcordapimainexports" class="tsd-anchor"></a>
-					<h3>lightcord<wbr>Api<wbr>Main<wbr>Exports</h3>
-					<div class="tsd-signature tsd-kind-icon">lightcord<wbr>Api<wbr>Main<wbr>Exports<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>cloneNullProto<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">; </span>ensureExported<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> }</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in lightcordapi/src/index.ts:122</li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Exports that are defined <a href="https://github.com/Lightcord/Lightcord/blob/master/modules/discord_desktop_core/core/app/BetterDiscord/index.js#L278">here</a></p>
-						</div>
-					</div>
-					<div class="tsd-type-declaration">
-						<h4>Type declaration</h4>
-						<ul class="tsd-parameters">
-							<li class="tsd-parameter">
-								<h5>clone<wbr>Null<wbr>Proto<span class="tsd-signature-symbol">: </span>function</h5>
-								<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-type-literal tsd-has-type-parameter tsd-is-not-exported">
-									<li class="tsd-signature tsd-kind-icon">clone<wbr>Null<wbr>Proto&lt;Obj&gt;<span class="tsd-signature-symbol">(</span>obj<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Obj</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Obj</span></li>
-								</ul>
-								<ul class="tsd-descriptions">
-									<li class="tsd-description">
-										<aside class="tsd-sources">
-											<ul>
-												<li>Defined in lightcordapi/src/index.ts:132</li>
-											</ul>
-										</aside>
-										<div class="tsd-comment tsd-typography">
-											<div class="lead">
-												<p>Recreate the object without the <code>__proto__</code> and <code>prototype</code> properties - usefull for better formatting in console.</p>
-											</div>
-										</div>
-										<h4 class="tsd-type-parameters-title">Type parameters</h4>
-										<ul class="tsd-type-parameters">
-											<li>
-												<h4>Obj</h4>
-											</li>
-										</ul>
-										<h4 class="tsd-parameters-title">Parameters</h4>
-										<ul class="tsd-parameters">
-											<li>
-												<h5>obj: <span class="tsd-signature-type">Obj</span></h5>
-												<div class="tsd-comment tsd-typography">
-													<p>The object to recreate</p>
-												</div>
-											</li>
-										</ul>
-										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Obj</span></h4>
-									</li>
-								</ul>
-							</li>
-							<li class="tsd-parameter">
-								<h5>ensure<wbr>Exported<span class="tsd-signature-symbol">: </span>function</h5>
-								<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-type-literal tsd-is-not-exported">
-									<li class="tsd-signature tsd-kind-icon">ensure<wbr>Exported<span class="tsd-signature-symbol">(</span>filter<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>mod<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
-								</ul>
-								<ul class="tsd-descriptions">
-									<li class="tsd-description">
-										<aside class="tsd-sources">
-											<ul>
-												<li>Defined in lightcordapi/src/index.ts:127</li>
-											</ul>
-										</aside>
-										<div class="tsd-comment tsd-typography">
-											<div class="lead">
-												<p>Waits until the first module that match the filter gets exported</p>
-											</div>
-										</div>
-										<h4 class="tsd-parameters-title">Parameters</h4>
-										<ul class="tsd-parameters">
-											<li>
-												<h5>filter: <span class="tsd-signature-symbol">(</span>mod<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">boolean</span></h5>
-												<div class="tsd-comment tsd-typography">
-													<p>The filter that specifies the module to match.</p>
-												</div>
-												<ul class="tsd-parameters">
-													<li class="tsd-parameter-signature">
-														<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-															<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>mod<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
-														</ul>
-														<ul class="tsd-descriptions">
-															<li class="tsd-description">
-																<h4 class="tsd-parameters-title">Parameters</h4>
-																<ul class="tsd-parameters">
-																	<li>
-																		<h5>mod: <span class="tsd-signature-type">any</span></h5>
-																	</li>
-																</ul>
-																<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
-															</li>
-														</ul>
-													</li>
-												</ul>
-											</li>
-										</ul>
-										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
-									</li>
-								</ul>
-							</li>
-						</ul>
-					</div>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Object literals</h2>
-				<section class="tsd-panel tsd-member tsd-kind-object-literal tsd-parent-kind-module">
-					<a name="lightcordapi" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> Lightcord<wbr>Api</h3>
-					<div class="tsd-signature tsd-kind-icon">Lightcord<wbr>Api<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in lightcordapi/src/index.ts:21</li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Lightcord Api defined at <a href="https://github.com/Lightcord/Lightcord/blob/master/LightcordApi/src/index.ts#L18">/LightcordApi/src/index.ts</a></p>
-						</div>
-					</div>
-					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
-						<a name="lightcordapi.components" class="tsd-anchor"></a>
-						<h3>Components</h3>
-						<div class="tsd-signature tsd-kind-icon">Components<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>general<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>AlertBox<span class="tsd-signature-symbol">: </span><a href="../classes/_components_general_alertbox_.alertbox.html" class="tsd-signature-type">AlertBox</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>original<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">base</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">; </span>CodeBlock<span class="tsd-signature-symbol">: </span><a href="../classes/_components_general_codeblock_.codeblock.html" class="tsd-signature-type">CodeBlock</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>original<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">base</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">; </span>ErrorCatcher<span class="tsd-signature-symbol">: </span><a href="../classes/_components_general_errorcatcher_.errorcatcher.html" class="tsd-signature-type">ErrorCatcher</a><span class="tsd-signature-symbol">; </span>Flex<span class="tsd-signature-symbol">: </span><a href="../classes/_components_general_flex_.flex.html" class="tsd-signature-type">Flex</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>original<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">base</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">; </span>FlexChild<span class="tsd-signature-symbol">: </span><a href="../classes/_components_general_flex_.flexchild.html" class="tsd-signature-type">FlexChild</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>original<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">base</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">; </span>SettingSubTitle<span class="tsd-signature-symbol">: </span><a href="../classes/_components_general_settingsubtitle_.settingsubtitle.html" class="tsd-signature-type">SettingSubTitle</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>original<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">base</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">; </span>SettingsTitle<span class="tsd-signature-symbol">: </span><a href="../classes/_components_general_settingstitle_.settingstitle.html" class="tsd-signature-type">SettingsTitle</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>original<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">base</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">; </span>Tabs<span class="tsd-signature-symbol">: </span><a href="../classes/_components_general_tabs_.tabs.html" class="tsd-signature-type">Tabs</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>original<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">base</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">; </span>Text<span class="tsd-signature-symbol">: </span><a href="../classes/_components_general_text_.text.html" class="tsd-signature-type">Text</a><span class="tsd-signature-symbol">; </span>Title<span class="tsd-signature-symbol">: </span><a href="../classes/_components_general_title_.title.html" class="tsd-signature-type">Title</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>original<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">base</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">; </span>Tooltip<span class="tsd-signature-symbol">: </span><a href="../classes/_components_general_tooltip_.tooltip.html" class="tsd-signature-type">Tooltip</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>original<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">base</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">; </span>inputs<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>Button<span class="tsd-signature-symbol">: </span><a href="../classes/_components_inputs_button_.button.html" class="tsd-signature-type">Button</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>original<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">base</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">; </span>Choices<span class="tsd-signature-symbol">: </span><a href="../classes/_components_inputs_radiogroup_.radiogroup.html" class="tsd-signature-type">RadioGroup</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>original<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">base</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">; </span>ColorPicker<span class="tsd-signature-symbol">: </span><a href="../classes/_components_inputs_colorpicker_.colorpicker.html" class="tsd-signature-type">ColorPicker</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>original<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">base</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">; </span>DateInput<span class="tsd-signature-symbol">: </span><a href="../classes/_components_inputs_dateinput_.dateinput.html" class="tsd-signature-type">DateInput</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>original<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">base</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">; </span>DateRange<span class="tsd-signature-symbol">: </span><a href="../classes/_components_inputs_daterange_.daterange.html" class="tsd-signature-type">DateRange</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>original<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">base</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">; </span>Dropdown<span class="tsd-signature-symbol">: </span><a href="../classes/_components_inputs_dropdown_.dropdown.html" class="tsd-signature-type">Dropdown</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>original<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">base</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">; </span>RadioGroup<span class="tsd-signature-symbol">: </span><a href="../classes/_components_inputs_radiogroup_.radiogroup.html" class="tsd-signature-type">RadioGroup</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>original<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">base</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">; </span>Switch<span class="tsd-signature-symbol">: </span><a href="../classes/_components_inputs_switch_.switch.html" class="tsd-signature-type">Switch</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>original<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">base</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">; </span>TextArea<span class="tsd-signature-symbol">: </span><a href="../classes/_components_inputs_textarea_.textarea.html" class="tsd-signature-type">TextArea</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>original<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">base</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">; </span>TextInput<span class="tsd-signature-symbol">: </span><a href="../classes/_components_inputs_textinput_.textinput.html" class="tsd-signature-type">TextInput</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>original<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">base</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol"> = Components</span></div>
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in lightcordapi/src/index.ts:29</li>
-							</ul>
-						</aside>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<p>Lightcord&#39;s exported component. You can see a list in the app settings when activating <code>Developer Options</code> in lightcord&#39;s settings.</p>
-							</div>
-						</div>
-						<div class="tsd-type-declaration">
-							<h4>Type declaration</h4>
-							<ul class="tsd-parameters">
-								<li class="tsd-parameter">
-									<h5>general<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>AlertBox<span class="tsd-signature-symbol">: </span><a href="../classes/_components_general_alertbox_.alertbox.html" class="tsd-signature-type">AlertBox</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>original<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">base</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">; </span>CodeBlock<span class="tsd-signature-symbol">: </span><a href="../classes/_components_general_codeblock_.codeblock.html" class="tsd-signature-type">CodeBlock</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>original<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">base</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">; </span>ErrorCatcher<span class="tsd-signature-symbol">: </span><a href="../classes/_components_general_errorcatcher_.errorcatcher.html" class="tsd-signature-type">ErrorCatcher</a><span class="tsd-signature-symbol">; </span>Flex<span class="tsd-signature-symbol">: </span><a href="../classes/_components_general_flex_.flex.html" class="tsd-signature-type">Flex</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>original<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">base</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">; </span>FlexChild<span class="tsd-signature-symbol">: </span><a href="../classes/_components_general_flex_.flexchild.html" class="tsd-signature-type">FlexChild</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>original<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">base</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">; </span>SettingSubTitle<span class="tsd-signature-symbol">: </span><a href="../classes/_components_general_settingsubtitle_.settingsubtitle.html" class="tsd-signature-type">SettingSubTitle</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>original<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">base</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">; </span>SettingsTitle<span class="tsd-signature-symbol">: </span><a href="../classes/_components_general_settingstitle_.settingstitle.html" class="tsd-signature-type">SettingsTitle</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>original<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">base</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">; </span>Tabs<span class="tsd-signature-symbol">: </span><a href="../classes/_components_general_tabs_.tabs.html" class="tsd-signature-type">Tabs</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>original<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">base</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">; </span>Text<span class="tsd-signature-symbol">: </span><a href="../classes/_components_general_text_.text.html" class="tsd-signature-type">Text</a><span class="tsd-signature-symbol">; </span>Title<span class="tsd-signature-symbol">: </span><a href="../classes/_components_general_title_.title.html" class="tsd-signature-type">Title</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>original<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">base</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">; </span>Tooltip<span class="tsd-signature-symbol">: </span><a href="../classes/_components_general_tooltip_.tooltip.html" class="tsd-signature-type">Tooltip</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>original<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">base</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol"> }</span></h5>
-									<ul class="tsd-parameters">
-										<li class="tsd-parameter">
-											<h5>Alert<wbr>Box<span class="tsd-signature-symbol">: </span><a href="../classes/_components_general_alertbox_.alertbox.html" class="tsd-signature-type">AlertBox</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>original<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">base</span><span class="tsd-signature-symbol"> }</span></h5>
-										</li>
-										<li class="tsd-parameter">
-											<h5>Code<wbr>Block<span class="tsd-signature-symbol">: </span><a href="../classes/_components_general_codeblock_.codeblock.html" class="tsd-signature-type">CodeBlock</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>original<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">base</span><span class="tsd-signature-symbol"> }</span></h5>
-										</li>
-										<li class="tsd-parameter">
-											<h5>Error<wbr>Catcher<span class="tsd-signature-symbol">: </span><a href="../classes/_components_general_errorcatcher_.errorcatcher.html" class="tsd-signature-type">ErrorCatcher</a></h5>
-										</li>
-										<li class="tsd-parameter">
-											<h5>Flex<span class="tsd-signature-symbol">: </span><a href="../classes/_components_general_flex_.flex.html" class="tsd-signature-type">Flex</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>original<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">base</span><span class="tsd-signature-symbol"> }</span></h5>
-										</li>
-										<li class="tsd-parameter">
-											<h5>Flex<wbr>Child<span class="tsd-signature-symbol">: </span><a href="../classes/_components_general_flex_.flexchild.html" class="tsd-signature-type">FlexChild</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>original<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">base</span><span class="tsd-signature-symbol"> }</span></h5>
-										</li>
-										<li class="tsd-parameter">
-											<h5>Setting<wbr>Sub<wbr>Title<span class="tsd-signature-symbol">: </span><a href="../classes/_components_general_settingsubtitle_.settingsubtitle.html" class="tsd-signature-type">SettingSubTitle</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>original<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">base</span><span class="tsd-signature-symbol"> }</span></h5>
-										</li>
-										<li class="tsd-parameter">
-											<h5>Settings<wbr>Title<span class="tsd-signature-symbol">: </span><a href="../classes/_components_general_settingstitle_.settingstitle.html" class="tsd-signature-type">SettingsTitle</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>original<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">base</span><span class="tsd-signature-symbol"> }</span></h5>
-										</li>
-										<li class="tsd-parameter">
-											<h5>Tabs<span class="tsd-signature-symbol">: </span><a href="../classes/_components_general_tabs_.tabs.html" class="tsd-signature-type">Tabs</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>original<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">base</span><span class="tsd-signature-symbol"> }</span></h5>
-										</li>
-										<li class="tsd-parameter">
-											<h5>Text<span class="tsd-signature-symbol">: </span><a href="../classes/_components_general_text_.text.html" class="tsd-signature-type">Text</a></h5>
-										</li>
-										<li class="tsd-parameter">
-											<h5>Title<span class="tsd-signature-symbol">: </span><a href="../classes/_components_general_title_.title.html" class="tsd-signature-type">Title</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>original<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">base</span><span class="tsd-signature-symbol"> }</span></h5>
-										</li>
-										<li class="tsd-parameter">
-											<h5>Tooltip<span class="tsd-signature-symbol">: </span><a href="../classes/_components_general_tooltip_.tooltip.html" class="tsd-signature-type">Tooltip</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>original<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">base</span><span class="tsd-signature-symbol"> }</span></h5>
-										</li>
-									</ul>
-								</li>
-								<li class="tsd-parameter">
-									<h5>inputs<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>Button<span class="tsd-signature-symbol">: </span><a href="../classes/_components_inputs_button_.button.html" class="tsd-signature-type">Button</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>original<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">base</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">; </span>Choices<span class="tsd-signature-symbol">: </span><a href="../classes/_components_inputs_radiogroup_.radiogroup.html" class="tsd-signature-type">RadioGroup</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>original<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">base</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">; </span>ColorPicker<span class="tsd-signature-symbol">: </span><a href="../classes/_components_inputs_colorpicker_.colorpicker.html" class="tsd-signature-type">ColorPicker</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>original<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">base</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">; </span>DateInput<span class="tsd-signature-symbol">: </span><a href="../classes/_components_inputs_dateinput_.dateinput.html" class="tsd-signature-type">DateInput</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>original<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">base</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">; </span>DateRange<span class="tsd-signature-symbol">: </span><a href="../classes/_components_inputs_daterange_.daterange.html" class="tsd-signature-type">DateRange</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>original<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">base</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">; </span>Dropdown<span class="tsd-signature-symbol">: </span><a href="../classes/_components_inputs_dropdown_.dropdown.html" class="tsd-signature-type">Dropdown</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>original<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">base</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">; </span>RadioGroup<span class="tsd-signature-symbol">: </span><a href="../classes/_components_inputs_radiogroup_.radiogroup.html" class="tsd-signature-type">RadioGroup</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>original<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">base</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">; </span>Switch<span class="tsd-signature-symbol">: </span><a href="../classes/_components_inputs_switch_.switch.html" class="tsd-signature-type">Switch</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>original<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">base</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">; </span>TextArea<span class="tsd-signature-symbol">: </span><a href="../classes/_components_inputs_textarea_.textarea.html" class="tsd-signature-type">TextArea</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>original<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">base</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">; </span>TextInput<span class="tsd-signature-symbol">: </span><a href="../classes/_components_inputs_textinput_.textinput.html" class="tsd-signature-type">TextInput</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>original<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">base</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol"> }</span></h5>
-									<ul class="tsd-parameters">
-										<li class="tsd-parameter">
-											<h5>Button<span class="tsd-signature-symbol">: </span><a href="../classes/_components_inputs_button_.button.html" class="tsd-signature-type">Button</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>original<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">base</span><span class="tsd-signature-symbol"> }</span></h5>
-										</li>
-										<li class="tsd-parameter">
-											<h5>Choices<span class="tsd-signature-symbol">: </span><a href="../classes/_components_inputs_radiogroup_.radiogroup.html" class="tsd-signature-type">RadioGroup</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>original<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">base</span><span class="tsd-signature-symbol"> }</span></h5>
-										</li>
-										<li class="tsd-parameter">
-											<h5>Color<wbr>Picker<span class="tsd-signature-symbol">: </span><a href="../classes/_components_inputs_colorpicker_.colorpicker.html" class="tsd-signature-type">ColorPicker</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>original<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">base</span><span class="tsd-signature-symbol"> }</span></h5>
-										</li>
-										<li class="tsd-parameter">
-											<h5>Date<wbr>Input<span class="tsd-signature-symbol">: </span><a href="../classes/_components_inputs_dateinput_.dateinput.html" class="tsd-signature-type">DateInput</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>original<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">base</span><span class="tsd-signature-symbol"> }</span></h5>
-										</li>
-										<li class="tsd-parameter">
-											<h5>Date<wbr>Range<span class="tsd-signature-symbol">: </span><a href="../classes/_components_inputs_daterange_.daterange.html" class="tsd-signature-type">DateRange</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>original<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">base</span><span class="tsd-signature-symbol"> }</span></h5>
-										</li>
-										<li class="tsd-parameter">
-											<h5>Dropdown<span class="tsd-signature-symbol">: </span><a href="../classes/_components_inputs_dropdown_.dropdown.html" class="tsd-signature-type">Dropdown</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>original<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">base</span><span class="tsd-signature-symbol"> }</span></h5>
-										</li>
-										<li class="tsd-parameter">
-											<h5>Radio<wbr>Group<span class="tsd-signature-symbol">: </span><a href="../classes/_components_inputs_radiogroup_.radiogroup.html" class="tsd-signature-type">RadioGroup</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>original<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">base</span><span class="tsd-signature-symbol"> }</span></h5>
-										</li>
-										<li class="tsd-parameter">
-											<h5>Switch<span class="tsd-signature-symbol">: </span><a href="../classes/_components_inputs_switch_.switch.html" class="tsd-signature-type">Switch</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>original<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">base</span><span class="tsd-signature-symbol"> }</span></h5>
-										</li>
-										<li class="tsd-parameter">
-											<h5>Text<wbr>Area<span class="tsd-signature-symbol">: </span><a href="../classes/_components_inputs_textarea_.textarea.html" class="tsd-signature-type">TextArea</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>original<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">base</span><span class="tsd-signature-symbol"> }</span></h5>
-										</li>
-										<li class="tsd-parameter">
-											<h5>Text<wbr>Input<span class="tsd-signature-symbol">: </span><a href="../classes/_components_inputs_textinput_.textinput.html" class="tsd-signature-type">TextInput</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>original<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">base</span><span class="tsd-signature-symbol"> }</span></h5>
-										</li>
-									</ul>
-								</li>
-							</ul>
-						</div>
-					</section>
-					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
-						<a name="lightcordapi.discordtools" class="tsd-anchor"></a>
-						<h3>Discord<wbr>Tools</h3>
-						<div class="tsd-signature tsd-kind-icon">Discord<wbr>Tools<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">DiscordTools</span><span class="tsd-signature-symbol"> = DiscordTools</span></div>
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in lightcordapi/src/index.ts:39</li>
-							</ul>
-						</aside>
-					</section>
-					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
-						<a name="lightcordapi.lazyload" class="tsd-anchor"></a>
-						<h3>Lazy<wbr>Load</h3>
-						<div class="tsd-signature tsd-kind-icon">Lazy<wbr>Load<span class="tsd-signature-symbol">:</span> <a href="_modules_lazyloader_.html#lazyload" class="tsd-signature-type">LazyLoad</a><span class="tsd-signature-symbol"> = LazyLoad</span></div>
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in lightcordapi/src/index.ts:48</li>
-							</ul>
-						</aside>
-					</section>
-					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
-						<a name="lightcordapi.utils" class="tsd-anchor"></a>
-						<h3>Utils</h3>
-						<div class="tsd-signature tsd-kind-icon">Utils<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Utils</span><span class="tsd-signature-symbol"> = Utils</span></div>
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in lightcordapi/src/index.ts:38</li>
-							</ul>
-						</aside>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<p>Set of methods that can help you sometimes.</p>
-							</div>
-						</div>
-					</section>
-					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
-						<a name="lightcordapi.webpackloader" class="tsd-anchor"></a>
-						<h3>Webpack<wbr>Loader</h3>
-						<div class="tsd-signature tsd-kind-icon">Webpack<wbr>Loader<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">WebpackLoader</span><span class="tsd-signature-symbol"> = WebpackLoader</span></div>
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in lightcordapi/src/index.ts:25</li>
-							</ul>
-						</aside>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<p>WebpackLoader loads Internal Discord&#39;s modules with given filter.</p>
-							</div>
-						</div>
-					</section>
-					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
-						<a name="lightcordapi.uuid" class="tsd-anchor"></a>
-						<h3>uuid</h3>
-						<div class="tsd-signature tsd-kind-icon">uuid<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>v1<span class="tsd-signature-symbol">: </span><a href="_modules_uuid_.html#uuidfunc" class="tsd-signature-type">uuidFunc</a><span class="tsd-signature-symbol">; </span>v4<span class="tsd-signature-symbol">: </span><a href="_modules_uuid_.html#uuidfunc" class="tsd-signature-type">uuidFunc</a><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol"> = uuid</span></div>
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in lightcordapi/src/index.ts:34</li>
-							</ul>
-						</aside>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<p>Create uuids.</p>
-							</div>
-							<dl class="tsd-comment-tags">
-								<dt>method</dt>
-								<dd></dd>
-							</dl>
-						</div>
-					</section>
-					<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-object-literal">
-						<a name="lightcordapi.isimported" class="tsd-anchor"></a>
-						<h3>is<wbr>Imported</h3>
-						<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-object-literal">
-							<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> isImported<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
-						</ul>
-						<ul class="tsd-descriptions">
-							<li class="tsd-description">
-								<aside class="tsd-sources">
-									<ul>
-										<li>Defined in lightcordapi/src/index.ts:47</li>
-									</ul>
-								</aside>
-								<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
-							</li>
-						</ul>
-					</section>
-					<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-object-literal">
-						<a name="lightcordapi.isnative" class="tsd-anchor"></a>
-						<h3>is<wbr>Native</h3>
-						<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-object-literal">
-							<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> isNative<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
-						</ul>
-						<ul class="tsd-descriptions">
-							<li class="tsd-description">
-								<aside class="tsd-sources">
-									<ul>
-										<li>Defined in lightcordapi/src/index.ts:46</li>
-									</ul>
-								</aside>
-								<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
-							</li>
-						</ul>
-					</section>
-					<section class="tsd-panel tsd-member tsd-kind-object-literal tsd-parent-kind-object-literal">
-						<a name="lightcordapi._" class="tsd-anchor"></a>
-						<h3>_</h3>
-						<div class="tsd-signature tsd-kind-icon">_<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in lightcordapi/src/index.ts:40</li>
-							</ul>
-						</aside>
-						<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
-							<a name="lightcordapi._.noop" class="tsd-anchor"></a>
-							<h3>NOOP</h3>
-							<div class="tsd-signature tsd-kind-icon">NOOP<span class="tsd-signature-symbol">:</span> <a href="_modules_noop_.html#noop" class="tsd-signature-type">NOOP</a><span class="tsd-signature-symbol"> = NOOP</span></div>
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in lightcordapi/src/index.ts:43</li>
-								</ul>
-							</aside>
-						</section>
-						<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
-							<a name="lightcordapi._.clonenullproto-1" class="tsd-anchor"></a>
-							<h3>clone<wbr>Null<wbr>Proto</h3>
-							<div class="tsd-signature tsd-kind-icon">clone<wbr>Null<wbr>Proto<span class="tsd-signature-symbol">:</span> <a href="_modules_clonenullproto_.html#clonenullproto" class="tsd-signature-type">cloneNullProto</a><span class="tsd-signature-symbol"> = cloneNullProto</span></div>
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in lightcordapi/src/index.ts:42</li>
-								</ul>
-							</aside>
-						</section>
-						<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
-							<a name="lightcordapi._.excludeproperties" class="tsd-anchor"></a>
-							<h3>exclude<wbr>Properties</h3>
-							<div class="tsd-signature tsd-kind-icon">exclude<wbr>Properties<span class="tsd-signature-symbol">:</span> <a href="_modules_excludeproperties_.html#excludeproperties" class="tsd-signature-type">excludeProperties</a><span class="tsd-signature-symbol"> = excludeProperties</span></div>
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in lightcordapi/src/index.ts:41</li>
-								</ul>
-							</aside>
-						</section>
-						<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
-							<a name="lightcordapi._.unfreeze" class="tsd-anchor"></a>
-							<h3>unfreeze</h3>
-							<div class="tsd-signature tsd-kind-icon">unfreeze<span class="tsd-signature-symbol">:</span> <a href="_modules_unfreeze_.html#unfreeze" class="tsd-signature-type">unfreeze</a><span class="tsd-signature-symbol"> = unfreeze</span></div>
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in lightcordapi/src/index.ts:44</li>
-								</ul>
-							</aside>
-						</section>
-					</section>
-				</section>
-			</section>
-		</div>
-		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
-			<nav class="tsd-navigation primary">
+<div class="container">
+	<div class="row container container-main">
+		<div class="col-3 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation secondary menu-sticky">
 				<ul>
-					<li class="globals  ">
-						<a href="../globals.html"><em>Globals</em></a>
-					</li>
-					<li class="current tsd-kind-module">
+					<ul class="before-current">
+						<li class=" tsd-kind-interface tsd-parent-kind-module">
+							<a href="../interfaces/_index_.lightcordglobal.html" class="tsd-kind-icon">Lightcord<wbr>Global</a>
+						</li>
+						<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+							<a href="_index_.html#lightcordapiglobal" class="tsd-kind-icon">Lightcord<wbr>Api<wbr>Global</a>
+						</li>
+						<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+							<a href="_index_.html#lightcordapimainexports" class="tsd-kind-icon">lightcord<wbr>Api<wbr>Main<wbr>Exports</a>
+						</li>
+						<li class=" tsd-kind-object-literal tsd-parent-kind-module">
+							<a href="_index_.html#lightcordapi" class="tsd-kind-icon">Lightcord<wbr>Api</a>
+						</li>
+					</ul>
+				</ul>
+				<ul>
+					<li>📑 Index</li>
+					<li><br></li>
+					<li class=" ">
+						<a href="../globals.html">Globals</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_alias_react_.html">&quot;alias/react&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_alias_react_dom_.html">&quot;alias/react-<wbr>dom&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_components_components_.html">&quot;components/components&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_components_general_alertbox_.html">&quot;components/general/<wbr>Alert<wbr>Box&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_components_general_codeblock_.html">&quot;components/general/<wbr>Code<wbr>Block&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_components_general_errorcatcher_.html">&quot;components/general/<wbr>Error<wbr>Catcher&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_components_general_flex_.html">&quot;components/general/<wbr>Flex&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_components_general_margin_.html">&quot;components/general/<wbr>Margin&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_components_general_settingsubtitle_.html">&quot;components/general/<wbr>Setting<wbr>Sub<wbr>Title&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_components_general_settingstitle_.html">&quot;components/general/<wbr>Settings<wbr>Title&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_components_general_tabs_.html">&quot;components/general/<wbr>Tabs&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_components_general_text_.html">&quot;components/general/<wbr>Text&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_components_general_title_.html">&quot;components/general/<wbr>Title&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_components_general_tooltip_.html">&quot;components/general/<wbr>Tooltip&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_components_inputs_button_.html">&quot;components/inputs/<wbr>Button&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_components_inputs_colorpicker_.html">&quot;components/inputs/<wbr>Color<wbr>Picker&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_components_inputs_colorpicker_old_.html">&quot;components/inputs/<wbr>Color<wbr>Picker.old&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_components_inputs_dateinput_.html">&quot;components/inputs/<wbr>Date<wbr>Input&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_components_inputs_daterange_.html">&quot;components/inputs/<wbr>Date<wbr>Range&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_components_inputs_dropdown_.html">&quot;components/inputs/<wbr>Dropdown&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_components_inputs_radiogroup_.html">&quot;components/inputs/<wbr>Radio<wbr>Group&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_components_inputs_switch_.html">&quot;components/inputs/<wbr>Switch&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_components_inputs_textarea_.html">&quot;components/inputs/<wbr>Text<wbr>Area&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_components_inputs_textinput_.html">&quot;components/inputs/<wbr>Text<wbr>Input&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_components_private_notice_.html">&quot;components/private/<wbr>Notice&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_components_private_notices_.html">&quot;components/private/<wbr>Notices&quot;</a>
+						</li>                        <li class="current tsd-kind-module">
 						<a href="_index_.html">&quot;index&quot;</a>
 						<ul>
 							<li class=" tsd-kind-namespace tsd-parent-kind-module tsd-is-not-exported">
 								<a href="_index_.__global.html">__global</a>
 							</li>
 						</ul>
-					</li>
-				</ul>
-			</nav>
-			<nav class="tsd-navigation secondary menu-sticky">
-				<ul class="before-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="../interfaces/_index_.lightcordglobal.html" class="tsd-kind-icon">Lightcord<wbr>Global</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
-						<a href="_index_.html#lightcordapiglobal" class="tsd-kind-icon">Lightcord<wbr>Api<wbr>Global</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
-						<a href="_index_.html#lightcordapimainexports" class="tsd-kind-icon">lightcord<wbr>Api<wbr>Main<wbr>Exports</a>
-					</li>
-					<li class=" tsd-kind-object-literal tsd-parent-kind-module">
-						<a href="_index_.html#lightcordapi" class="tsd-kind-icon">Lightcord<wbr>Api</a>
-					</li>
-				</ul>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_modules_bdmodules_.html">&quot;modules/BDModules&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_modules_discordtools_.html">&quot;modules/<wbr>Discord<wbr>Tools&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_modules_pluginutilities_.html">&quot;modules/<wbr>Plugin<wbr>Utilities&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_modules_unfreeze_.html">&quot;modules/<wbr>Unfreeze&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_modules_utils_.html">&quot;modules/<wbr>Utils&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_modules_webpackloader_.html">&quot;modules/<wbr>Webpack<wbr>Loader&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_modules_clonenullproto_.html">&quot;modules/clone<wbr>Null<wbr>Proto&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_modules_environnement_.html">&quot;modules/environnement&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_modules_excludeproperties_.html">&quot;modules/exclude<wbr>Properties&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_modules_lazyloader_.html">&quot;modules/lazy<wbr>Loader&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_modules_noop_.html">&quot;modules/noop&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_modules_patchers_.html">&quot;modules/patchers&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_modules_uuid_.html">&quot;modules/uuid&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_types_discordconstantstypes_.html">&quot;types/<wbr>Discord<wbr>Constants<wbr>Types&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_types_discorddispatchertypes_.html">&quot;types/<wbr>Discord<wbr>Dispatcher<wbr>Types&quot;</a>
+				</li>                </ul>
 			</nav>
 		</div>
-	</div>
-</div>
-<footer class="with-border-bottom">
-	<div class="container">
-		<h2>Legend</h2>
-		<div class="tsd-legend-group">
-			<ul class="tsd-legend">
-				<li class="tsd-kind-namespace"><span class="tsd-kind-icon">Namespace</span></li>
-				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
-				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
-				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
-				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
-				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
-				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
-			</ul>
+		<div class="col-9 col-content">
+			<section class="tsd-panel-group tsd-index-group">
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section tsd-is-not-exported">
+							<h3>Namespaces</h3>
+							<div class="tsd-navigation secondary">
+								<ul>
+									<li class="tsd-kind-namespace tsd-parent-kind-module tsd-is-not-exported">
+										<a href="_index_.__global.html" class="tsd-kind-icon">__global</a>
+										<ul>
+											<li class="tsd-kind-interface tsd-parent-kind-namespace">
+												<a href="../interfaces/_index_.__global.window.html" class="tsd-kind-icon">Window</a>
+												<ul>
+													<li class="tsd-kind-property tsd-parent-kind-interface">
+														<a href="../interfaces/_index_.__global.window.html#bdmodules" class="tsd-kind-icon">BDModules</a>
+													</li>
+													<li class="tsd-kind-property tsd-parent-kind-interface">
+														<a href="../interfaces/_index_.__global.window.html#bdapi" class="tsd-kind-icon">Bd<wbr>Api</a>
+													</li>
+													<li class="tsd-kind-property tsd-parent-kind-interface">
+														<a href="../interfaces/_index_.__global.window.html#edapi" class="tsd-kind-icon">EDApi</a>
+													</li>
+													<li class="tsd-kind-property tsd-parent-kind-interface">
+														<a href="../interfaces/_index_.__global.window.html#lightcord" class="tsd-kind-icon">Lightcord</a>
+													</li>
+													<li class="tsd-kind-property tsd-parent-kind-interface">
+														<a href="../interfaces/_index_.__global.window.html#react" class="tsd-kind-icon">React</a>
+													</li>
+													<li class="tsd-kind-property tsd-parent-kind-interface">
+														<a href="../interfaces/_index_.__global.window.html#reactdom" class="tsd-kind-icon">ReactDOM</a>
+													</li>
+												</ul>
+											</li>
+											<li class="tsd-kind-variable tsd-parent-kind-namespace">
+												<a href="_index_.__global.html#bdapi" class="tsd-kind-icon">Bd<wbr>Api</a>
+											</li>
+											<li class="tsd-kind-variable tsd-parent-kind-namespace">
+												<a href="_index_.__global.html#edapi" class="tsd-kind-icon">EDApi</a>
+											</li>
+											<li class="tsd-kind-variable tsd-parent-kind-namespace">
+												<a href="_index_.__global.html#lightcord" class="tsd-kind-icon">Lightcord</a>
+											</li>
+											<li class="tsd-kind-variable tsd-parent-kind-namespace">
+												<a href="_index_.__global.html#react" class="tsd-kind-icon">React</a>
+											</li>
+											<li class="tsd-kind-variable tsd-parent-kind-namespace tsd-is-not-exported">
+												<a href="_index_.__global.html#reactdom" class="tsd-kind-icon">ReactDOM</a>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</div>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Interfaces</h3>
+							<div class="tsd-navigation secondary">
+								<ul>
+									<li class="tsd-kind-interface tsd-parent-kind-module">
+										<a href="../interfaces/_index_.lightcordglobal.html" class="tsd-kind-icon">Lightcord<wbr>Global</a>
+										<ul>
+											<li class="tsd-kind-property tsd-parent-kind-interface">
+												<a href="../interfaces/_index_.lightcordglobal.html#api" class="tsd-kind-icon">Api</a>
+											</li>
+											<li class="tsd-kind-property tsd-parent-kind-interface">
+												<a href="../interfaces/_index_.lightcordglobal.html#betterdiscord" class="tsd-kind-icon">Better<wbr>Discord</a>
+											</li>
+											<li class="tsd-kind-property tsd-parent-kind-interface">
+												<a href="../interfaces/_index_.lightcordglobal.html#discordmodules" class="tsd-kind-icon">Discord<wbr>Modules</a>
+											</li>
+											<li class="tsd-kind-property tsd-parent-kind-interface">
+												<a href="../interfaces/_index_.lightcordglobal.html#settings" class="tsd-kind-icon">Settings</a>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</div>
+						</section>
+						<section class="tsd-index-section tsd-is-not-exported">
+							<h3>Type aliases</h3>
+							<div class="tsd-navigation secondary">
+								<ul>
+									<li class="tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+										<a href="_index_.html#lightcordapiglobal" class="tsd-kind-icon">Lightcord<wbr>Api<wbr>Global</a>
+									</li>
+								</ul>
+							</div>
+							<div class="tsd-navigation secondary">
+								<ul>
+									<li class="tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+										<a href="_index_.html#lightcordapimainexports" class="tsd-kind-icon">lightcord<wbr>Api<wbr>Main<wbr>Exports</a>
+									</li>
+								</ul>
+							</div>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Object literals</h3>
+							<div class="tsd-navigation secondary">
+								<ul>
+									<li class="tsd-kind-object-literal tsd-parent-kind-module">
+										<a href="_index_.html#lightcordapi" class="tsd-kind-icon">Lightcord<wbr>Api</a>
+										<ul>
+											<li class="tsd-kind-variable tsd-parent-kind-object-literal">
+												<a href="_index_.html#lightcordapi.components" class="tsd-kind-icon">Components</a>
+											</li>
+											<li class="tsd-kind-variable tsd-parent-kind-object-literal">
+												<a href="_index_.html#lightcordapi.discordtools" class="tsd-kind-icon">Discord<wbr>Tools</a>
+											</li>
+											<li class="tsd-kind-variable tsd-parent-kind-object-literal">
+												<a href="_index_.html#lightcordapi.lazyload" class="tsd-kind-icon">Lazy<wbr>Load</a>
+											</li>
+											<li class="tsd-kind-variable tsd-parent-kind-object-literal">
+												<a href="_index_.html#lightcordapi.utils" class="tsd-kind-icon">Utils</a>
+											</li>
+											<li class="tsd-kind-variable tsd-parent-kind-object-literal">
+												<a href="_index_.html#lightcordapi.webpackloader" class="tsd-kind-icon">Webpack<wbr>Loader</a>
+											</li>
+											<li class="tsd-kind-variable tsd-parent-kind-object-literal">
+												<a href="_index_.html#lightcordapi.uuid" class="tsd-kind-icon">uuid</a>
+											</li>
+											<li class="tsd-kind-get-signature tsd-parent-kind-object-literal">
+												<a href="_index_.html#lightcordapi.isimported" class="tsd-kind-icon">is<wbr>Imported</a>
+											</li>
+											<li class="tsd-kind-get-signature tsd-parent-kind-object-literal">
+												<a href="_index_.html#lightcordapi.isnative" class="tsd-kind-icon">is<wbr>Native</a>
+											</li>
+											<li class="tsd-kind-object-literal tsd-parent-kind-object-literal">
+												<a href="_index_.html#lightcordapi._" class="tsd-kind-icon">_</a>
+												<ul>
+													<li class="tsd-kind-variable tsd-parent-kind-object-literal">
+														<a href="_index_.html#lightcordapi._.noop" class="tsd-kind-icon">NOOP</a>
+													</li>
+													<li class="tsd-kind-variable tsd-parent-kind-object-literal">
+														<a href="_index_.html#lightcordapi._.clonenullproto-1" class="tsd-kind-icon">clone<wbr>Null<wbr>Proto</a>
+													</li>
+													<li class="tsd-kind-variable tsd-parent-kind-object-literal">
+														<a href="_index_.html#lightcordapi._.excludeproperties" class="tsd-kind-icon">exclude<wbr>Properties</a>
+													</li>
+													<li class="tsd-kind-variable tsd-parent-kind-object-literal">
+														<a href="_index_.html#lightcordapi._.unfreeze" class="tsd-kind-icon">unfreeze</a>
+													</li>
+												</ul>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</div>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
+				<h2>Type aliases</h2>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported tsd-descriptions">
+					<a name="lightcordapiglobal" class="tsd-anchor"></a>
+					<h3>Lightcord<wbr>Api<wbr>Global</h3>
+					<div class="tsd-signature tsd-kind-icon">LightcordApiGlobal<span class="tsd-signature-symbol">:</span> <a href="_index_.html#lightcordapimainexports" class="tsd-signature-type">lightcordApiMainExports</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">typeof LightcordApi</span></div>
+					<div class="tsd-comment">
+						<div class="lead">
+							<p>The main Api. Can be accessed with <code>window.Lightcord.Api</code></p>
+						</div>
+					</div>
+					<div class="tsd-comment">
+					</div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/Lightcord/Lightcord/blob/master/LightcordApi/src/index.ts#L119">lightcordapi/src/index.ts:119</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported tsd-descriptions">
+					<a name="lightcordapimainexports" class="tsd-anchor"></a>
+					<h3>lightcord<wbr>Api<wbr>Main<wbr>Exports</h3>
+					<div class="tsd-signature tsd-kind-icon">lightcordApiMainExports<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
+					<div class="tsd-comment">
+						<div class="lead">
+							<p>Exports that are defined <a href="https://github.com/Lightcord/Lightcord/blob/master/modules/discord_desktop_core/core/app/BetterDiscord/index.js#L278">here</a></p>
+						</div>
+					</div>
+					<div class="tsd-comment">
+					</div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/Lightcord/Lightcord/blob/master/LightcordApi/src/index.ts#L122">lightcordapi/src/index.ts:122</a></li>
+						</ul>
+					</aside>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Object literals</h2>
+				<section class="tsd-panel tsd-member tsd-kind-object-literal tsd-parent-kind-module tsd-descriptions">
+					<a name="lightcordapi" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> Lightcord<wbr>Api</h3>
+					<div class="tsd-signature tsd-kind-icon">LightcordApi<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
+					<div class="tsd-comment">
+						<div class="lead">
+							<p>Lightcord Api defined at <a href="https://github.com/Lightcord/Lightcord/blob/master/LightcordApi/src/index.ts#L18">/LightcordApi/src/index.ts</a></p>
+						</div>
+					</div>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-descriptions">
+						<a name="lightcordapi.components" class="tsd-anchor"></a>
+						<h3>Components</h3>
+						<div class="tsd-signature tsd-kind-icon">Components<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> = Components</span></div>
+						<div class="tsd-comment">
+							<div class="lead">
+								<p>Lightcord&#39;s exported component. You can see a list in the app settings when activating <code>Developer Options</code> in lightcord&#39;s settings.</p>
+							</div>
+						</div>
+						<div class="tsd-comment">
+						</div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/Lightcord/Lightcord/blob/master/LightcordApi/src/index.ts#L29">lightcordapi/src/index.ts:29</a></li>
+							</ul>
+						</aside>
+					</section>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-descriptions">
+						<a name="lightcordapi.discordtools" class="tsd-anchor"></a>
+						<h3>Discord<wbr>Tools</h3>
+						<div class="tsd-signature tsd-kind-icon">DiscordTools<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">DiscordTools</span><span class="tsd-signature-symbol"> = DiscordTools</span></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/Lightcord/Lightcord/blob/master/LightcordApi/src/index.ts#L39">lightcordapi/src/index.ts:39</a></li>
+							</ul>
+						</aside>
+					</section>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-descriptions">
+						<a name="lightcordapi.lazyload" class="tsd-anchor"></a>
+						<h3>Lazy<wbr>Load</h3>
+						<div class="tsd-signature tsd-kind-icon">LazyLoad<span class="tsd-signature-symbol">:</span> <a href="_modules_lazyloader_.html#lazyload" class="tsd-signature-type">LazyLoad</a><span class="tsd-signature-symbol"> = LazyLoad</span></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/Lightcord/Lightcord/blob/master/LightcordApi/src/index.ts#L48">lightcordapi/src/index.ts:48</a></li>
+							</ul>
+						</aside>
+					</section>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-descriptions">
+						<a name="lightcordapi.utils" class="tsd-anchor"></a>
+						<h3>Utils</h3>
+						<div class="tsd-signature tsd-kind-icon">Utils<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Utils</span><span class="tsd-signature-symbol"> = Utils</span></div>
+						<div class="tsd-comment">
+							<div class="lead">
+								<p>Set of methods that can help you sometimes.</p>
+							</div>
+						</div>
+						<div class="tsd-comment">
+						</div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/Lightcord/Lightcord/blob/master/LightcordApi/src/index.ts#L38">lightcordapi/src/index.ts:38</a></li>
+							</ul>
+						</aside>
+					</section>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-descriptions">
+						<a name="lightcordapi.webpackloader" class="tsd-anchor"></a>
+						<h3>Webpack<wbr>Loader</h3>
+						<div class="tsd-signature tsd-kind-icon">WebpackLoader<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">WebpackLoader</span><span class="tsd-signature-symbol"> = WebpackLoader</span></div>
+						<div class="tsd-comment">
+							<div class="lead">
+								<p>WebpackLoader loads Internal Discord&#39;s modules with given filter.</p>
+							</div>
+						</div>
+						<div class="tsd-comment">
+						</div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/Lightcord/Lightcord/blob/master/LightcordApi/src/index.ts#L25">lightcordapi/src/index.ts:25</a></li>
+							</ul>
+						</aside>
+					</section>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-descriptions">
+						<a name="lightcordapi.uuid" class="tsd-anchor"></a>
+						<h3>uuid</h3>
+						<div class="tsd-signature tsd-kind-icon">uuid<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> = uuid</span></div>
+						<div class="tsd-comment">
+							<div class="lead">
+								<p>Create uuids.</p>
+							</div>
+						</div>
+						<div class="tsd-comment">
+							<h4>method</h4>
+							<p></p>
+						</div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/Lightcord/Lightcord/blob/master/LightcordApi/src/index.ts#L34">lightcordapi/src/index.ts:34</a></li>
+							</ul>
+						</aside>
+					</section>
+					<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-object-literal tsd-descriptions">
+						<a name="lightcordapi.isimported" class="tsd-anchor"></a>
+						<h3>is<wbr>Imported</h3>
+						<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-object-literal">
+							<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> isImported<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span>    </h4>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/Lightcord/Lightcord/blob/master/LightcordApi/src/index.ts#L47">lightcordapi/src/index.ts:47</a></li>
+							</ul>
+						</aside>
+					</section>
+					<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-object-literal tsd-descriptions">
+						<a name="lightcordapi.isnative" class="tsd-anchor"></a>
+						<h3>is<wbr>Native</h3>
+						<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-object-literal">
+							<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> isNative<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span>    </h4>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/Lightcord/Lightcord/blob/master/LightcordApi/src/index.ts#L46">lightcordapi/src/index.ts:46</a></li>
+							</ul>
+						</aside>
+					</section>
+					<section class="tsd-panel tsd-member tsd-kind-object-literal tsd-parent-kind-object-literal tsd-descriptions">
+						<a name="lightcordapi._" class="tsd-anchor"></a>
+						<h3>_</h3>
+						<div class="tsd-signature tsd-kind-icon">_<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
+						<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-descriptions">
+							<a name="lightcordapi._.noop" class="tsd-anchor"></a>
+							<h3>NOOP</h3>
+							<div class="tsd-signature tsd-kind-icon">NOOP<span class="tsd-signature-symbol">:</span> <a href="_modules_noop_.html#noop" class="tsd-signature-type">NOOP</a><span class="tsd-signature-symbol"> = NOOP</span></div>
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/Lightcord/Lightcord/blob/master/LightcordApi/src/index.ts#L43">lightcordapi/src/index.ts:43</a></li>
+								</ul>
+							</aside>
+						</section>
+						<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-descriptions">
+							<a name="lightcordapi._.clonenullproto-1" class="tsd-anchor"></a>
+							<h3>clone<wbr>Null<wbr>Proto</h3>
+							<div class="tsd-signature tsd-kind-icon">cloneNullProto<span class="tsd-signature-symbol">:</span> <a href="_modules_clonenullproto_.html#clonenullproto" class="tsd-signature-type">cloneNullProto</a><span class="tsd-signature-symbol"> = cloneNullProto</span></div>
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/Lightcord/Lightcord/blob/master/LightcordApi/src/index.ts#L42">lightcordapi/src/index.ts:42</a></li>
+								</ul>
+							</aside>
+						</section>
+						<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-descriptions">
+							<a name="lightcordapi._.excludeproperties" class="tsd-anchor"></a>
+							<h3>exclude<wbr>Properties</h3>
+							<div class="tsd-signature tsd-kind-icon">excludeProperties<span class="tsd-signature-symbol">:</span> <a href="_modules_excludeproperties_.html#excludeproperties" class="tsd-signature-type">excludeProperties</a><span class="tsd-signature-symbol"> = excludeProperties</span></div>
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/Lightcord/Lightcord/blob/master/LightcordApi/src/index.ts#L41">lightcordapi/src/index.ts:41</a></li>
+								</ul>
+							</aside>
+						</section>
+						<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-descriptions">
+							<a name="lightcordapi._.unfreeze" class="tsd-anchor"></a>
+							<h3>unfreeze</h3>
+							<div class="tsd-signature tsd-kind-icon">unfreeze<span class="tsd-signature-symbol">:</span> <a href="_modules_unfreeze_.html#unfreeze" class="tsd-signature-type">unfreeze</a><span class="tsd-signature-symbol"> = unfreeze</span></div>
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/Lightcord/Lightcord/blob/master/LightcordApi/src/index.ts#L44">lightcordapi/src/index.ts:44</a></li>
+								</ul>
+							</aside>
+						</section>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/Lightcord/Lightcord/blob/master/LightcordApi/src/index.ts#L40">lightcordapi/src/index.ts:40</a></li>
+							</ul>
+						</aside>
+					</section>
+					<div class="tsd-comment">
+					</div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/Lightcord/Lightcord/blob/master/LightcordApi/src/index.ts#L21">lightcordapi/src/index.ts:21</a></li>
+						</ul>
+					</aside>
+				</section>
+			</section>
+			<footer class="with-border-bottom">
+				<div class="tsd-legend-group">
+					<ul class="tsd-legend">
+						<li class="tsd-is-inherited"><span class="tsd-kind-icon">Inherited</span></li>
+						<li class="tsd-is-protected"><span class="tsd-kind-icon">Protected</span></li>
+						<li class="tsd-is-private"><span class="tsd-kind-icon">Private</span></li>
+						<li class="tsd-is-static"><span class="tsd-kind-icon">Static</span></li>
+					</ul>
+					<ul class="tsd-legend">
+						<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+						<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object</span></li>
+						<li class="tsd-kind-property"><span class="tsd-kind-icon">Property</span></li>
+					</ul>
+					<ul class="tsd-legend">
+						<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+						<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+						<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index</span></li>
+					</ul>
+					<ul class="tsd-legend">
+						<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type</span></li>
+						<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+						<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+					</ul>
+					<ul class="tsd-legend">
+						<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enum</span></li>
+						<li class="tsd-kind-constructor"><span class="tsd-kind-icon">Constructor</span></li>
+						<li class="tsd-kind-accessor"><span class="tsd-kind-icon">Getter/Setter</span></li>
+					</ul>
+				</div>
+			</footer>
+			<div>Made with ❤️ by <a href="https://github.com/pirix-gh/eledoc" target="_blank">pirix-gh</a>. Documentation generated by <a href="http://typedoc.org/" target="_blank">TypeDoc.</a></div>
 		</div>
 	</div>
-</footer>
-<div class="container tsd-generator">
-	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
 </div>
 <div class="overlay"></div>
 <script src="../assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="../assets/js/search.js"><' + '/script>');</script>
 </body>
 </html>

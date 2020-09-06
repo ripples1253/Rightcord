@@ -4,8 +4,9 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>&quot;components/inputs/ColorPicker&quot; | lightcordapi</title>
-	<meta name="description" content="Documentation for lightcordapi">
+	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://fonts.googleapis.com/css?family=Noto+Sans&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="../assets/css/main.css">
 </head>
 <body>
@@ -13,7 +14,7 @@
 	<div class="tsd-page-toolbar">
 		<div class="container">
 			<div class="table-wrap">
-				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.json" data-base="..">
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.js" data-base="..">
 					<div class="field">
 						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
 						<input id="tsd-search-field" type="text" />
@@ -59,229 +60,404 @@
 					<a href="_components_inputs_colorpicker_.html">&quot;components/inputs/ColorPicker&quot;</a>
 				</li>
 			</ul>
-			<h1>Module &quot;components/inputs/ColorPicker&quot;</h1>
 		</div>
 	</div>
 </header>
-<div class="container container-main">
-	<div class="row">
-		<div class="col-8 col-content">
+<div class="container">
+	<div class="row container container-main">
+		<div class="col-3 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul>
+					<ul class="before-current">
+						<li class=" tsd-kind-class tsd-parent-kind-module tsd-has-type-parameter">
+							<a href="../classes/_components_inputs_colorpicker_.colorpicker.html" class="tsd-kind-icon">Color<wbr>Picker</a>
+						</li>
+						<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+							<a href="_components_inputs_colorpicker_.html#colorpickerprops" class="tsd-kind-icon">Color<wbr>Picker<wbr>Props</a>
+						</li>
+						<li class=" tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported">
+							<a href="_components_inputs_colorpicker_.html#allpreviews" class="tsd-kind-icon">All<wbr>Previews</a>
+						</li>
+						<li class=" tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported">
+							<a href="_components_inputs_colorpicker_.html#colorpickermodules" class="tsd-kind-icon">Color<wbr>Picker<wbr>Modules</a>
+						</li>
+						<li class=" tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported">
+							<a href="_components_inputs_colorpicker_.html#isfetching" class="tsd-kind-icon">is<wbr>Fetching</a>
+						</li>
+						<li class=" tsd-kind-object-literal tsd-parent-kind-module tsd-is-not-exported">
+							<a href="_components_inputs_colorpicker_.html#constants" class="tsd-kind-icon">Constants</a>
+						</li>
+					</ul>
+				</ul>
+				<ul>
+					<li>📑 Index</li>
+					<li><br></li>
+					<li class=" ">
+						<a href="../globals.html">Globals</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_alias_react_.html">&quot;alias/react&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_alias_react_dom_.html">&quot;alias/react-<wbr>dom&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_components_components_.html">&quot;components/components&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_components_general_alertbox_.html">&quot;components/general/<wbr>Alert<wbr>Box&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_components_general_codeblock_.html">&quot;components/general/<wbr>Code<wbr>Block&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_components_general_errorcatcher_.html">&quot;components/general/<wbr>Error<wbr>Catcher&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_components_general_flex_.html">&quot;components/general/<wbr>Flex&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_components_general_margin_.html">&quot;components/general/<wbr>Margin&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_components_general_settingsubtitle_.html">&quot;components/general/<wbr>Setting<wbr>Sub<wbr>Title&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_components_general_settingstitle_.html">&quot;components/general/<wbr>Settings<wbr>Title&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_components_general_tabs_.html">&quot;components/general/<wbr>Tabs&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_components_general_text_.html">&quot;components/general/<wbr>Text&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_components_general_title_.html">&quot;components/general/<wbr>Title&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_components_general_tooltip_.html">&quot;components/general/<wbr>Tooltip&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_components_inputs_button_.html">&quot;components/inputs/<wbr>Button&quot;</a>
+						</li>                        <li class="current tsd-kind-module">
+						<a href="_components_inputs_colorpicker_.html">&quot;components/inputs/<wbr>Color<wbr>Picker&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_components_inputs_colorpicker_old_.html">&quot;components/inputs/<wbr>Color<wbr>Picker.old&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_components_inputs_dateinput_.html">&quot;components/inputs/<wbr>Date<wbr>Input&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_components_inputs_daterange_.html">&quot;components/inputs/<wbr>Date<wbr>Range&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_components_inputs_dropdown_.html">&quot;components/inputs/<wbr>Dropdown&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_components_inputs_radiogroup_.html">&quot;components/inputs/<wbr>Radio<wbr>Group&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_components_inputs_switch_.html">&quot;components/inputs/<wbr>Switch&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_components_inputs_textarea_.html">&quot;components/inputs/<wbr>Text<wbr>Area&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_components_inputs_textinput_.html">&quot;components/inputs/<wbr>Text<wbr>Input&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_components_private_notice_.html">&quot;components/private/<wbr>Notice&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_components_private_notices_.html">&quot;components/private/<wbr>Notices&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_index_.html">&quot;index&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_modules_bdmodules_.html">&quot;modules/BDModules&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_modules_discordtools_.html">&quot;modules/<wbr>Discord<wbr>Tools&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_modules_pluginutilities_.html">&quot;modules/<wbr>Plugin<wbr>Utilities&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_modules_unfreeze_.html">&quot;modules/<wbr>Unfreeze&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_modules_utils_.html">&quot;modules/<wbr>Utils&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_modules_webpackloader_.html">&quot;modules/<wbr>Webpack<wbr>Loader&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_modules_clonenullproto_.html">&quot;modules/clone<wbr>Null<wbr>Proto&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_modules_environnement_.html">&quot;modules/environnement&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_modules_excludeproperties_.html">&quot;modules/exclude<wbr>Properties&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_modules_lazyloader_.html">&quot;modules/lazy<wbr>Loader&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_modules_noop_.html">&quot;modules/noop&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_modules_patchers_.html">&quot;modules/patchers&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_modules_uuid_.html">&quot;modules/uuid&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_types_discordconstantstypes_.html">&quot;types/<wbr>Discord<wbr>Constants<wbr>Types&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
+						<a href="_types_discorddispatchertypes_.html">&quot;types/<wbr>Discord<wbr>Dispatcher<wbr>Types&quot;</a>
+				</li>                </ul>
+			</nav>
+		</div>
+		<div class="col-9 col-content">
 			<section class="tsd-panel-group tsd-index-group">
-				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
 							<h3>Classes</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-class tsd-parent-kind-module tsd-has-type-parameter"><a href="../classes/_components_inputs_colorpicker_.colorpicker.html" class="tsd-kind-icon">Color<wbr>Picker</a></li>
-							</ul>
+							<div class="tsd-navigation secondary">
+								<ul>
+									<li class="tsd-kind-class tsd-parent-kind-module tsd-has-type-parameter">
+										<a href="../classes/_components_inputs_colorpicker_.colorpicker.html" class="tsd-kind-icon">Color<wbr>Picker</a>
+										<ul>
+											<li class="tsd-kind-constructor tsd-parent-kind-class">
+												<a href="../classes/_components_inputs_colorpicker_.colorpicker.html#constructor" class="tsd-kind-icon">constructor</a>
+											</li>
+											<li class="tsd-kind-get-signature tsd-parent-kind-class">
+												<a href="../classes/_components_inputs_colorpicker_.colorpicker.html#modules" class="tsd-kind-icon">modules</a>
+											</li>
+											<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-static">
+												<a href="../classes/_components_inputs_colorpicker_.colorpicker.html#allpreviews" class="tsd-kind-icon">All<wbr>Previews</a>
+											</li>
+											<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+												<a href="../classes/_components_inputs_colorpicker_.colorpicker.html#unsafe_componentwillmount" class="tsd-kind-icon">UNSAFE_<wbr>component<wbr>Will<wbr>Mount</a>
+											</li>
+											<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+												<a href="../classes/_components_inputs_colorpicker_.colorpicker.html#unsafe_componentwillreceiveprops" class="tsd-kind-icon">UNSAFE_<wbr>component<wbr>Will<wbr>Receive<wbr>Props</a>
+											</li>
+											<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+												<a href="../classes/_components_inputs_colorpicker_.colorpicker.html#unsafe_componentwillupdate" class="tsd-kind-icon">UNSAFE_<wbr>component<wbr>Will<wbr>Update</a>
+											</li>
+											<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+												<a href="../classes/_components_inputs_colorpicker_.colorpicker.html#componentdidcatch" class="tsd-kind-icon">component<wbr>Did<wbr>Catch</a>
+											</li>
+											<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+												<a href="../classes/_components_inputs_colorpicker_.colorpicker.html#componentdidmount" class="tsd-kind-icon">component<wbr>Did<wbr>Mount</a>
+											</li>
+											<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+												<a href="../classes/_components_inputs_colorpicker_.colorpicker.html#componentdidupdate" class="tsd-kind-icon">component<wbr>Did<wbr>Update</a>
+											</li>
+											<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+												<a href="../classes/_components_inputs_colorpicker_.colorpicker.html#componentwillmount" class="tsd-kind-icon">component<wbr>Will<wbr>Mount</a>
+											</li>
+											<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+												<a href="../classes/_components_inputs_colorpicker_.colorpicker.html#componentwillreceiveprops" class="tsd-kind-icon">component<wbr>Will<wbr>Receive<wbr>Props</a>
+											</li>
+											<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+												<a href="../classes/_components_inputs_colorpicker_.colorpicker.html#componentwillunmount" class="tsd-kind-icon">component<wbr>Will<wbr>Unmount</a>
+											</li>
+											<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+												<a href="../classes/_components_inputs_colorpicker_.colorpicker.html#componentwillupdate" class="tsd-kind-icon">component<wbr>Will<wbr>Update</a>
+											</li>
+											<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+												<a href="../classes/_components_inputs_colorpicker_.colorpicker.html#getsnapshotbeforeupdate" class="tsd-kind-icon">get<wbr>Snapshot<wbr>Before<wbr>Update</a>
+											</li>
+											<li class="tsd-kind-method tsd-parent-kind-class">
+												<a href="../classes/_components_inputs_colorpicker_.colorpicker.html#onchange" class="tsd-kind-icon">on<wbr>Change</a>
+											</li>
+											<li class="tsd-kind-method tsd-parent-kind-class">
+												<a href="../classes/_components_inputs_colorpicker_.colorpicker.html#render" class="tsd-kind-icon">render</a>
+											</li>
+											<li class="tsd-kind-method tsd-parent-kind-class">
+												<a href="../classes/_components_inputs_colorpicker_.colorpicker.html#rendercolorpicker" class="tsd-kind-icon">render<wbr>Color<wbr>Picker</a>
+											</li>
+											<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+												<a href="../classes/_components_inputs_colorpicker_.colorpicker.html#shouldcomponentupdate" class="tsd-kind-icon">should<wbr>Component<wbr>Update</a>
+											</li>
+											<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static">
+												<a href="../classes/_components_inputs_colorpicker_.colorpicker.html#preload" class="tsd-kind-icon">preload</a>
+											</li>
+											<li class="tsd-kind-object-literal tsd-parent-kind-class tsd-is-static">
+												<a href="../classes/_components_inputs_colorpicker_.colorpicker.html#defaultprops" class="tsd-kind-icon">default<wbr>Props</a>
+												<ul>
+													<li class="tsd-kind-variable tsd-parent-kind-object-literal">
+														<a href="../classes/_components_inputs_colorpicker_.colorpicker.html#defaultprops.basecolors" class="tsd-kind-icon">base<wbr>Colors</a>
+													</li>
+													<li class="tsd-kind-variable tsd-parent-kind-object-literal">
+														<a href="../classes/_components_inputs_colorpicker_.colorpicker.html#defaultprops.customcolor" class="tsd-kind-icon">custom<wbr>Color</a>
+													</li>
+													<li class="tsd-kind-variable tsd-parent-kind-object-literal">
+														<a href="../classes/_components_inputs_colorpicker_.colorpicker.html#defaultprops.defaultcolor" class="tsd-kind-icon">default<wbr>Color</a>
+													</li>
+													<li class="tsd-kind-variable tsd-parent-kind-object-literal">
+														<a href="../classes/_components_inputs_colorpicker_.colorpicker.html#defaultprops.disabled" class="tsd-kind-icon">disabled</a>
+													</li>
+													<li class="tsd-kind-variable tsd-parent-kind-object-literal">
+														<a href="../classes/_components_inputs_colorpicker_.colorpicker.html#defaultprops.onchange-1" class="tsd-kind-icon">on<wbr>Change</a>
+													</li>
+													<li class="tsd-kind-variable tsd-parent-kind-object-literal">
+														<a href="../classes/_components_inputs_colorpicker_.colorpicker.html#defaultprops.value" class="tsd-kind-icon">value</a>
+													</li>
+												</ul>
+											</li>
+											<li class="tsd-kind-object-literal tsd-parent-kind-class tsd-is-static">
+												<a href="../classes/_components_inputs_colorpicker_.colorpicker.html#help" class="tsd-kind-icon">help</a>
+												<ul>
+													<li class="tsd-kind-variable tsd-parent-kind-object-literal">
+														<a href="../classes/_components_inputs_colorpicker_.colorpicker.html#help.info" class="tsd-kind-icon">info</a>
+													</li>
+													<li class="tsd-kind-variable tsd-parent-kind-object-literal">
+														<a href="../classes/_components_inputs_colorpicker_.colorpicker.html#help.warn" class="tsd-kind-icon">warn</a>
+													</li>
+												</ul>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</div>
 						</section>
 						<section class="tsd-index-section tsd-is-not-exported">
 							<h3>Type aliases</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported"><a href="_components_inputs_colorpicker_.html#colorpickerprops" class="tsd-kind-icon">Color<wbr>Picker<wbr>Props</a></li>
-							</ul>
+							<div class="tsd-navigation secondary">
+								<ul>
+									<li class="tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+										<a href="_components_inputs_colorpicker_.html#colorpickerprops" class="tsd-kind-icon">Color<wbr>Picker<wbr>Props</a>
+									</li>
+								</ul>
+							</div>
 						</section>
 						<section class="tsd-index-section tsd-is-not-exported">
 							<h3>Variables</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported"><a href="_components_inputs_colorpicker_.html#allpreviews" class="tsd-kind-icon">All<wbr>Previews</a></li>
-								<li class="tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported"><a href="_components_inputs_colorpicker_.html#colorpickermodules" class="tsd-kind-icon">Color<wbr>Picker<wbr>Modules</a></li>
-								<li class="tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported"><a href="_components_inputs_colorpicker_.html#isfetching" class="tsd-kind-icon">is<wbr>Fetching</a></li>
-							</ul>
+							<div class="tsd-navigation secondary">
+								<ul>
+									<li class="tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported">
+										<a href="_components_inputs_colorpicker_.html#allpreviews" class="tsd-kind-icon">All<wbr>Previews</a>
+									</li>
+								</ul>
+							</div>
+							<div class="tsd-navigation secondary">
+								<ul>
+									<li class="tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported">
+										<a href="_components_inputs_colorpicker_.html#colorpickermodules" class="tsd-kind-icon">Color<wbr>Picker<wbr>Modules</a>
+									</li>
+								</ul>
+							</div>
+							<div class="tsd-navigation secondary">
+								<ul>
+									<li class="tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported">
+										<a href="_components_inputs_colorpicker_.html#isfetching" class="tsd-kind-icon">is<wbr>Fetching</a>
+									</li>
+								</ul>
+							</div>
 						</section>
 						<section class="tsd-index-section tsd-is-not-exported">
 							<h3>Object literals</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-object-literal tsd-parent-kind-module tsd-is-not-exported"><a href="_components_inputs_colorpicker_.html#constants" class="tsd-kind-icon">Constants</a></li>
-							</ul>
+							<div class="tsd-navigation secondary">
+								<ul>
+									<li class="tsd-kind-object-literal tsd-parent-kind-module tsd-is-not-exported">
+										<a href="_components_inputs_colorpicker_.html#constants" class="tsd-kind-icon">Constants</a>
+										<ul>
+											<li class="tsd-kind-variable tsd-parent-kind-object-literal tsd-is-not-exported">
+												<a href="_components_inputs_colorpicker_.html#constants.basecolors-1" class="tsd-kind-icon">base<wbr>Colors</a>
+											</li>
+											<li class="tsd-kind-variable tsd-parent-kind-object-literal tsd-is-not-exported">
+												<a href="_components_inputs_colorpicker_.html#constants.defaultcolor-1" class="tsd-kind-icon">default<wbr>Color</a>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</div>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
 				<h2>Type aliases</h2>
-				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported tsd-descriptions">
 					<a name="colorpickerprops" class="tsd-anchor"></a>
 					<h3>Color<wbr>Picker<wbr>Props</h3>
-					<div class="tsd-signature tsd-kind-icon">Color<wbr>Picker<wbr>Props<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>baseColors<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">; </span>customColor<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>defaultColor<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>disabled<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">; </span>onChange<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">(</span>color<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">; </span>value<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span></div>
+					<div class="tsd-signature tsd-kind-icon">ColorPickerProps<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in lightcordapi/src/components/inputs/ColorPicker.tsx:31</li>
+							<li>Defined in <a href="https://github.com/Lightcord/Lightcord/blob/master/LightcordApi/src/components/inputs/ColorPicker.tsx#L31">lightcordapi/src/components/inputs/ColorPicker.tsx:31</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-type-declaration">
-						<h4>Type declaration</h4>
-						<ul class="tsd-parameters">
-							<li class="tsd-parameter">
-								<h5><span class="tsd-flag ts-flagOptional">Optional</span> base<wbr>Colors<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></h5>
-							</li>
-							<li class="tsd-parameter">
-								<h5><span class="tsd-flag ts-flagOptional">Optional</span> custom<wbr>Color<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span></h5>
-							</li>
-							<li class="tsd-parameter">
-								<h5><span class="tsd-flag ts-flagOptional">Optional</span> default<wbr>Color<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span></h5>
-							</li>
-							<li class="tsd-parameter">
-								<h5><span class="tsd-flag ts-flagOptional">Optional</span> disabled<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span></h5>
-							</li>
-							<li class="tsd-parameter">
-								<h5><span class="tsd-flag ts-flagOptional">Optional</span> on<wbr>Change<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">(</span>color<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></h5>
-								<ul class="tsd-parameters">
-									<li class="tsd-parameter-signature">
-										<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-variable tsd-is-not-exported">
-											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>color<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-										</ul>
-										<ul class="tsd-descriptions">
-											<li class="tsd-description">
-												<h4 class="tsd-parameters-title">Parameters</h4>
-												<ul class="tsd-parameters">
-													<li>
-														<h5>color: <span class="tsd-signature-type">number</span></h5>
-													</li>
-												</ul>
-												<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-											</li>
-										</ul>
-									</li>
-								</ul>
-							</li>
-							<li class="tsd-parameter">
-								<h5><span class="tsd-flag ts-flagOptional">Optional</span> value<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span></h5>
-							</li>
-						</ul>
-					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
 				<h2>Variables</h2>
-				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported">
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported tsd-descriptions">
 					<a name="allpreviews" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagLet">Let</span> All<wbr>Previews</h3>
-					<div class="tsd-signature tsd-kind-icon">All<wbr>Previews<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
+					<div class="tsd-signature tsd-kind-icon">AllPreviews<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in lightcordapi/src/components/inputs/ColorPicker.tsx:187</li>
+							<li>Defined in <a href="https://github.com/Lightcord/Lightcord/blob/master/LightcordApi/src/components/inputs/ColorPicker.tsx#L187">lightcordapi/src/components/inputs/ColorPicker.tsx:187</a></li>
 						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported">
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported tsd-descriptions">
 					<a name="colorpickermodules" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagLet">Let</span> Color<wbr>Picker<wbr>Modules</h3>
-					<div class="tsd-signature tsd-kind-icon">Color<wbr>Picker<wbr>Modules<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
+					<div class="tsd-signature tsd-kind-icon">ColorPickerModules<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in lightcordapi/src/components/inputs/ColorPicker.tsx:40</li>
+							<li>Defined in <a href="https://github.com/Lightcord/Lightcord/blob/master/LightcordApi/src/components/inputs/ColorPicker.tsx#L40">lightcordapi/src/components/inputs/ColorPicker.tsx:40</a></li>
 						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported">
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported tsd-descriptions">
 					<a name="isfetching" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagLet">Let</span> is<wbr>Fetching</h3>
-					<div class="tsd-signature tsd-kind-icon">is<wbr>Fetching<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> = null</span></div>
+					<div class="tsd-signature tsd-kind-icon">isFetching<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in lightcordapi/src/components/inputs/ColorPicker.tsx:41</li>
+							<li>Defined in <a href="https://github.com/Lightcord/Lightcord/blob/master/LightcordApi/src/components/inputs/ColorPicker.tsx#L41">lightcordapi/src/components/inputs/ColorPicker.tsx:41</a></li>
 						</ul>
 					</aside>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
 				<h2>Object literals</h2>
-				<section class="tsd-panel tsd-member tsd-kind-object-literal tsd-parent-kind-module tsd-is-not-exported">
+				<section class="tsd-panel tsd-member tsd-kind-object-literal tsd-parent-kind-module tsd-is-not-exported tsd-descriptions">
 					<a name="constants" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> Constants</h3>
 					<div class="tsd-signature tsd-kind-icon">Constants<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in lightcordapi/src/components/inputs/ColorPicker.tsx:5</li>
-						</ul>
-					</aside>
-					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-not-exported">
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-not-exported tsd-descriptions">
 						<a name="constants.basecolors-1" class="tsd-anchor"></a>
 						<h3>base<wbr>Colors</h3>
-						<div class="tsd-signature tsd-kind-icon">base<wbr>Colors<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = [1752220,3066993,3447003,10181046,15277667,15844367,15105570,15158332,9807270,6323595,1146986,2067276,2123412,7419530,11342935,12745742,11027200,10038562,9936031,5533306]</span></div>
+						<div class="tsd-signature tsd-kind-icon">baseColors<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span>    <span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = [1752220,3066993,3447003,10181046,15277667,15844367,15105570,15158332,9807270,6323595,1146986,2067276,2123412,7419530,11342935,12745742,11027200,10038562,9936031,5533306]</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in lightcordapi/src/components/inputs/ColorPicker.tsx:7</li>
+								<li>Defined in <a href="https://github.com/Lightcord/Lightcord/blob/master/LightcordApi/src/components/inputs/ColorPicker.tsx#L7">lightcordapi/src/components/inputs/ColorPicker.tsx:7</a></li>
 							</ul>
 						</aside>
 					</section>
-					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-not-exported">
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-not-exported tsd-descriptions">
 						<a name="constants.defaultcolor-1" class="tsd-anchor"></a>
 						<h3>default<wbr>Color</h3>
-						<div class="tsd-signature tsd-kind-icon">default<wbr>Color<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 10070709</span></div>
+						<div class="tsd-signature tsd-kind-icon">defaultColor<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 10070709</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in lightcordapi/src/components/inputs/ColorPicker.tsx:6</li>
+								<li>Defined in <a href="https://github.com/Lightcord/Lightcord/blob/master/LightcordApi/src/components/inputs/ColorPicker.tsx#L6">lightcordapi/src/components/inputs/ColorPicker.tsx:6</a></li>
 							</ul>
 						</aside>
 					</section>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/Lightcord/Lightcord/blob/master/LightcordApi/src/components/inputs/ColorPicker.tsx#L5">lightcordapi/src/components/inputs/ColorPicker.tsx:5</a></li>
+						</ul>
+					</aside>
 				</section>
 			</section>
-		</div>
-		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
-			<nav class="tsd-navigation primary">
-				<ul>
-					<li class="globals  ">
-						<a href="../globals.html"><em>Globals</em></a>
-					</li>
-					<li class="current tsd-kind-module">
-						<a href="_components_inputs_colorpicker_.html">&quot;components/inputs/<wbr>Color<wbr>Picker&quot;</a>
-					</li>
-				</ul>
-			</nav>
-			<nav class="tsd-navigation secondary menu-sticky">
-				<ul class="before-current">
-					<li class=" tsd-kind-class tsd-parent-kind-module tsd-has-type-parameter">
-						<a href="../classes/_components_inputs_colorpicker_.colorpicker.html" class="tsd-kind-icon">Color<wbr>Picker</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-is-not-exported">
-						<a href="_components_inputs_colorpicker_.html#colorpickerprops" class="tsd-kind-icon">Color<wbr>Picker<wbr>Props</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported">
-						<a href="_components_inputs_colorpicker_.html#allpreviews" class="tsd-kind-icon">All<wbr>Previews</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported">
-						<a href="_components_inputs_colorpicker_.html#colorpickermodules" class="tsd-kind-icon">Color<wbr>Picker<wbr>Modules</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported">
-						<a href="_components_inputs_colorpicker_.html#isfetching" class="tsd-kind-icon">is<wbr>Fetching</a>
-					</li>
-					<li class=" tsd-kind-object-literal tsd-parent-kind-module tsd-is-not-exported">
-						<a href="_components_inputs_colorpicker_.html#constants" class="tsd-kind-icon">Constants</a>
-					</li>
-				</ul>
-			</nav>
+			<footer class="with-border-bottom">
+				<div class="tsd-legend-group">
+					<ul class="tsd-legend">
+						<li class="tsd-is-inherited"><span class="tsd-kind-icon">Inherited</span></li>
+						<li class="tsd-is-protected"><span class="tsd-kind-icon">Protected</span></li>
+						<li class="tsd-is-private"><span class="tsd-kind-icon">Private</span></li>
+						<li class="tsd-is-static"><span class="tsd-kind-icon">Static</span></li>
+					</ul>
+					<ul class="tsd-legend">
+						<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+						<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object</span></li>
+						<li class="tsd-kind-property"><span class="tsd-kind-icon">Property</span></li>
+					</ul>
+					<ul class="tsd-legend">
+						<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+						<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+						<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index</span></li>
+					</ul>
+					<ul class="tsd-legend">
+						<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type</span></li>
+						<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+						<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+					</ul>
+					<ul class="tsd-legend">
+						<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enum</span></li>
+						<li class="tsd-kind-constructor"><span class="tsd-kind-icon">Constructor</span></li>
+						<li class="tsd-kind-accessor"><span class="tsd-kind-icon">Getter/Setter</span></li>
+					</ul>
+				</div>
+			</footer>
+			<div>Made with ❤️ by <a href="https://github.com/pirix-gh/eledoc" target="_blank">pirix-gh</a>. Documentation generated by <a href="http://typedoc.org/" target="_blank">TypeDoc.</a></div>
 		</div>
 	</div>
-</div>
-<footer class="with-border-bottom">
-	<div class="container">
-		<h2>Legend</h2>
-		<div class="tsd-legend-group">
-			<ul class="tsd-legend">
-				<li class="tsd-kind-namespace"><span class="tsd-kind-icon">Namespace</span></li>
-				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
-				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
-				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
-				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
-				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
-				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
-			</ul>
-		</div>
-	</div>
-</footer>
-<div class="container tsd-generator">
-	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
 </div>
 <div class="overlay"></div>
 <script src="../assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="../assets/js/search.js"><' + '/script>');</script>
 </body>
 </html>
