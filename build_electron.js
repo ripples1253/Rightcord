@@ -19,7 +19,7 @@ const Platforms = {
     mac: {
         name: "mac",
         run: () => {
-            return awaitExec("npm", ["run", "build:electron_darwin"])
+            return awaitExec("npm", ["run", "build:electron_mac"])
         }
     },
     mac_experimental: {
