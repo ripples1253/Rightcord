@@ -104,7 +104,7 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_modules_discordtools_.notice.html#data" class="tsd-kind-icon">data</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_modules_discordtools_.notice.html#nexttickrefresh" class="tsd-kind-icon">next<wbr>Tick<wbr>Refresh</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_modules_discordtools_.notice.html#state" class="tsd-kind-icon">state</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_modules_discordtools_.notice.html#state" class="tsd-kind-icon">state</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="_modules_discordtools_.notice.html#defaultmaxlisteners" class="tsd-kind-icon">default<wbr>Max<wbr>Listeners</a></li>
 							</ul>
 						</section>
@@ -159,7 +159,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in lightcordapi/src/modules/DiscordTools.ts:92</li>
+									<li>Defined in lightcordapi/src/modules/DiscordTools.ts:125</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -181,7 +181,7 @@
 					<div class="tsd-signature tsd-kind-icon">data<span class="tsd-signature-symbol">:</span> <a href="../modules/_components_private_notices_.html#notice" class="tsd-signature-type">notice</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in lightcordapi/src/modules/DiscordTools.ts:227</li>
+							<li>Defined in lightcordapi/src/modules/DiscordTools.ts:264</li>
 						</ul>
 					</aside>
 				</section>
@@ -191,19 +191,24 @@
 					<div class="tsd-signature tsd-kind-icon">next<wbr>Tick<wbr>Refresh<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in lightcordapi/src/modules/DiscordTools.ts:155</li>
+							<li>Defined in lightcordapi/src/modules/DiscordTools.ts:189</li>
 						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="state" class="tsd-anchor"></a>
-					<h3>state</h3>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> state</h3>
 					<div class="tsd-signature tsd-kind-icon">state<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>index<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>removed<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">; </span>showing<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> }</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in lightcordapi/src/modules/DiscordTools.ts:149</li>
+							<li>Defined in lightcordapi/src/modules/DiscordTools.ts:183</li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Please do not modify this. It is used internally to emit events only if the data has changed.</p>
+						</div>
+					</div>
 					<div class="tsd-type-declaration">
 						<h4>Type declaration</h4>
 						<ul class="tsd-parameters">
@@ -244,7 +249,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in lightcordapi/src/modules/DiscordTools.ts:204</li>
+									<li>Defined in lightcordapi/src/modules/DiscordTools.ts:241</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -252,7 +257,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in lightcordapi/src/modules/DiscordTools.ts:207</li>
+									<li>Defined in lightcordapi/src/modules/DiscordTools.ts:244</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -275,9 +280,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in lightcordapi/src/modules/DiscordTools.ts:167</li>
+									<li>Defined in lightcordapi/src/modules/DiscordTools.ts:204</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>The id of the notice.</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
 						</li>
 					</ul>
@@ -292,9 +302,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in lightcordapi/src/modules/DiscordTools.ts:164</li>
+									<li>Defined in lightcordapi/src/modules/DiscordTools.ts:200</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>The position in the queue, 0 is showing.</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
 						</li>
 					</ul>
@@ -310,7 +325,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in lightcordapi/src/modules/DiscordTools.ts:213</li>
+									<li>Defined in lightcordapi/src/modules/DiscordTools.ts:250</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></h4>
@@ -330,7 +345,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in lightcordapi/src/modules/DiscordTools.ts:216</li>
+									<li>Defined in lightcordapi/src/modules/DiscordTools.ts:253</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -365,9 +380,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in lightcordapi/src/modules/DiscordTools.ts:157</li>
+									<li>Defined in lightcordapi/src/modules/DiscordTools.ts:192</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>if the notice is not, and will not show anymore.</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
 						</li>
 					</ul>
@@ -382,9 +402,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in lightcordapi/src/modules/DiscordTools.ts:160</li>
+									<li>Defined in lightcordapi/src/modules/DiscordTools.ts:196</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>If the notice is showing right now.</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
 						</li>
 					</ul>
@@ -400,7 +425,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in lightcordapi/src/modules/DiscordTools.ts:186</li>
+									<li>Defined in lightcordapi/src/modules/DiscordTools.ts:223</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -408,7 +433,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in lightcordapi/src/modules/DiscordTools.ts:189</li>
+									<li>Defined in lightcordapi/src/modules/DiscordTools.ts:226</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -432,7 +457,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in lightcordapi/src/modules/DiscordTools.ts:195</li>
+									<li>Defined in lightcordapi/src/modules/DiscordTools.ts:232</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">"brand"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"default"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"spotify"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"facebook"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"info"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"danger"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"success"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"streamerMode"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"download"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"notification"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"premium"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"richPresence"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"premiumTier1"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"premiumTier2"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"survey"</span></h4>
@@ -440,7 +465,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in lightcordapi/src/modules/DiscordTools.ts:198</li>
+									<li>Defined in lightcordapi/src/modules/DiscordTools.ts:235</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -631,7 +656,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides EventEmitter.off</p>
 								<ul>
-									<li>Defined in lightcordapi/src/modules/DiscordTools.ts:142</li>
+									<li>Defined in lightcordapi/src/modules/DiscordTools.ts:175</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -661,7 +686,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides EventEmitter.off</p>
 								<ul>
-									<li>Defined in lightcordapi/src/modules/DiscordTools.ts:143</li>
+									<li>Defined in lightcordapi/src/modules/DiscordTools.ts:176</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -697,7 +722,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides EventEmitter.off</p>
 								<ul>
-									<li>Defined in lightcordapi/src/modules/DiscordTools.ts:144</li>
+									<li>Defined in lightcordapi/src/modules/DiscordTools.ts:177</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -744,7 +769,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides EventEmitter.on</p>
 								<ul>
-									<li>Defined in lightcordapi/src/modules/DiscordTools.ts:113</li>
+									<li>Defined in lightcordapi/src/modules/DiscordTools.ts:146</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -779,7 +804,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides EventEmitter.on</p>
 								<ul>
-									<li>Defined in lightcordapi/src/modules/DiscordTools.ts:117</li>
+									<li>Defined in lightcordapi/src/modules/DiscordTools.ts:150</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -820,7 +845,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides EventEmitter.on</p>
 								<ul>
-									<li>Defined in lightcordapi/src/modules/DiscordTools.ts:121</li>
+									<li>Defined in lightcordapi/src/modules/DiscordTools.ts:154</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -872,7 +897,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides EventEmitter.once</p>
 								<ul>
-									<li>Defined in lightcordapi/src/modules/DiscordTools.ts:129</li>
+									<li>Defined in lightcordapi/src/modules/DiscordTools.ts:162</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -907,7 +932,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides EventEmitter.once</p>
 								<ul>
-									<li>Defined in lightcordapi/src/modules/DiscordTools.ts:133</li>
+									<li>Defined in lightcordapi/src/modules/DiscordTools.ts:166</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -948,7 +973,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides EventEmitter.once</p>
 								<ul>
-									<li>Defined in lightcordapi/src/modules/DiscordTools.ts:137</li>
+									<li>Defined in lightcordapi/src/modules/DiscordTools.ts:170</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1114,7 +1139,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in lightcordapi/src/modules/DiscordTools.ts:222</li>
+									<li>Defined in lightcordapi/src/modules/DiscordTools.ts:259</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -1227,7 +1252,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in lightcordapi/src/modules/DiscordTools.ts:171</li>
+									<li>Defined in lightcordapi/src/modules/DiscordTools.ts:208</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1303,7 +1328,7 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="_modules_discordtools_.notice.html#nexttickrefresh" class="tsd-kind-icon">next<wbr>Tick<wbr>Refresh</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="_modules_discordtools_.notice.html#state" class="tsd-kind-icon">state</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">

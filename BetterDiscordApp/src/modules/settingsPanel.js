@@ -19,7 +19,7 @@ import CardList from "../ui/addonlist";
 import V2C_PresenceSettings from "../ui/presenceSettings";
 import CustomRichPresence from "./CustomRichPresence";
 import V2C_AccountInfos from "../ui/AccountInfos";
-import { remote } from "electron";
+import { remote, ipcRenderer } from "electron";
 import AntiAdDM from "./AntiAdDM";
 import blurPrivate from "./blurPrivate";
 import disableTyping from "./disableTyping";
@@ -344,6 +344,57 @@ export default new class V2_SettingsPanel {
                                     disabled: false
                                 }, "Open a new Tab")
                             ]
+                        }
+                        if(setting.id === "enable_glasstron" && isChecked){
+                            if(process.platform !== "linux"){
+                                let choices = []
+                                let actual = null
+                                if(process.platform === "win32"){
+                                    choices.push("blurbehind", "acrylic", "transparent")
+                                    actual = appSettings.get("GLASSTRON_BLUR", "blurbehind")
+                                }else if(process.platform === "darwin"){
+                                    choices.push("titlebar", 
+                                        "selection", 
+                                        "menu", 
+                                        "popover", 
+                                        "sidebar", 
+                                        "header", 
+                                        "sheet", 
+                                        "window", 
+                                        "hud", 
+                                        "fullscreen-ui", 
+                                        "tooltip", 
+                                        "content", 
+                                        "under-window", 
+                                        "under-page", 
+                                        "none"
+                                    )
+                                    actual = appSettings.get("GLASSTRON_VIBRANCY", "fullscreen-ui")
+                                }
+                                return [
+                                    returnValue,
+                                    React.createElement(Lightcord.Api.Components.general.SettingSubTitle, {}, "Glasstron Blur"),
+                                    React.createElement(Lightcord.Api.Components.inputs.Dropdown, {
+                                        options: choices.map(e => {
+                                            return {
+                                                value: e,
+                                                label: e
+                                            }
+                                        }),
+                                        value: actual,
+                                        disabled: false,
+                                        searchable: true,
+                                        clearable: false,
+                                        onChange: (value) => {
+                                            if(process.platform === "win32"){
+                                                ipcRenderer.invoke("LIGHTCORD_SET_BLUR_TYPE", value)
+                                            }else{
+                                                ipcRenderer.invoke("LIGHTCORD_SET_VIBRANCY", value)
+                                            }
+                                        }
+                                    }, null)
+                                ]
+                            }
                         }
                         return returnValue
                     })

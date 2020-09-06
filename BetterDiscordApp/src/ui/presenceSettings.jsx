@@ -368,9 +368,7 @@ class InputChoice extends React.PureComponent {
         this.props.manager.updateWhenFetched(this)
     }
 
-    onChange(data){
-        let value = data.value
-
+    onChange(value){
         if(!this.lastEdited || this.lastEdited < Date.now() - 500){
             this.props.manager.onChange(this, value === "none" ? null : value.replace("asset-", ""))
             this.lastEdited = Date.now()

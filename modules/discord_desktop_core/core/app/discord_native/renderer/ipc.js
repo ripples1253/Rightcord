@@ -6,11 +6,15 @@ const { getDiscordIPCEvent } = require('../common/constants');
 const ipcRenderer = electron.ipcRenderer;
 
 function send(ev, ...args) {
-  ipcRenderer.send(getDiscordIPCEvent(ev), ...args);
+  const event = getDiscordIPCEvent(ev)
+  console.log(event)
+  ipcRenderer.send(event, ...args);
 }
 
 function on(ev, callback) {
-  ipcRenderer.on(getDiscordIPCEvent(ev), callback);
+  const event = getDiscordIPCEvent(ev)
+  console.log(event)
+  ipcRenderer.on(event, callback);
 }
 
 module.exports = {

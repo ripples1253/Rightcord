@@ -107,7 +107,7 @@
 					<div class="tsd-signature tsd-kind-icon">Notice<wbr>Data<span class="tsd-signature-symbol">:</span> <a href="_components_private_notices_.html#noticewithoutid" class="tsd-signature-type">noticeWithoutID</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in lightcordapi/src/modules/DiscordTools.ts:71</li>
+							<li>Defined in lightcordapi/src/modules/DiscordTools.ts:101</li>
 						</ul>
 					</aside>
 				</section>
@@ -117,20 +117,40 @@
 					<div class="tsd-signature tsd-kind-icon">Notification<wbr>Data<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>body<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>icon<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>onClick<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">; </span>onClose<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">; </span>onShow<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">; </span>title<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in lightcordapi/src/modules/DiscordTools.ts:62</li>
+							<li>Defined in lightcordapi/src/modules/DiscordTools.ts:86</li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Notifications informations.</p>
+						</div>
+					</div>
 					<div class="tsd-type-declaration">
 						<h4>Type declaration</h4>
 						<ul class="tsd-parameters">
 							<li class="tsd-parameter">
 								<h5>body<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<div class="lead">
+										<p>The body of the notification. Could be truncated.</p>
+									</div>
+								</div>
 							</li>
 							<li class="tsd-parameter">
 								<h5>icon<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<div class="lead">
+										<p>An http(s) link to an icon.</p>
+									</div>
+								</div>
 							</li>
 							<li class="tsd-parameter">
 								<h5><span class="tsd-flag ts-flagOptional">Optional</span> on<wbr>Click<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<div class="lead">
+										<p>When the user clicked the notification</p>
+									</div>
+								</div>
 								<ul class="tsd-parameters">
 									<li class="tsd-parameter-signature">
 										<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-variable">
@@ -146,6 +166,11 @@
 							</li>
 							<li class="tsd-parameter">
 								<h5><span class="tsd-flag ts-flagOptional">Optional</span> on<wbr>Close<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<div class="lead">
+										<p>When the notification has been closed.</p>
+									</div>
+								</div>
 								<ul class="tsd-parameters">
 									<li class="tsd-parameter-signature">
 										<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-variable">
@@ -161,6 +186,11 @@
 							</li>
 							<li class="tsd-parameter">
 								<h5><span class="tsd-flag ts-flagOptional">Optional</span> on<wbr>Show<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<div class="lead">
+										<p>When the notification is showing</p>
+									</div>
+								</div>
 								<ul class="tsd-parameters">
 									<li class="tsd-parameter-signature">
 										<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-variable">
@@ -176,6 +206,11 @@
 							</li>
 							<li class="tsd-parameter">
 								<h5>title<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<div class="lead">
+										<p>The title of the notification</p>
+									</div>
+								</div>
 							</li>
 						</ul>
 					</div>
@@ -186,9 +221,14 @@
 					<div class="tsd-signature tsd-kind-icon">Sound<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"call_calling"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"call_ringing"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"call_ringing_beat"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ddr-down"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ddr-left"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ddr-right"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ddr-up"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"deafen"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"discodo"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"disconnect"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"human_man"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"mention1"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"mention2"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"mention3"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"message1"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"message2"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"message3"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"mute"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"overlayunlock"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ptt_start"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ptt_stop"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"reconnect"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"robot_man"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"stream_ended"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"stream_started"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"stream_user_joined"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"stream_user_left"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"undeafen"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"unmute"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"user_join"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"user_leave"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"user_moved"</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in lightcordapi/src/modules/DiscordTools.ts:60</li>
+							<li>Defined in lightcordapi/src/modules/DiscordTools.ts:81</li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>List of valid sounds.</p>
+						</div>
+					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
@@ -216,7 +256,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in lightcordapi/src/modules/DiscordTools.ts:73</li>
+									<li>Defined in lightcordapi/src/modules/DiscordTools.ts:103</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
