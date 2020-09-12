@@ -32,6 +32,10 @@ jobs:
         prerelease: true
         api_key: "$GH_TOKEN"
         skip_cleanup: true
-        #file:
+        file:
+          - builds/lightcord-win32-ia32.zip
+          - builds/lightcord-win32.exe
+          - builds/lightcord-linux-x64.zip
+          - builds/lightcord-darwin-x64.zip
         on:
           tags: true

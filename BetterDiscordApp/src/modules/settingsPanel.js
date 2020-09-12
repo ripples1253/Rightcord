@@ -202,8 +202,7 @@ export default new class V2_SettingsPanel {
             else CustomRichPresence.disable()
         }
         if (id === "lightcord-3") {
-            if (enabled) remote.getCurrentWindow().setAlwaysOnTop(true)
-            else remote.getCurrentWindow().setAlwaysOnTop(false)
+            ipcRenderer.sendSync("LIGHTCORD_SET_ALWAYS_ON_TOP", enabled)
         }
         if (id === "lightcord-4") {
             if(enabled){
@@ -227,11 +226,10 @@ export default new class V2_SettingsPanel {
             }
         }
         if (id === "lightcord-8"){
-            let appSettings = remote.getGlobal("appSettings")
+            let appSettings = window.Lightcord.Api.settings
             appSettings.set("isTabs", enabled)
             appSettings.save()
-            remote.app.relaunch()
-            remote.app.exit()
+            DiscordNative.app.relaunch()
         }
         if (id === "lightcord-9") {
             popoutWindow[enabled ? "enable" : "disable"]()
@@ -241,7 +239,7 @@ export default new class V2_SettingsPanel {
             return
         }
         if (id === "no_window_bound"){
-            let appSettings = remote.getGlobal("appSettings")
+            let appSettings = window.Lightcord.Api.settings
             appSettings.set("NO_WINDOWS_BOUND", enabled)
 
             appSettings.delete("IS_MAXIMIZED")
@@ -249,15 +247,13 @@ export default new class V2_SettingsPanel {
             appSettings.delete("WINDOW_BOUNDS")
             
             appSettings.save()
-            remote.app.relaunch()
-            remote.app.exit()
+            DiscordNative.app.relaunch()
         }
         if (id === "enable_glasstron"){
-            let appSettings = remote.getGlobal("appSettings")
+            let appSettings = window.Lightcord.Api.settings
             appSettings.set("GLASSTRON", enabled)
             appSettings.save()
-            remote.app.relaunch()
-            remote.app.exit()
+            DiscordNative.app.relaunch()
         }
 
         this.saveSettings();
@@ -275,7 +271,7 @@ export default new class V2_SettingsPanel {
         if (settingsCookie["lightcord-1"]) window.Lightcord.Settings.devMode = true
         if (settingsCookie["lightcord-2"]) window.Lightcord.Settings.callRingingBeat = true
         if (settingsCookie["lightcord-presence-1"]) CustomRichPresence.enable()
-        if (settingsCookie["lightcord-3"]) remote.getCurrentWindow().setAlwaysOnTop(true)
+        if (settingsCookie["lightcord-3"]) ipcRenderer.sendSync("LIGHTCORD_SET_ALWAYS_ON_TOP", true)
         if (settingsCookie["lightcord-4"]) AntiAdDM.enable()
         if (settingsCookie["lightcord-6"]) blurPrivate.enable()
         if (settingsCookie["lightcord-7"]) disableTyping.enable()
@@ -295,14 +291,11 @@ export default new class V2_SettingsPanel {
     saveSettings() {
         DataStore.setSettingGroup("settings", settingsCookie);
         DataStore.setSettingGroup("rpc", settingsRPC);
-        DataStore.setSettingGroup("lightcord-settings", lightcordSettings);
     }
 
     loadSettings() {
         Object.assign(settingsCookie, DataStore.getSettingGroup("settings"));
         Object.assign(settingsRPC, DataStore.getSettingGroup("rpc"));
-        console.log(lightcordSettings, DataStore.getSettingGroup("lightcord-settings"))
-        Object.assign(lightcordSettings, DataStore.getSettingGroup("lightcord-settings"));
     }
 
     renderSidebar(sidebar) {
@@ -314,7 +307,7 @@ export default new class V2_SettingsPanel {
     }
 
     lightcordComponent(sidebar, forceUpdate) {
-        let appSettings = remote.getGlobal("appSettings")
+        let appSettings = window.Lightcord.Api.settings
         return [
             this.lightcordSettings.map((section, i) => {
                 return [
@@ -406,11 +399,9 @@ export default new class V2_SettingsPanel {
                 size: "medium",
                 hoverColor: "red",
                 onClick(){
-                    console.log("Should relaunch")
-                    remote.app.relaunch({
+                    ipcRenderer.sendSync("LIGHTCORD_RELAUNCH_APP", {
                         args: remote.process.argv.slice(1).concat(["--disable-betterdiscord"])
                     })
-                    remote.app.quit()
                 },
                 wrapper: true
             }, "Relaunch without BetterDiscord"),

@@ -104,7 +104,7 @@ export function checkHash(hash, data, filename, resultCallback, removeCallback){
     if(!cache[hash]){
         nodeFetch("https://cdn.jsdelivr.net/gh/Lightcord/filehashes@master/hashes/"+hash, { // Using node-fetch to bypass cors
             headers: {
-                "User-Agent": electron.remote.getCurrentWebContents().userAgent // have to set user-agent
+                "User-Agent": electron.ipcRenderer.sendSync("LIGHTCORD_GET_USER_AGENT") // have to set user-agent
             }
         }).then(async res => {
             if(res.status !== 200){
@@ -170,7 +170,7 @@ export function processAttachment(attachment, id){
 
     nodeFetch(attachment.url, {
         headers: {
-            "User-Agent": electron.remote.getCurrentWebContents().userAgent
+            "User-Agent": electron.ipcRenderer.sendSync("LIGHTCORD_GET_USER_AGENT")
         }
     }).then(res => {
         if(res.status !== 200)throw new Error("File doesn't exist.")
@@ -234,7 +234,7 @@ function renderToElements(id, result, filename){
                                     danger: true,
                                     onCancel: () => {},
                                     onConfirm: () => {
-                                        electron.remote.shell.openExternal(child.href)
+                                        electron.ipcRenderer.sendSync("LIGHTCORD_OPEN_EXTERNAL", child.href)
                                     }
                                 }
                             )

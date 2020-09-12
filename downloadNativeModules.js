@@ -72,12 +72,19 @@ const patchedJS = []
                             zipFile.openReadStream(entry, function(err, readStream) {
                                 if (err) throw err;
                                 readStream.on("end", function() {
-                                    let content = fs.readFileSync(filePath, "utf-8")
-                                    if(content.includes(module+".node")){
-                                        content = content.replace(`${module}.node`, `${module}_'+process.platform+'.node`)
-                                        fs.writeFileSync(filePath, content)
-                                    }
-                                    zipFile.readEntry();
+                                    setTimeout(() => {
+                                        let content = fs.readFileSync(filePath, "utf-8")
+                                        let hasChanged = false
+                                        if(content.includes(module+".node")){
+                                            content = content.replace(createRegexp(`${module}.node`), `${module}_'+process.platform+'.node`)
+                                            hasChanged = true
+                                        }
+                                        if(content.includes(".asar")){
+                                            content = content.replace(createRegexp(`.asar`), ``)
+                                            hasChanged = true
+                                        }
+                                        if(hasChanged)fs.writeFileSync(filePath, content)
+                                    }, 10);
                                 });
                                 readStream.pipe(fs.createWriteStream(filePath));
                             });
@@ -94,10 +101,16 @@ const patchedJS = []
                                 extractFile(() => {
                                     setTimeout(() => {
                                         let content = fs.readFileSync(filePath, "utf-8")
+                                        let hasChanged = false
                                         if(content.includes(module+".node")){
-                                            content = content.replace(`${module}.node`, `${module}_'+process.platform+'.node`)
-                                            fs.writeFileSync(filePath, content)
+                                            content = content.replace(createRegexp(`${module}.node`), `${module}_'+process.platform+'.node`)
+                                            hasChanged = true
                                         }
+                                        if(content.includes(".asar")){
+                                            content = content.replace(createRegexp(`.asar`), ``)
+                                            hasChanged = true
+                                        }
+                                        if(hasChanged)fs.writeFileSync(filePath, content)
                                     }, 10);
                                 })
                             }else if(hasBinaries && ["exe", "dll"].map(e => {
@@ -162,3 +175,7 @@ const patchedJS = []
         manuallyDownloads.forEach(console.log)
     }
 })()
+
+function createRegexp(str){
+    return new RegExp(str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), "g")
+}

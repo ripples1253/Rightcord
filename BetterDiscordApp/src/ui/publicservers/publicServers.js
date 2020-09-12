@@ -123,7 +123,7 @@ export default class V2C_PublicServers extends BDV2.reactComponent {
         options.x = Math.round(window.screenX + window.innerWidth / 2 - options.width / 2);
         options.y = Math.round(window.screenY + window.innerHeight / 2 - options.height / 2);
 
-        const win = self.joinWindow = new (window.require("electron").remote.BrowserWindow)(options);
+        const win = self.joinWindow = new (require("electron").remote.BrowserWindow)(options);
         const url = "https://auth.discordservers.com/connect?scopes=guilds.join&previousUrl=https://auth.discordservers.com/info";
         win.webContents.on("did-navigate", (event, url) => {
             if (url != "https://auth.discordservers.com/info") return;

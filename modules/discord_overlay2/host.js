@@ -103,7 +103,7 @@ function createRenderer(pid, url) {
         offscreen: true,
         transparent: true,
         nodeIntegration: false,
-        preload: path.join(__dirname, '..', 'discord_desktop_core', 'core.asar', 'app', 'mainScreenPreload.js'),
+        preload: path.join(__dirname, '..', 'discord_desktop_core', 'core', 'app', 'mainScreenPreload.js'),
         enableRemoteModule: false,
         contextIsolation: true
       }

@@ -1,6 +1,7 @@
 const spawn = require("cross-spawn")
 const path = require("path")
-const { existsSync, promises: fsPromises } = require("fs")
+const { existsSync, promises: fsPromises, createWriteStream } = require("fs")
+const yazl = require("yazl")
 
 const supportedPlatforms = []
 const Platforms = {
@@ -57,20 +58,38 @@ const Platforms = {
                 unpack: "*.{node,dylib,so.4,dll}",
                 unpackDir: asarUnpackPath
             })
-            const iconPath = path.join(__dirname, "app_icon_darwin.icns")
+            const iconPath = path.join(__dirname, "discord.icns")
             if(existsSync(iconPath)){
                 console.log(`Setting icon.`)
                 const newIconPath = path.join(nextPath, "lightcord.app", "Contents", "Resources", "electron.icns")
                 await fsPromises.copyFile(iconPath, newIconPath)
             }
+            console.log("zipping")
+            const zip = new yazl.ZipFile();
+            zip.outputStream.pipe(createWriteStream(path.join(__dirname, "builds", "lightcord-darwin-x64.zip")))
+            .on("close", function() {
+                console.log("Finished zipping.");
+            });
+            const startDir = path.join(__dirname, "builds", "lightcord-darwin-x64")
+            async function nextDir2(dir){
+                for(let file of await fsPromises.readdir(dir, {withFileTypes: true})){
+                    if(file.isDirectory()){
+                        await nextDir2(path.join(dir, file.name))
+                    }else if(file.isFile()){
+                        zip.addFile(path.join(dir, file.name), path.relative(startDir, path.join(dir, file.name)))
+                    }
+                }
+            }
+            await nextDir2(startDir)
+            zip.end();
         }
     }
 }
 
 switch(process.platform){
     case "win32":
-        supportedPlatforms.push(Platforms.win)
-        supportedPlatforms.push(Platforms.linux)
+        /*supportedPlatforms.push(Platforms.win)
+        supportedPlatforms.push(Platforms.linux)*/
         if(existsSync(path.join(__dirname, "..", "lightcord-darwin-x64"))){
             supportedPlatforms.push(Platforms.mac_experimental)
         }
@@ -95,7 +114,7 @@ switch(process.platform){
         await platform.run()
     }
 })().catch(err => {
-    console.error(`Couldn't package app for electrons. Error: ${err}`)
+    console.error(`Couldn't package app for electrons. Error:`, err)
 })
 
 function awaitExec(command, args = []){

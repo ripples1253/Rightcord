@@ -96,8 +96,6 @@ commit: ${buildInfo.commit}`);
 
   	electron.app.setAppUserModelId(Constants.APP_ID);
   
-  
-
 	let coreModule;
 
 	const isFirstInstance = electron.app.requestSingleInstanceLock();

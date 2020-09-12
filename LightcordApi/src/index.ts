@@ -13,10 +13,11 @@ import * as bandagedbdApi from "@bandagedbd/bdapi"
 import "./alias/react"
 import "./alias/react-dom"
 import { LazyLoad } from "./modules/lazyLoader"
+import settings from "./modules/settings"
 patchers.patch()
 
 /**
- * Lightcord Api defined at [/LightcordApi/src/index.ts](https://github.com/Lightcord/Lightcord/blob/master/LightcordApi/src/index.ts#L18)
+ * Lightcord Api defined at [/LightcordApi/src/index.ts](https://github.com/Lightcord/Lightcord/blob/master/LightcordApi/src/index.ts#L22)
  */
 const LightcordApi = {
     /**
@@ -45,7 +46,8 @@ const LightcordApi = {
     },
     get isNative(){return isNative},
     get isImported(){return isImported},
-    LazyLoad: LazyLoad
+    LazyLoad: LazyLoad,
+    settings: settings
 }
 
 declare global {

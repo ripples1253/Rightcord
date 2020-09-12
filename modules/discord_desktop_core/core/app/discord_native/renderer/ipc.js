@@ -7,13 +7,11 @@ const ipcRenderer = electron.ipcRenderer;
 
 function send(ev, ...args) {
   const event = getDiscordIPCEvent(ev)
-  console.log(event)
   ipcRenderer.send(event, ...args);
 }
 
 function on(ev, callback) {
   const event = getDiscordIPCEvent(ev)
-  console.log(event)
   ipcRenderer.on(event, callback);
 }
 

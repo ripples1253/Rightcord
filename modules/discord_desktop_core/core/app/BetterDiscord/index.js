@@ -11,14 +11,14 @@ const isPackaged = __filename.includes("app.asar")
 
 const events = exports.events = new EventEmitter()
 const logger = exports.logger = new Logger("Lightcord")
-const appSettings = electron.remote.getGlobal("appSettings")
 
 let hasInit = false
 let tries = 0
+let hasReplacedLocalstorage = false
+const localStorage = window.localStorage
 
-const browserWindow = electron.remote.getCurrentWindow()
 const UserAgent = electron.ipcRenderer.sendSync("LIGHTCORD_GET_USER_AGENT").replace(/lightcord\/[^ ]+/g, "discord/"+require("../discord_native/renderer/app").getVersion())
-browserWindow.webContents.userAgent = UserAgent
+electron.ipcRenderer.sendSync("LIGHTCORD_SET_USER_AGENT", UserAgent)
 
 exports.init = function(){
     if(hasInit == true){
@@ -32,6 +32,13 @@ exports.init = function(){
         events.emit("debug", `[INIT] try ${tries++} loading Lightcord`)
         try{
             if(!global.webpackJsonp)return
+            if(isTab && !hasReplacedLocalstorage){
+                hasReplacedLocalstorage = true
+                const localstr = require("localstorage-polyfill")
+                Object.defineProperty(window, "localStorage", {
+                    value: localstr
+                })
+            }
             if(!ModuleLoader.get(4))return
             clearInterval(readyInterval)
             privateInit()
@@ -50,7 +57,6 @@ async function privateInit(){
     if(!hasInit)return
     if(hasPrivateInit)return
     hasPrivateInit = true
-    installReactDevtools()
     let cached = require.cache[path.join(__dirname, "loaders", "modules.js")]
     if(cached){
         cached.exports = window.BDModules
@@ -89,10 +95,9 @@ async function privateInit(){
                         hoverColor: "red",
                         onClick: () => {
                             console.log("Should relaunch")
-                            electron.remote.app.relaunch({
+                            ipcRenderer.sendSync("LIGHTCORD_RELAUNCH_APP", {
                                 args: electron.remote.process.argv.slice(1).filter(e => e !== "--disable-betterdiscord")
                             })
-                            electron.remote.app.quit()
                         },
                         wrapper: true
                     }, "Relaunch with BetterDiscord"))
@@ -143,6 +148,7 @@ async function privateInit(){
                 return result
             }
         })
+        installReactDevtools()
 
         return
     }
@@ -183,6 +189,7 @@ async function privateInit(){
     
     window.$ = window.jQuery = require("./jquery.min.js")
     require("./ace.js")
+    installReactDevtools()
 
     if(!fs.existsSync(BetterDiscordConfig.dataPath))fs.mkdirSync(BetterDiscordConfig.dataPath, {recursive: true})
     let pluginPath = path.join(BetterDiscordConfig.dataPath, "plugins")
@@ -249,14 +256,6 @@ async function privateInit(){
         console.error(err)
         DiscordJS = null
     }
-    /*let Authorization = appSettings.get("LIGHTCORD_AUTH", false)
-    let shouldShowPrompt = Authorization === false
-
-    if(typeof Authorization !== "string"){
-        Authorization = null
-        appSettings.set("LIGHTCORD_AUTH", null)
-        appSettings.save()
-    }*/
 
     let cloneNullProto = (obj) => { // recreate object without __proto__
         let o = Object.create(null)
@@ -275,15 +274,7 @@ async function privateInit(){
             devMode: false,
             callRingingBeat: true
         }),
-        Api: cloneNullProto({/*
-            get Authorization(){
-                return Authorization
-            },
-            set Authorization(data){
-                if(typeof data !== "string" && data !== null)return Authorization
-                appSettings.set("LIGHTCORD_AUTH", Authorization = data)
-                appSettings.save()
-            },*/
+        Api: cloneNullProto({
             Authorization: null,
             ensureExported,
             cloneNullProto
@@ -379,6 +370,7 @@ async function privateInit(){
     dispatcher.subscribe("LOGOUT", () => {
         isBot = false
     })
+    const appSettings = window.Lightcord.Api.settings
     ;(async function(){
         const gatewayModule = await ensureExported(e => e.default && e.default.prototype && e.default.prototype._handleDispatch)
         if(!gatewayModule)return
@@ -461,9 +453,10 @@ async function privateInit(){
                     }
                     data.friend_suggestion_count = data.friend_suggestion_count || 0
                     data.presences = data.presences || []
-                    browserWindow.webContents.userAgent = `DiscordBot (https://github.com/lightcord/lightcord, v${electron.remote.getGlobal("BuildInfo").version})`
+                    const buildInfo = electron.ipcRenderer.sendSync("LIGHTCORD_GET_BUILD_INFOS")
+                    electron.ipcRenderer.sendSync("LIGHTCORD_SET_USER_AGENT", `DiscordBot (https://github.com/lightcord/lightcord, v${buildInfo.version})`)
                 }else{
-                    browserWindow.webContents.userAgent = UserAgent
+                    electron.ipcRenderer.sendSync("LIGHTCORD_SET_USER_AGENT", UserAgent)
                     logger.log(`Logged in as an user. Skipping user spoofing.`)
                 }
             }
@@ -1114,25 +1107,24 @@ async function privateInit(){
 
 function installReactDevtools(){
     let reactDevToolsPath = "";
+    const extensionId = "fmkadmapgofadopljbjfkapdkoienihi"
     if (process.platform === "win32") reactDevToolsPath = path.resolve(process.env.LOCALAPPDATA, "Google/Chrome/User Data");
     else if (process.platform === "linux") reactDevToolsPath = path.resolve(process.env.HOME, ".config/google-chrome");
     else if (process.platform === "darwin") reactDevToolsPath = path.resolve(process.env.HOME, "Library/Application Support/Google/Chrome");
     else reactDevToolsPath = path.resolve(process.env.HOME, ".config/chromium");
-    reactDevToolsPath = path.join(reactDevToolsPath, "Default", "Extensions", "fmkadmapgofadopljbjfkapdkoienihi")
+    reactDevToolsPath = path.join(reactDevToolsPath, "Default", "Extensions", extensionId)
     if (fs.existsSync(reactDevToolsPath)) {
         const versions = fs.readdirSync(reactDevToolsPath);
         reactDevToolsPath = path.resolve(reactDevToolsPath, versions[versions.length - 1]);
     }
     if(fs.existsSync(reactDevToolsPath)){
-        const webContents = electron.remote.getCurrentWebContents()
-        const BrowserWindow = electron.remote.BrowserWindow
-        setImmediate(() => webContents.on("devtools-opened", devToolsListener));
-        if (webContents.isDevToolsOpened()) devToolsListener();
+        ipcRenderer.on("LIGHTCORD_DEVTOOLS_OPEN", devToolsListener)
+        if (electron.ipcRenderer.sendSync("LIGHTCORD_GET_IS_DEVTOOLS_OPEN")) devToolsListener();
 
         function devToolsListener(){
             logger.log(`Installing React Devtools`)
-            BrowserWindow.removeDevToolsExtension("React Developer Tools");
-            const didInstall = BrowserWindow.addDevToolsExtension(reactDevToolsPath);
+            ipcRenderer.sendSync("LIGHTCORD_REMOVE_DEVTOOLS_EXTENSION", extensionId)
+            const didInstall = ipcRenderer.sendSync("LIGHTCORD_ADD_DEVTOOLS_EXTENSION", reactDevToolsPath)
 
             if (didInstall) logger.log("React DevTools", "Successfully installed react devtools.");
             else logger.log("React DevTools", "Couldn't find react devtools.");
@@ -1173,7 +1165,7 @@ require.extensions[".txt"] = (m, filename) => {
     return m.exports
 }
 
-const LightcordBDFolder = path.join(electron.remote.app.getPath("appData"), "Lightcord_BD")
+const LightcordBDFolder = path.join(electron.ipcRenderer.sendSync("LIGHTCORD_GET_PATH", "appData"), "Lightcord_BD")
 
 const BetterDiscordConfig = window.BetterDiscordConfig = {
 	"branch": "lightcord",
@@ -1223,7 +1215,12 @@ var ensureExported = global.ensureExported = function ensureExported(filter, max
     })
 }
 let Notifications = require("./patchNotifications")
-Notifications.useShim(!appSettings.get("DEFAULT_NOTIFICATIONS", true))
+const { ipcRenderer } = require("electron")
+let useDefault = electron.ipcRenderer.sendSync("LIGHTCORD_GET_SETTINGS")["DEFAULT_NOTIFICATIONS"]
+if(typeof useDefault !== "boolean"){
+    useDefault = true
+}
+Notifications.useShim(!useDefault)
 
 function getGuildClasses() {
     const guildsWrapper = ModuleLoader.get(e => e.wrapper && e.unreadMentionsBar)[0];

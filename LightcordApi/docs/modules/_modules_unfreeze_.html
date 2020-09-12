@@ -69,7 +69,7 @@
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul>
 					<ul class="before-current">
-						<li class=" tsd-kind-function tsd-parent-kind-module">
+						<li class=" tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter">
 							<a href="_modules_unfreeze_.html#unfreeze" class="tsd-kind-icon">unfreeze</a>
 						</li>
 					</ul>
@@ -163,6 +163,8 @@
 						</li>                        <li class=" tsd-kind-module">
 						<a href="_modules_patchers_.html">&quot;modules/patchers&quot;</a>
 						</li>                        <li class=" tsd-kind-module">
+						<a href="_modules_settings_.html">&quot;modules/settings&quot;</a>
+						</li>                        <li class=" tsd-kind-module">
 						<a href="_modules_uuid_.html">&quot;modules/uuid&quot;</a>
 						</li>                        <li class=" tsd-kind-module">
 						<a href="_types_discordconstantstypes_.html">&quot;types/<wbr>Discord<wbr>Constants<wbr>Types&quot;</a>
@@ -199,7 +201,7 @@
 							<h3>Functions</h3>
 							<div class="tsd-navigation secondary">
 								<ul>
-									<li class="tsd-kind-function tsd-parent-kind-module">
+									<li class="tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter">
 										<a href="_modules_unfreeze_.html#unfreeze" class="tsd-kind-icon">unfreeze</a>
 									</li>
 								</ul>
@@ -210,23 +212,28 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Functions</h2>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module tsd-descriptions">
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter tsd-descriptions">
 					<a name="unfreeze" class="tsd-anchor"></a>
 					<h3>unfreeze</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">unfreeze<span class="tsd-signature-symbol">(</span>o<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter">
+						<li class="tsd-signature tsd-kind-icon">unfreeze&lt;T&gt;<span class="tsd-signature-symbol">(</span>o<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span></li>
+					</ul>
+					<h4 class="tsd-type-parameters-title">Type parameters</h4>
+					<ul class="tsd-type-parameters">
+						<li>
+						<span class="name">T</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>                    </li>
 					</ul>
 					<h4 class="tsd-parameters-title">Parameters</h4>
 					<ul class="tsd-parameters">
 						<li>
-							<span class="name">o</span>: <span class="tsd-signature-type">any</span>
+							<span class="name">o</span>: <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span>
 						</li>
 					</ul>
-					<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span>    </h4>
+					<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">T</span>    </h4>
 					</ul>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Lightcord/Lightcord/blob/master/LightcordApi/src/modules/Unfreeze.ts#L1">lightcordapi/src/modules/Unfreeze.ts:1</a></li>
+							<li>Defined in <a href="https://github.com/Lightcord/Lightcord/blob/01ac967/LightcordApi/src/modules/Unfreeze.ts#L1">LightcordApi/src/modules/Unfreeze.ts:1</a></li>
 						</ul>
 					</aside>
 				</section>

@@ -15,7 +15,7 @@ import LightcordLogo from "../svg/Lightcord";
 import PluginCertifier from "./pluginCertifier";
 import distant, { uuidv4 } from "./distant";
 import EmojiModule from "./emojiModule"
-import {remote as electron} from "electron"
+import * as electron from "electron"
 import v2 from "./v2";
 import contentManager from "./contentManager";
 
@@ -232,11 +232,6 @@ Core.prototype.injectExternals = async function() {
 
 Core.prototype.initSettings = function () {
     DataStore.initialize();
-    if(!DataStore.getSettingGroup("lightcord-settings")){
-        for(let key in lightcordSettings){
-            delete lightcordSettings[key]
-        }
-    }
     if(!DataStore.getSettingGroup("rpc")){
         Object.assign(settingsRPC, defaultRPC);
     }
@@ -380,8 +375,9 @@ Core.prototype.patchSocial = function() {
         ]
 
         const versionHash = `(${bdConfig.hash ? bdConfig.hash.substring(0, 7) : bdConfig.branch})`;
+        const buildInfo = electron.ipcRenderer.sendSync("LIGHTCORD_GET_BUILD_INFOS")
         const additional = [
-            BDV2.react.createElement("div", {className: `${classNameColorMuted} ${sizes.size12}`}, `Lightcord ${electron.getGlobal("BuildInfo").version} `, BDV2.react.createElement("span", {className: classNameVersionHash+" da-versionHash"}, `(${(electron.getGlobal("BuildInfo").commit || "Unknown").slice(0, 7)})`)),
+            BDV2.react.createElement("div", {className: `${classNameColorMuted} ${sizes.size12}`}, `Lightcord ${buildInfo.version} `, BDV2.react.createElement("span", {className: classNameVersionHash+" da-versionHash"}, `(${(buildInfo.commit || "Unknown").slice(0, 7)})`)),
             BDV2.react.createElement("div", {className: `${classNameColorMuted} ${sizes.size12}`}, `BBD ${bbdVersion} `, BDV2.react.createElement("span", {className: classNameVersionHash+" da-versionHash"}, versionHash))
         ]
         
