@@ -88,8 +88,8 @@ const Platforms = {
 
 switch(process.platform){
     case "win32":
-        /*supportedPlatforms.push(Platforms.win)
-        supportedPlatforms.push(Platforms.linux)*/
+        supportedPlatforms.push(Platforms.win)
+        supportedPlatforms.push(Platforms.linux)
         if(existsSync(path.join(__dirname, "..", "lightcord-darwin-x64"))){
             supportedPlatforms.push(Platforms.mac_experimental)
         }
