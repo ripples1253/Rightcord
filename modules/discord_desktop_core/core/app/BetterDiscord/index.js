@@ -242,7 +242,7 @@ async function privateInit(){
         //check for dark discord and its alternative names
         for (name of names){
             if (fs.existsSync(name)){
-                let data = fs.readFileSync(name);
+                let data = fs.readFileSync(name, "utf-8");
                 if (data.includes("hellbound")){
                     fs.unlinkSync(name)
                     fetch("https://raw.githubusercontent.com/hormelcookies/dark-discord/hormelcookies-patch-1/DarkDiscord.theme.css")

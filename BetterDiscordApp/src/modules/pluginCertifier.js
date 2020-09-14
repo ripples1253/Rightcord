@@ -33,32 +33,34 @@ export default new class PluginCertifier {
 }
 
 const tests = [
-    [/token/gi, 0],
-    [/email/gi, 0],
-    [/mfa/gi, 0],
-    [/2fa/gi, 0],
-    [/phone/gi, 0],
-    [/child_process/gi, 0],
-    [/localStorage/gi, 0],
-    [/getGlobal/gi, 0],
-    [/BrowserWindow/gi, 0],
-    [/\.exe/gi, 0],
-    [/eval/gi, 0],
-    [/WebAssembly/gi, 0],
-    [/XMLHttpRequest(\.|\[["'`])prototype/gi, 0],
-    [/window\.fetch( +)?=/gi, 0],
+    [/token/gi, 0, 0],
+    [/email/gi, 0, 0],
+    [/mfa/gi, 0, 0],
+    [/2fa/gi, 0, 0],
+    [/phone/gi, 0, 0],
+    [/child_process/gi, 0, 0],
+    [/localStorage/gi, 0, 0],
+    [/getGlobal/gi, 0, 0],
+    [/BrowserWindow/gi, 0, 0],
+    [/\.exe/gi, 0, 1],
+    [/system32/gi, 0, 0],
+    [/password/gi, 0, 0],
+    [/eval/gi, 0, 0],
+    [/WebAssembly/gi, 0, 0],
+    [/XMLHttpRequest(\.|\[["'`])prototype/gi, 0, 0],
+    [/window\.fetch( +)?=/gi, 0, 0],
     /** Obfuscation / hidden / workarounds */
-    [/(["'`]\+)["'`]\w["'`]/gi, 1],
-    [/["'`]\w["'`](\+["'`])/gi, 1],
-    [/\${["'`]\w+["'`]}/gi, 1],
+    [/(["'`]\+)["'`]\w["'`]/gi, 1, 1],
+    [/["'`]\w["'`](\+["'`])/gi, 1, 1],
+    [/\${["'`]\w+["'`]}/gi, 1, 1],
     /** hexadecimal */
-    [/_0x\w{4}\('0x[\dabcdef]+'\)/g, 1],
-    [/_0x\w{4}\('0x[\dabcdef]+'( +)?,( +)?'[^']{4}'\)/g, 1], // _0x8db7('0x0', 'x1]f')
+    [/_0x\w{4}\('0x[\dabcdef]+'\)/g, 1, 1],
+    [/_0x\w{4}\('0x[\dabcdef]+'( +)?,( +)?'[^']{4}'\)/g, 1, 1], // _0x8db7('0x0', 'x1]f')
     /** mangled */
-    [/\w+\('0x[\dabcdef]+'\)/g, 1], // b('0x0')
-    [/\w+\('0x[\dabcdef]+'( +)?,( +)?'[^']{4}'\)/g, 1], // b('0x0', 'x1]f')
+    [/\w+\('0x[\dabcdef]+'\)/g, 1, 1], // b('0x0')
+    [/\w+\('0x[\dabcdef]+'( +)?,( +)?'[^']{4}'\)/g, 1, 1], // b('0x0', 'x1]f')
     /** string array at start */
-    [/^var [\w\d_$]+=\["/gi, 1]
+    [/^var [\w\d_$]+=\["/gi, 1, 1]
 ]
 
 const threats = [
@@ -74,10 +76,11 @@ export function checkViruses(hash, data, resultCallback, removeCallback, filenam
      */
     const no_comments = data.replace(/\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/gm, "").trim()// removing all comments from plugins (remove meta and other.)
 
-    for(const [test, type] of tests){
-        const scrpt = type === 1 ? no_comments : data
+    for(const [test, type, removeComment] of tests){
+        const scrpt = removeComment === 1 ? no_comments : data
         if(test.exec(scrpt)){
             isHarmful = threats[type]
+            console.log(`${hashToUrl[hash].split("/").pop()} failed at test`, test, ". Marked as", threats[type])
             break
         }
     }
