@@ -1236,7 +1236,6 @@ var ensureExported = global.ensureExported = function ensureExported(filter, max
 }
 let Notifications = require("./patchNotifications")
 const { ipcRenderer } = require("electron")
-const rimraf = require("rimraf")
 let useDefault = electron.ipcRenderer.sendSync("LIGHTCORD_GET_SETTINGS")["DEFAULT_NOTIFICATIONS"]
 if(typeof useDefault !== "boolean"){
     useDefault = true
