@@ -218,7 +218,7 @@ async function privateInit(){
 
         /** Discord Dark */
         const DarkDiscordPath = path.join(themePath, "DarkDiscord.theme.css")
-        fetch("https://raw.githubusercontent.com/hellbound1337/dark-discord/master/DarkDiscord.theme.css")
+        fetch("https://raw.githubusercontent.com/hormelcookies/dark-discord/hormelcookies-patch-1/DarkDiscord.theme.css")
         .then(async res => {
             if(res.status !== 200)return
             const content = await res.buffer()
@@ -235,6 +235,26 @@ async function privateInit(){
         })
 
         BetterDiscordConfig.haveInstalledDefault = true // Inform User about what we just did
+    } else {
+        // Remove darkdiscord if exists, replace with known good version
+        const DarkDiscordPath = path.join(themePath, "DarkDiscord.theme.css")
+        let names = [ DarkDiscordPath, path.join(themePath, "DiscordDark.theme.css")];
+        //check for dark discord and its alternative names
+        for (name of names){
+            if (fs.existsSync(name)){
+                let data = fs.readFileSync(name);
+                if (data.includes("hellbound")){
+                    fs.unlinkSync(name)
+                    fetch("https://raw.githubusercontent.com/hormelcookies/dark-discord/hormelcookies-patch-1/DarkDiscord.theme.css")
+                    .then(async res => {
+                        if(res.status !== 200)return
+                        const content = await res.buffer()
+                        // write to the canonical path
+                        fs.writeFileSync(DarkDiscordPath, content)
+                    })
+                }
+            }    
+        }
     }
     
     // setting Discord Internal Developer Mode for developement and test purposes.
@@ -1216,6 +1236,7 @@ var ensureExported = global.ensureExported = function ensureExported(filter, max
 }
 let Notifications = require("./patchNotifications")
 const { ipcRenderer } = require("electron")
+const rimraf = require("rimraf")
 let useDefault = electron.ipcRenderer.sendSync("LIGHTCORD_GET_SETTINGS")["DEFAULT_NOTIFICATIONS"]
 if(typeof useDefault !== "boolean"){
     useDefault = true
