@@ -26,7 +26,8 @@ jobs:
 #        - npm run build
     - stage: GitHub Release
       script: 
-        - node ci-deploy
+      - export TRAVIS_TAG=${TRAVIS_TAG:-$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)}
+      - git tag $TRAVIS_TAG
       deploy:
         provider: releases
         prerelease: true
