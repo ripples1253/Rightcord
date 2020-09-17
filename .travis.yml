@@ -16,14 +16,14 @@ jobs:
       script:
         - npm run devInstall:64
         - npm run build
-    - stage: Windows Build
-      os: windows
-      script:
-        - export NPM_CONFIG_PREFIX=C:\\npm_prefix 
-        - export PATH="/c/npm_prefix:$PATH"
-        - npm i -g npm@latest
-        - npm run devInstall
-        - npm run build
+#    - stage: Windows Build
+#      os: windows
+#      script:
+#        - export NPM_CONFIG_PREFIX=C:\\npm_prefix 
+#        - export PATH="/c/npm_prefix:$PATH"
+#        - npm i -g npm@latest
+#        - npm run devInstall
+#        - npm run build
     - stage: GitHub Release
       script: skip
       deploy:
@@ -32,8 +32,8 @@ jobs:
         api_key: "$GH_TOKEN"
         skip_cleanup: true
         file:
-          - builds/lightcord-win32-ia32.zip
-          - builds/lightcord-win32.exe
+#          - builds/lightcord-win32-ia32.zip
+#          - builds/lightcord-win32.exe
           - builds/lightcord-linux-x64.zip
           - builds/lightcord-darwin.zip
         on:
