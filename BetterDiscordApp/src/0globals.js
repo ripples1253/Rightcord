@@ -55,7 +55,8 @@ export const settings = {
     "Enable Lightcord Servers":   {id: "lightcord-5", info: "Enable Lightcord's servers. Disabling this will disable custom badges.", implemented: true, hidden: false, cat: "lightcord", category: "Lightcord"},
     "Disable typing":             {id: "lightcord-7", info: "Don't let other see you're typing.", implemented: true, hidden: false, cat: "lightcord", category: "Lightcord"},
     "Lightcord Tabs":             {id: "lightcord-8", info: "Allows you to launch multiple instances of Lightcord in the same window.", implemented: true, hidden: false, cat: "lightcord", category: "Lightcord", experimental: true},
-    "Use Notification Shim":      {id: "lightcord-10", info: "Basically don't use Windows's Notifications.", implemented: true, hidden: process.platform !== "win32", cat: "lightcord", category: "Lightcord", experimental: false},
+    "Use Notification Shim":      {id: "lightcord-10", info: "Basically don't use Windows's Notifications.", implemented: true, hidden: process.platform !== "win32", cat: "lightcord", category: "Lightcord"},
+    "Emoji Prefix":               {id: "lightcord-11", info: "Change the prefix used for free nitros emojis. Please put only one character. Default: .", implemented: true, hidden: false, cat: "lightcord", category: "Lightcord", default: "."},
 
     /** Lightcord Window */
     "Always-on-Top":              {id: "lightcord-3", info: "Enable the window's Always-on-Top mode, where Lightcord stays on top of other applications.", implemented: true, hidden: false, cat: "lightcord", category: "Window"},

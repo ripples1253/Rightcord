@@ -31,6 +31,7 @@ import tooltipWrap from "../ui/tooltipWrap";
 import History from "../ui/icons/history";
 import core from "./core";
 import popoutWindow from "./popoutWindow";
+import TextInputSetting from "../ui/TextInputSetting";
 
 class BDSidebarHeader extends React.PureComponent {
     render(){
@@ -113,7 +114,7 @@ export default new class V2_SettingsPanel {
     }
 
     updateSettings(id, enabled, sidebar) {
-        if(!["lightcord-8", "no_window_bound", "enable_glasstron", "lightcord-10"].includes(id))settingsCookie[id] = enabled;
+        if(!["lightcord-8", "no_window_bound", "enable_glasstron", "lightcord-10", "lightcord-11"].includes(id))settingsCookie[id] = enabled;
 
         if (id == "bda-gs-2") {
             if (enabled) DOM.addClass(document.body, "bd-minimal");
@@ -255,6 +256,18 @@ export default new class V2_SettingsPanel {
             appSettings.save()
             DiscordNative.app.relaunch()
         }
+        
+        if(id === "lightcord-11"){
+            let appSettings = window.Lightcord.Api.settings
+            if(!enabled){
+                appSettings.delete("BD_"+id)
+                appSettings.save()
+                return
+            }
+            appSettings.set("BD_"+id, enabled)
+            appSettings.save()
+            return
+        }
 
         this.saveSettings();
     }
@@ -315,13 +328,21 @@ export default new class V2_SettingsPanel {
                     BDV2.react.createElement("h2", {className: "ui-form-title h2 margin-reset margin-bottom-20"}, section.title),
                     section.settings.map(setting => {
                         let isChecked = settingsCookie[setting.id]
+                        let value = appSettings.get("BD_"+setting.id, setting.default || "")
                         if(setting.id === "lightcord-8")isChecked = appSettings.get("isTabs", false);
                         if(setting.id === "no_window_bound")isChecked = appSettings.get("NO_WINDOWS_BOUND", false)
                         if(setting.id === "enable_glasstron")isChecked = appSettings.get("GLASSTRON", true)
                         if(setting.id === "lightcord-10")isChecked = !appSettings.get("DEFAULT_NOTIFICATIONS", true)
-                        let returnValue = BDV2.react.createElement(Switch, {id: setting.id, key: setting.id, data: setting, checked: isChecked, onChange: (id, checked) => {
-                            this.onChange(id, checked, sidebar);
-                        }})
+                        let returnValue
+                        if(["lightcord-11"].includes(setting.id)){
+                            returnValue = BDV2.react.createElement(TextInputSetting, {id: setting.id, key: setting.id, data: setting, value, placeholder: setting.default || null, onChange: (id, value) => {
+                                this.onChange(id, value, sidebar);
+                            }})
+                        }else{
+                            returnValue = BDV2.react.createElement(Switch, {id: setting.id, key: setting.id, data: setting, checked: isChecked, onChange: (id, checked) => {
+                                this.onChange(id, checked, sidebar);
+                            }})
+                        }
                         if(setting.id == "lightcord-8" && isChecked){
                             return [
                                 returnValue,
