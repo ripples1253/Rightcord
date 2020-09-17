@@ -25,12 +25,15 @@ jobs:
 #        - npm run devInstall
 #        - npm run build
     - stage: GitHub Release
-      script: skip
+      script: 
+        - echo "deploying..."
+      before_deploy: 
+        - node ci-deploy
       deploy:
         provider: releases
         prerelease: true
         api_key: "$GH_TOKEN"
-        skip_cleanup: true
+        cleanup: false
         file:
 #          - builds/lightcord-win32-ia32.zip
 #          - builds/lightcord-win32.exe

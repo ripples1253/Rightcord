@@ -18,7 +18,8 @@
     "clean:all": "node scripts/clean.js --all",
     "devInstall": "npm i --save-dev --arch=ia32 electron@10.1.1 && node installSubModules.js && echo \"Everything is installed. You should be able to do npm run test to compile everything and launch.\"",
     "devInstall:64": "npm i --save-dev --arch=x64 electron@10.1.1 && node installSubModules.js && echo \"Everything is installed. You should be able to do npm run test to compile everything and launch.\"",
-    "versions": "echo Electron: && electron -v && echo Typescript: && tsc -v"
+    "versions": "echo Electron: && electron -v && echo Typescript: && tsc -v",
+    "ci": "node ci-deploy"
   },
   "author": "JeanOUINA",
   "license": "MIT",
