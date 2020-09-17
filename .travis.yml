@@ -26,8 +26,6 @@ jobs:
 #        - npm run build
     - stage: GitHub Release
       script: 
-        - echo "deploying..."
-      before_deploy: 
         - node ci-deploy
       deploy:
         provider: releases
