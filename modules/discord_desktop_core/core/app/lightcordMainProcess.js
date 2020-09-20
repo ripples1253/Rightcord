@@ -49,6 +49,7 @@ electron.ipcMain.on("LIGHTCORD_SET_ALWAYS_ON_TOP", (event, enabled) => {
     const window = electron.BrowserWindow.fromId(getMainWindowId())
     if(!window)return
     window.setAlwaysOnTop(enabled)
+    event.returnValue = null
 })
 electron.ipcMain.on("LIGHTCORD_GET_BROWSERWINDOW_ID", (event) => {
     event.returnValue = getMainWindowId()
