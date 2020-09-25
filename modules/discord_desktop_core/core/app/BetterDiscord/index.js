@@ -381,7 +381,7 @@ async function privateInit(){
         dispatcher.subscribe(constants.ActionTypes.CONNECTION_OPEN || "CONNECTION_OPEN", onConn)
     }*/
 
-    const BetterDiscord = window.BetterDiscord = window.mainCore = new(require(formatMinified("../../../../../BetterDiscordApp/dist/index{min}.js")).default)(BetterDiscordConfig, require("./betterdiscord"))
+    const BetterDiscord = new(require(formatMinified("../../../../../BetterDiscordApp/dist/index{min}.js")).default)(BetterDiscordConfig, require("./betterdiscord"))
 
     const Utils = window.Lightcord.BetterDiscord.Utils
     const DOMTools = window.Lightcord.BetterDiscord.DOM
@@ -514,6 +514,37 @@ async function privateInit(){
         cancelGatewayPrototype("streamDelete")
         cancelGatewayPrototype("streamSetPaused")
 
+        const _handleClose = gatewayModule.default.prototype._handleClose
+        gatewayModule.default.prototype._handleClose = function(wasClean, code, reason){
+            let shouldSetIntents = !this.intents
+            delete this.intents
+            if(code === 4013 && shouldSetIntents){
+                this.intents = 32509
+            }else if(code === 4014){
+                delete this.intents
+                console.log(`Invalid intents ? Removing them.`)
+            }
+            return _handleClose.call(this, ...arguments)
+        }
+
+        const _doIdentify = gatewayModule.default.prototype._doIdentify
+        gatewayModule.default.prototype._doIdentify = function(){
+            let originalSend = this.send
+            this.send = function(op, data, idkwhat){
+                console.log(`Sending data`, data)
+                if(op === 2){
+                    if(this.intents){
+                        data.intents = this.intents
+                    }
+                }
+                return originalSend.call(this, op, data, idkwhat)
+            }
+            const returnValue = _doIdentify.call(this, ...arguments)
+            this.send = originalSend
+            return returnValue
+        }
+
+
         const requestGuildMembers = gatewayModule.default.prototype.requestGuildMembers
         gatewayModule.default.prototype.requestGuildMembers = function(){ // TODO: requestGuildMembers patch for bots.
             /*if(!isBot)*/return requestGuildMembers.call(this, ...arguments)
@@ -546,22 +577,6 @@ async function privateInit(){
                 }
             }
         })
-        const ackModule = BDModules.get(e => e.ackCategory)[0]
-        if(ackModule){
-            for (const fName of ['ack', 'ackCategory', 'localAck', 'ackGuild']) {
-                console.log(fName, ackModule[fName])
-                if(!ackModule || !ackModule[fName]){
-                    logger.warn("Couldn't find prop "+fName+" in ackmodule2")
-                    continue
-                }
-                let original = ackModule[fName]
-                ackModule[fName] = function(){
-                    if(!isBot)return original.call(this, ...arguments)
-                }
-            }
-        }else{
-            logger.warn(new Error("Couldn't find module here"))
-        }
         const getTokenModule = ModuleLoader.get(e => e.default && e.default.getToken)[0]
         if(getTokenModule){
             const getToken = getTokenModule.default.getToken
