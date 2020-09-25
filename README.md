@@ -43,11 +43,23 @@ Then everytime you want to launch it just type in
 npm run run
 ```
 
-*You can find an experimental linux tutorial in our Discord, or use the AUR*
+*You can find an experimental GNU/Linux tutorial in our Discord, or use the AUR*
 
 ## AUR (unofficial)
 https://aur.archlinux.org/packages/lightcord-bin/
 If you don't know how to install from the AUR, you can follow [this](https://wiki.archlinux.org/index.php/Arch_User_Repository#Installing_and_upgrading_packages) tutorial, but I would recommend using an AUR helper such as ``yay``.
+
+## Other linux distribution
+You can also install it via this one-liner command. It will automatically :
+- Download the latest Lightcord stable release from the official dev server.
+- Extract its file, and rename it to a more conventional ¨Lightcord¨ folder.
+- Install the Lightcord files in /opt/.
+- Add execution rights to the Lightcord executable to be able to launch it.
+- Download an apropriate .desktop file and install it in /usr/share/applications.
+- Add executions rights to the .desktop file to be able to launch Lightcord from it.
+- Download the Lightcord icon in an .svg format, and will install it in /usr/share/pixmaps.
+*Require administrator rights to install in /opt/ and for some files in /usr/.*
+`wget https://lightcord.deroku.xyz/api/v1/gh/releases/Lightcord/Lightcord/dev/lightcord-linux-x64.zip; unzip lightcord-linux-x64.zip -d Lightcord; rm lightcord-linux-x64.zip; cd Lightcord; chmod +x ./lightcord; cd ..; sudo mv Lightcord/ /opt/; rm Lightcord/; wget https://raw.githubusercontent.com/Lightcord/Lightcord/master/Lightcord.desktop; sudo mv Lightcord.desktop /usr/share/applications; chmod +x /usr/share/applications/Lightcord.desktop; wget https://raw.githubusercontent.com/Lightcord/LightcordLogos/master/lightcord/lightcord.svg; sudo mv lightcord.svg /usr/share/pixmaps; /opt/Lightcord/lightcord`
 
 ## Features
 * **BetterDiscord** Themes/Plugins
