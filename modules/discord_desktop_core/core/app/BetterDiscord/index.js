@@ -531,7 +531,6 @@ async function privateInit(){
         gatewayModule.default.prototype._doIdentify = function(){
             let originalSend = this.send
             this.send = function(op, data, idkwhat){
-                console.log(`Sending data`, data)
                 if(op === 2){
                     if(this.intents){
                         data.intents = this.intents
