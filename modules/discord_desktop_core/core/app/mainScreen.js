@@ -403,7 +403,6 @@ function launchMainAppWindow(isVisible) {
 
   const mainWindowOptions = {
     title: 'Lightcord',
-    backgroundColor: getBackgroundColor(),
     width: DEFAULT_WIDTH,
     height: DEFAULT_HEIGHT,
     minWidth: MIN_WIDTH,
