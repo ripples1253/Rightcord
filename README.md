@@ -15,7 +15,7 @@
 A simple - customizable - Discord Client
 
 ## What's this ?
-[Lightcord](https://lightcord.github.io) is a simple and customizable client for Discord.
+[Lightcord](https://lightcord.org) is a simple and customizable client for Discord.
 It includes [BandagedBD](https://github.com/rauenzi/BetterDiscordApp), [Glasstron](https://github.com/AryToNeX/Glasstron) and a [discord.js-like api](https://github.com/Lightcord/Lightcord/tree/master/DiscordJS).
 
 ## Informations
@@ -60,7 +60,7 @@ You can also install it via this one-liner command. It will automatically :
 - Download the Lightcord icon in an .svg format, and will install it in /usr/share/pixmaps.
 *Require administrator rights to install in /opt/ and for some files in /usr/.*
 ```
-wget https://lightcord.deroku.xyz/api/v1/gh/releases/Lightcord/Lightcord/dev/lightcord-linux-x64.zip; unzip lightcord-linux-x64.zip -d Lightcord; rm lightcord-linux-x64.zip; cd Lightcord; chmod +x ./lightcord; cd ..; sudo mv Lightcord/ /opt/; rm Lightcord/; wget https://raw.githubusercontent.com/Lightcord/Lightcord/master/Lightcord.desktop; sudo mv Lightcord.desktop /usr/share/applications; chmod +x /usr/share/applications/Lightcord.desktop; wget https://raw.githubusercontent.com/Lightcord/LightcordLogos/master/lightcord/lightcord.svg; sudo mv lightcord.svg /usr/share/pixmaps; /opt/Lightcord/lightcord
+wget https://lightcord.org/api/v1/gh/releases/Lightcord/Lightcord/dev/lightcord-linux-x64.zip; unzip lightcord-linux-x64.zip -d Lightcord; rm lightcord-linux-x64.zip; cd Lightcord; chmod +x ./lightcord; cd ..; sudo mv Lightcord/ /opt/; rm Lightcord/; wget https://raw.githubusercontent.com/Lightcord/Lightcord/master/Lightcord.desktop; sudo mv Lightcord.desktop /usr/share/applications; chmod +x /usr/share/applications/Lightcord.desktop; wget https://raw.githubusercontent.com/Lightcord/LightcordLogos/master/lightcord/lightcord.svg; sudo mv lightcord.svg /usr/share/pixmaps; /opt/Lightcord/lightcord
 ```
 
 ## Features
