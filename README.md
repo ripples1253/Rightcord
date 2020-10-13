@@ -15,7 +15,7 @@
 A simple - customizable - Discord Client
 
 ## What's this ?
-[Lightcord](https://lightcord.github.io) is a simple and customizable client for Discord.
+[Lightcord](https://lightcord.org) is a simple and customizable client for Discord.
 It includes [BandagedBD](https://github.com/rauenzi/BetterDiscordApp), [Glasstron](https://github.com/AryToNeX/Glasstron) and a [discord.js-like api](https://github.com/Lightcord/Lightcord/tree/master/DiscordJS).
 
 ## Informations
