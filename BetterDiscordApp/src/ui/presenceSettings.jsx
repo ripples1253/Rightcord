@@ -155,7 +155,7 @@ export default class V2C_PresenceSettings extends React.Component {
                         DiscordNative.clipboard.copy(Date.now()+"")
                     }} />)
                 }*/
-                return array
+                return array[0]
             }else if(e.type === "choice"){
                 if(["assets.small", "assets.large"].includes(e.id)){
                     return <InputChoice setting={e} manager={this} id={e.id} choices={[{value: "none", label: "No assets"}].concat(this.state.assets.map(e => {

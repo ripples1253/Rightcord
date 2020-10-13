@@ -3,5 +3,9 @@ const {useState} = BDV2.react
 
 
 export function useForceUpdate(){
-    return useState()[1];
+    const [,setValue] = useState(0)
+
+    return function forceUpdate(){
+        setValue(e => e+1)
+    }
 }

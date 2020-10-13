@@ -32,6 +32,7 @@ import History from "../ui/icons/history";
 import core from "./core";
 import popoutWindow from "./popoutWindow";
 import TextInputSetting from "../ui/TextInputSetting";
+import { useForceUpdate } from "./hooks";
 
 class BDSidebarHeader extends React.PureComponent {
     render(){
@@ -327,90 +328,94 @@ export default new class V2_SettingsPanel {
                     (i === 0 ? null : BDV2.react.createElement(MarginTop)),
                     BDV2.react.createElement("h2", {className: "ui-form-title h2 margin-reset margin-bottom-20"}, section.title),
                     section.settings.map(setting => {
-                        let isChecked = settingsCookie[setting.id]
-                        let value = appSettings.get("BD_"+setting.id, setting.default || "")
-                        if(setting.id === "lightcord-8")isChecked = appSettings.get("isTabs", false);
-                        if(setting.id === "no_window_bound")isChecked = appSettings.get("NO_WINDOWS_BOUND", false)
-                        if(setting.id === "enable_glasstron")isChecked = appSettings.get("GLASSTRON", true)
-                        if(setting.id === "lightcord-10")isChecked = !appSettings.get("DEFAULT_NOTIFICATIONS", true)
-                        let returnValue
-                        if(["lightcord-11"].includes(setting.id)){
-                            returnValue = BDV2.react.createElement(TextInputSetting, {id: setting.id, key: setting.id, data: setting, value, placeholder: setting.default || null, onChange: (id, value) => {
-                                this.onChange(id, value, sidebar);
-                            }})
-                        }else{
-                            returnValue = BDV2.react.createElement(Switch, {id: setting.id, key: setting.id, data: setting, checked: isChecked, onChange: (id, checked) => {
-                                this.onChange(id, checked, sidebar);
-                            }})
-                        }
-                        if(setting.id == "lightcord-8" && isChecked){
-                            return [
-                                returnValue,
-                                React.createElement(Lightcord.Api.Components.inputs.Button, {
-                                    color: "green",
-                                    look: "outlined",
-                                    size: "small",
-                                    hoverColor: "brand",
-                                    onClick: () => {
-                                        DiscordNative.ipc.send("NEW_TAB")
-                                    },
-                                    wrapper: false,
-                                    disabled: false
-                                }, "Open a new Tab")
-                            ]
-                        }
-                        if(setting.id === "enable_glasstron" && isChecked){
-                            if(process.platform !== "linux"){
-                                let choices = []
-                                let actual = null
-                                if(process.platform === "win32"){
-                                    choices.push("blurbehind", "acrylic", "transparent")
-                                    actual = appSettings.get("GLASSTRON_BLUR", "blurbehind")
-                                }else if(process.platform === "darwin"){
-                                    choices.push("titlebar", 
-                                        "selection", 
-                                        "menu", 
-                                        "popover", 
-                                        "sidebar", 
-                                        "header", 
-                                        "sheet", 
-                                        "window", 
-                                        "hud", 
-                                        "fullscreen-ui", 
-                                        "tooltip", 
-                                        "content", 
-                                        "under-window", 
-                                        "under-page", 
-                                        "none"
-                                    )
-                                    actual = appSettings.get("GLASSTRON_VIBRANCY", "fullscreen-ui")
-                                }
+                        return React.createElement(() => {
+                            const forceUpdate = useForceUpdate()
+                            let isChecked = settingsCookie[setting.id]
+                            if(setting.id === "lightcord-8")isChecked = appSettings.get("isTabs", false);
+                            if(setting.id === "no_window_bound")isChecked = appSettings.get("NO_WINDOWS_BOUND", false)
+                            if(setting.id === "enable_glasstron")isChecked = appSettings.get("GLASSTRON", true)
+                            if(setting.id === "lightcord-10")isChecked = !appSettings.get("DEFAULT_NOTIFICATIONS", true)
+                            let returnValue
+                            if(["lightcord-11"].includes(setting.id)){
+                                let value = appSettings.get("BD_"+setting.id, setting.default || "")
+                                returnValue = BDV2.react.createElement(TextInputSetting, {id: setting.id, key: setting.id, data: setting, value, placeholder: setting.default || null, onChange: (id, value) => {
+                                    this.onChange(id, value, sidebar);
+                                }})
+                            }else{
+                                returnValue = BDV2.react.createElement(Switch, {id: setting.id, key: setting.id, data: setting, checked: isChecked, onChange: (id, checked) => {
+                                    this.onChange(id, checked, sidebar);
+                                    forceUpdate()
+                                }})
+                            }
+                            if(setting.id == "lightcord-8" && isChecked){
                                 return [
                                     returnValue,
-                                    React.createElement(Lightcord.Api.Components.general.SettingSubTitle, {}, "Glasstron Blur"),
-                                    React.createElement(Lightcord.Api.Components.inputs.Dropdown, {
-                                        options: choices.map(e => {
-                                            return {
-                                                value: e,
-                                                label: e
-                                            }
-                                        }),
-                                        value: actual,
-                                        disabled: false,
-                                        searchable: true,
-                                        clearable: false,
-                                        onChange: (value) => {
-                                            if(process.platform === "win32"){
-                                                ipcRenderer.invoke("LIGHTCORD_SET_BLUR_TYPE", value)
-                                            }else{
-                                                ipcRenderer.invoke("LIGHTCORD_SET_VIBRANCY", value)
-                                            }
-                                        }
-                                    }, null)
+                                    React.createElement(Lightcord.Api.Components.inputs.Button, {
+                                        color: "green",
+                                        look: "outlined",
+                                        size: "small",
+                                        hoverColor: "brand",
+                                        onClick: () => {
+                                            DiscordNative.ipc.send("NEW_TAB")
+                                        },
+                                        wrapper: false,
+                                        disabled: false
+                                    }, "Open a new Tab")
                                 ]
                             }
-                        }
-                        return returnValue
+                            if(setting.id === "enable_glasstron" && isChecked){
+                                if(process.platform !== "linux"){
+                                    let choices = []
+                                    let actual = null
+                                    if(process.platform === "win32"){
+                                        choices.push("blurbehind", "acrylic", "transparent")
+                                        actual = appSettings.get("GLASSTRON_BLUR", "blurbehind")
+                                    }else if(process.platform === "darwin"){
+                                        choices.push("titlebar", 
+                                            "selection", 
+                                            "menu", 
+                                            "popover", 
+                                            "sidebar", 
+                                            "header", 
+                                            "sheet", 
+                                            "window", 
+                                            "hud", 
+                                            "fullscreen-ui", 
+                                            "tooltip", 
+                                            "content", 
+                                            "under-window", 
+                                            "under-page", 
+                                            "none"
+                                        )
+                                        actual = appSettings.get("GLASSTRON_VIBRANCY", "fullscreen-ui")
+                                    }
+                                    return [
+                                        returnValue,
+                                        React.createElement(Lightcord.Api.Components.general.SettingSubTitle, {}, "Glasstron Blur"),
+                                        React.createElement(Lightcord.Api.Components.inputs.Dropdown, {
+                                            options: choices.map(e => {
+                                                return {
+                                                    value: e,
+                                                    label: e
+                                                }
+                                            }),
+                                            value: actual,
+                                            disabled: false,
+                                            searchable: true,
+                                            clearable: false,
+                                            onChange: (value) => {
+                                                if(process.platform === "win32"){
+                                                    ipcRenderer.invoke("LIGHTCORD_SET_BLUR_TYPE", value)
+                                                }else{
+                                                    ipcRenderer.invoke("LIGHTCORD_SET_VIBRANCY", value)
+                                                }
+                                            }
+                                        }, null)
+                                    ]
+                                }
+                            }
+                            return returnValue
+                        })
                     })
                 ]
             }), 

@@ -2,9 +2,6 @@ const fs = require("fs")
 const { join } = require("path")
 const { pathToFileURL } = require("url")
 const ipc = require("../discord_native/renderer/ipc")
-const { ipcRenderer, remote } = require("electron")
-
-remote.getCurrentWindow().openDevTools()
 
 let webviews = new Map()
 window.webviews = webviews

@@ -1205,8 +1205,8 @@ const BetterDiscordConfig = window.BetterDiscordConfig = {
 	"branch": "lightcord",
     dataPath: LightcordBDFolder+"/",
     os: process.platform,
-    latestVersion: "0.3.4",
-    version: "0.3.4"
+    latestVersion: "0.3.5",
+    version: "0.3.5"
 }
 
 function ensureGuildClasses(){

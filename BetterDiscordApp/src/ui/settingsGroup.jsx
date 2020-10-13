@@ -4,6 +4,7 @@ import BDV2 from "../modules/v2";
 import SettingsTitle from "./settingsTitle";
 import Switch from "./switch";
 import MarginTop from "./margintop";
+import { useForceUpdate } from "../modules/hooks";
 
 let formModule
 let switchItem
@@ -26,6 +27,7 @@ export default class V2C_SettingsGroup extends BDV2.reactComponent {
                 settings.map(setting => {
                     return BDV2.react.createElement(Switch, {id: setting.id, key: setting.id, data: setting, checked: settingsCookie[setting.id], onChange: (id, checked) => {
                         this.props.onChange(id, checked);
+                        this.forceUpdate()
                     }});
                 })];
     }
@@ -64,15 +66,18 @@ export default class V2C_SettingsGroup extends BDV2.reactComponent {
                     if(setting.experimental){
                         info.push(<sup className={betaClassNames.beta}>(EXPERIMENTAL)</sup>)
                     }
-                    return <switchItem.default onChange={(ev) => {
-                        this.props.onChange(setting.id, ev.target.checked);
-                        this.forceUpdate()
-                    }} key={setting.id} value={settingsCookie[setting.id]} className={__SECRET_EMOTION__.css({
-                        marginBottom: "20px"
-                    })} disabled={false} hideBorder={false}
-                        size={switchItem.default.Sizes.DEFAULT} theme={switchItem.default.Themes.DEFAULT} note={setting.info}>
-                        {info}
-                    </switchItem.default>
+                    return React.createElement(() => {
+                        const forceUpdate = useForceUpdate()
+                        return <switchItem.default onChange={(val) => {
+                            this.props.onChange(setting.id, val);
+                            forceUpdate()
+                        }} key={setting.id} value={settingsCookie[setting.id]} className={__SECRET_EMOTION__.css({
+                            marginBottom: "20px"
+                        })} disabled={false} hideBorder={false}
+                            note={setting.info} tooltipNote={null}>
+                            {info}
+                        </switchItem.default>
+                    })
                 }))
                 return <formModule.FormSection tag="h2" title={this.props.title}>
                     {children}
