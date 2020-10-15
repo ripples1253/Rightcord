@@ -60,9 +60,9 @@ You can also install it via this install script. It will automatically :
 - Download the Lightcord icon in an .svg format, and will install it in /usr/share/pixmaps.
 
 ## Install script
-*The script needs to be run as root to install Lightcord. *
-*Please install the "unzip" package before executing this script as this script depends on it. *
-- Run `wget https://raw.githubusercontent.com/GermanBread/UsefulTools/main/Lightcord_dev_installer.sh && sudo bash ./Lightcord_dev_installer.sh`
+*The script needs to be run as root to install Lightcord.* 
+*Please install the "unzip" package before executing this script as this script depends on it.* 
+- Run `wget https://raw.githubusercontent.com/GermanBread/UsefulTools/main/Lightcord_dev_installer.sh`
 - Then: `sudo bash Lightcord_dev_installer.sh`
 - To remove it: `rm Lightcord_dev_installer.sh`
 
