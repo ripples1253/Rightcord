@@ -1,5 +1,5 @@
 #!/bin/bash
-
+# Original script by https://github.com/GermanBread
 if [[ $TERM == dumb ]]; then
     exit;
 fi
