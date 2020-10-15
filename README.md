@@ -58,6 +58,7 @@ You can also install it via this one-liner command. It will automatically :
 - Download an apropriate .desktop file and install it in /usr/share/applications.
 - Add executions rights to the .desktop file to be able to launch Lightcord from it.
 - Download the Lightcord icon in an .svg format, and will install it in /usr/share/pixmaps.
+
 *The script needs to be run as root to install Lightcord*
 *Please install the "unzip" package before executing this script as this script depends on it*
 Run `wget https://raw.githubusercontent.com/GermanBread/UsefulTools/main/Lightcord_dev_installer.sh && sudo bash ./Lightcord_dev_installer.sh`
