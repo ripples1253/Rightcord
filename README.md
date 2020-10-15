@@ -50,7 +50,7 @@ https://aur.archlinux.org/packages/lightcord-bin/
 If you don't know how to install from the AUR, you can follow [this](https://wiki.archlinux.org/index.php/Arch_User_Repository#Installing_and_upgrading_packages) tutorial, but I would recommend using an AUR helper such as ``yay``.
 
 ## Other linux distribution
-You can also install it via this one-liner command. It will automatically :
+You can also install it via this install script. It will automatically :
 - Download the latest Lightcord stable release from the official dev server.
 - Extract its file, and rename it to a more conventional ¨Lightcord¨ folder.
 - Install the Lightcord files in /opt/.
