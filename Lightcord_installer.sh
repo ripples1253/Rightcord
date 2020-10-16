@@ -39,7 +39,6 @@ do
         printf "1: Install Lightcord\n";
         printf "2: Uninstall Lightcord\n";
         printf "3: Update Lightcord\n"
-        printf "4: Exit"
         printf "\n";
     fi
 done
