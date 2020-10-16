@@ -59,11 +59,12 @@ You can also install it via this install script. It will automatically :
 - Add executions rights to the .desktop file to be able to launch Lightcord from it.
 - Download the Lightcord icon in an .svg format, and will install it in /usr/share/pixmaps.
 
-## Install script
+## One-liner install script
 
-*The script needs to be run as root to install Lightcord.* 
 *Please install the "unzip" package before executing this script as this script depends on it.* 
-- Run `curl -sSL https://raw.githubusercontent.com/Lightcord/Lightcord/master/Lightcord_installer.sh | bash`
+```
+curl -sSL https://raw.githubusercontent.com/Lightcord/Lightcord/master/Lightcord_installer.sh | bash
+```
 
 ## Features
 * **BetterDiscord** Themes/Plugins
