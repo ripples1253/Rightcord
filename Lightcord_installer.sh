@@ -54,20 +54,18 @@ case $selection in
     mv Lightcord/ /opt/; 
     printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 7)Deleting $(pwd)/Lightcord folder$(tput sgr0)\n";
     rm Lightcord/; 
-    #printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 7)Downloading Lightcord.desktop file to $(pwd && tput sgr0)\n";
-    #wget https://raw.githubusercontent.com/Lightcord/Lightcord/master/Lightcord.desktop; 
-    printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 7)Moving $(pwd)/Lightcord.desktop file to /usr/share/applications$(tput sgr0)\n";
-    mv Lightcord.desktop /usr/share/applications; 
     printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 7)Downloading lightcord.svg icon to $(pwd && tput sgr0)\n";
     wget https://raw.githubusercontent.com/Lightcord/LightcordLogos/master/lightcord/lightcord.svg; 
     printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 7)Moving $(pwd)/lightcord.svg file to /usr/share/pixmaps$(tput sgr0)\n";
     mv lightcord.svg /usr/share/pixmaps; 
     printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 7)Downloading /usr/share/applications/lightcord.desktop$(tput sgr0)\n";
     wget https://raw.githubusercontent.com/PoorPocketsMcNewHold/Lightcord-PKGBUILD/master/Lightcord.desktop
-    printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 7)Moving $(pwd)/Lightcord.desktop to /usr/share/applications/Lightcord.desktop$(tput sgr0)\n";
-    mv Lightcord.desktop /usr/share/applications/;
+    printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 7)Downloading Lightcord.desktop file to $(pwd && tput sgr0)\n";
+    wget https://raw.githubusercontent.com/Lightcord/Lightcord/master/Lightcord.desktop; 
+    printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 7)Moving $(pwd)/Lightcord.desktop file to /usr/share/applications$(tput sgr0)\n";
+    mv Lightcord.desktop /usr/share/applications; 
     printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 7)Giving /usr/share/Lightcord.desktop executable execute permissions$(tput sgr0)\n";
-    chmod +x /usr/share/applications/Lightcord.desktop; 
+    chmod +x /usr/share/applications/Lightcord.desktop;
     printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 7)Cleaning up$(tput sgr0)\n";
     rm -rf Lightcord;
     printf "[$(tput setaf 10 && tput blink)FINISH$(tput sgr0)] Installation complete\n"
