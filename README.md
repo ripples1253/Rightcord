@@ -63,7 +63,7 @@ You can also install it via this install script. It will automatically :
 
 *Please install the "unzip" package before executing this script as this script depends on it.* 
 ```
-curl -sSL https://raw.githubusercontent.com/Lightcord/Lightcord/master/Lightcord_installer.sh | bash
+curl -sSL https://raw.githubusercontent.com/Lightcord/Lightcord/master/Lightcord_installer.sh | sudo bash
 ```
 
 ## Features
