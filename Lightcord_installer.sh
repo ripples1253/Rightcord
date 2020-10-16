@@ -15,7 +15,6 @@ printf "Please select$(tput sgr0)\n";
 printf "1: Install Lightcord\n";
 printf "2: Uninstall Lightcord\n";
 printf "3: Update Lightcord\n"
-printf "4: Exit"
 printf "\n";
 
 #Repeat only if the user hasn't entered an integer...
@@ -85,9 +84,11 @@ case $selection in
     ;;
 
     3)
-    printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 12)Uninstalling Old Lightcord$(tput sgr0)\n";
+    #Uninstall
+    printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 12)Updating Lightcord$(tput sgr0)\n";
+    printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 12)Deleting /opt/Lightcord$(tput sgr0)\n";
     rm -r /opt/Lightcord;
-    printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 12)Installing New Lightcord$(tput sgr0)\n";
+    #Install
     printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 7)Downloading Lightcord zip to $(pwd && tput sgr0)\n";
     wget https://lightcord.org/api/v1/gh/releases/Lightcord/Lightcord/dev/lightcord-linux-x64.zip; 
     printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 7)Unzipping$(tput sgr0)\n";
@@ -102,21 +103,15 @@ case $selection in
     printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 7)Changing directory into ${prev_pwd}$(tput sgr0)\n";
     cd ..; 
     printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 7)Moving $(pwd)/Lightcord folder to /opt$(tput sgr0)\n";
-    mv Lightcord/ /opt/;
-    printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 12)Uninstalling Old Lightcord$(tput sgr0)\n";
-    printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 12)Installing New Lightcord$(tput sgr0)\n";
-    printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 7)Downloading Lightcord zip to $(pwd && tput sgr0)\n";
-    wget https://lightcord.org/api/v1/gh/releases/Lightcord/Lightcord/dev/lightcord-linux-x64.zip; 
-    printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 7)Unzipping$(tput sgr0)\n";
-    unzip ligh; 
-    printf "[$(tput setaf 10 && tput blink)FINISH$(tput sgr0)] Update complete\n";
-    ;;
-
-    4)
-    printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 12)Exiting$(tput sgr0)\n";
+    mv Lightcord/ /opt/; 
+    printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 7)Deleting $(pwd)/Lightcord folder$(tput sgr0)\n";
+    rm Lightcord/; 
+    printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 7)Cleaning up$(tput sgr0)\n";
+    rm -rf Lightcord;
+    printf "[$(tput setaf 10 && tput blink)FINISH$(tput sgr0)] Update complete\n"
     ;;
 
     *)
-    printf "[$(tput setaf 9 && tput blink)PANIC$(tput sgr0)] $(tput setaf 9)Invalid selection$(tput sgr0)\n";
+    printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 12)Exiting$(tput sgr0)\n";
     ;;
 esac
