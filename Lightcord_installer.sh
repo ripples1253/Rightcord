@@ -9,6 +9,17 @@ if [[ $(whoami) != "root" ]] ; then
     exit;
 fi
 
+
+cat << "EOF"
+  _    _      _   _                 _
+ | |  (_)__ _| |_| |_ __ ___ _ _ __| |
+ | |__| / _` | ' \  _/ _/ _ \ '_/ _` |
+ |____|_\__, |_||_\__\__\___/_| \__,_|
+        |___/
+    Linux Installer and Updater
+    
+EOF
+
 printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 12)This script depends on unzip! Install that package first!$(tput sgr0)\n";
 
 printf "Please select$(tput sgr0)\n";
