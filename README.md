@@ -63,9 +63,7 @@ You can also install it via this install script. It will automatically :
 
 *The script needs to be run as root to install Lightcord.* 
 *Please install the "unzip" package before executing this script as this script depends on it.* 
-- Run `wget https://raw.githubusercontent.com/Lightcord/Lightcord/master/Lightcord_installer.sh`
-- Then: `sudo bash Lightcord_installer.sh`
-- To remove it: `rm Lightcord_installer.sh`
+- Run `rm -f Lightcord_installer.sh && wget https://raw.githubusercontent.com/Lightcord/Lightcord/master/Lightcord_installer.sh && clear && sudo bash Lightcord_installer.sh && rm -f Lightcord_installer.sh`
 
 ## Features
 * **BetterDiscord** Themes/Plugins
