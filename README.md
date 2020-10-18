@@ -46,8 +46,15 @@ npm run run
 *You can find an experimental GNU/Linux tutorial in our Discord, or use the AUR*
 
 ## AUR (unofficial)
-https://aur.archlinux.org/packages/lightcord-bin/
-If you don't know how to install from the AUR, you can follow [this](https://wiki.archlinux.org/index.php/Arch_User_Repository#Installing_and_upgrading_packages) tutorial, but I would recommend using an AUR helper such as ``yay``.
+You need to install the `base-devel` and `git` packages first
+
+**For compilation**
+`git clone https://aur.archlinux.org/lightcord-git.git && cd lightcord-git && makepkg -si`
+
+**For precomiled binaries**
+`git clone https://aur.archlinux.org/lightcord-bin.git && cd lightcord-bin && makepkg -si`
+
+An AUR helped such as `yay` can also be used
 
 ## Other linux distribution
 You can also install it via this install script. It will automatically :
