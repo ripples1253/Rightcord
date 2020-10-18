@@ -48,10 +48,10 @@ npm run run
 ## AUR (unofficial)
 You need to install the `base-devel` and `git` packages first
 
-**For compilation**
+**For compilation** https://aur.archlinux.org/packages/lightcord-git/
 `git clone https://aur.archlinux.org/lightcord-git.git && cd lightcord-git && makepkg -si`
 
-**For precomiled binaries**
+**For precomiled binaries** https://aur.archlinux.org/packages/lightcord-bin/
 `git clone https://aur.archlinux.org/lightcord-bin.git && cd lightcord-bin && makepkg -si`
 
 An AUR helped such as `yay` can also be used
