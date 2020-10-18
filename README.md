@@ -43,7 +43,7 @@ Then everytime you want to launch it just type in
 npm run run
 ```
 
-*You can use our install script or the AUR*
+*You can install on GNU/Linux with our install script or the AUR*
 
 ## AUR (unofficial)
 You need to install the `base-devel` and `git` packages first
