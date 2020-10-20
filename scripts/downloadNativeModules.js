@@ -4,7 +4,10 @@ const tmp = require("tmp")
 const fs = require("fs")
 const util = require('util')
 const { join, dirname } = require("path")
+const { resolve: resolvePath } = require("path")
 const streamPipeline = util.promisify(require('stream').pipeline)
+
+const PROJECT_DIR = resolvePath(__dirname, "..");
 
 const API_URL = "https://discord.com/api"
 const branch = "stable"
@@ -49,7 +52,7 @@ const patchedJS = []
                     resolve(zip)
                 })
             })
-            const modulePath = join(__dirname, "modules", module)
+            const modulePath = join(PROJECT_DIR, "modules", module)
             const exists = fs.existsSync(modulePath)
             let hasNode = false
             let hasBinaries = ["discord_hook", "discord_modules"].includes(module)
