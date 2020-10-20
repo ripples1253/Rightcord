@@ -1,8 +1,12 @@
 const spawn = require("cross-spawn")
+const { mkdirSync, existsSync } = require("fs")
 const { join } = require("path")
 
 /** Main Project */
 spawnSync("tsc")
+if (!existsSync(join(__dirname, "BetterDiscordApp", "dist"))){
+    mkdirSync(join(__dirname, "BetterDiscordApp", "dist"))
+}
 /** BetterDiscord */
 spawnSync("npm run build", join(__dirname, "BetterDiscordApp"))
 spawnSync("npm run build-prod", join(__dirname, "BetterDiscordApp"))
