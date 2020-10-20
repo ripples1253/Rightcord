@@ -22,15 +22,23 @@ var args = process.argv.slice(2);
 
 let dirsToRemove;
 const node_modules = glob.sync("+(**/node_modules|node_modules)", {absolute:true, onlyDirectories:true, cwd:projectDir})
-const dist = join(projectDir, "dist");
-const distApp = join(projectDir, "distApp");
-const builds = join(projectDir, "builds");
+const build_dirs = [
+    join(projectDir, "dist"),
+    join(projectDir, "distApp"),
+    join(projectDir, "builds"),
+    join(projectDir, "LightcordApi", "js"),
+    join(projectDir, "LightcordApi", "dist"),
+    join(projectDir, "DiscordJS", "js"),
+    join(projectDir, "DiscordJS", "dist"),
+    join(projectDir, "BetterDiscordApp", "js"),
+    join(projectDir, "BetterDiscordApp", "dist"),
+]
 
 // regular clean means removing only node_modules
 dirsToRemove = node_modules;
 // clean all means removing all dirs.
 if (args[0] === "--all"){
-    dirsToRemove = node_modules.concat([dist, distApp, builds])
+    dirsToRemove = dirsToRemove.concat(build_dirs)
 }
 
 dirsToRemove.forEach((dir)=>{
