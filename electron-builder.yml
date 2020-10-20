@@ -6,7 +6,7 @@ directories:
   app: distApp
   output: builds
 # This is to get around the bug in electron-builder with not including nested node_modules.
-afterPack: "afterpack.js"
+afterPack: "scripts/afterpack.js"
 win:
   artifactName: ${name}-win32-${arch}.${ext}
   target:

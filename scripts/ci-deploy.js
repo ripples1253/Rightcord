@@ -1,4 +1,4 @@
-const package = require("./package.json")
+const package = require("../package.json")
 const child_process = require("child_process")
 
 const version = package.version+"-"+Date.now()+ "-" + child_process.execSync("git rev-parse HEAD").toString().split("\n")[0].trim().slice(0, 7)

@@ -3,6 +3,8 @@ const path = require("path")
 const { existsSync, promises: fsPromises, createWriteStream } = require("fs")
 const yazl = require("yazl")
 
+const PROJECT_DIR = path.resolve(__dirname, "..");
+
 const supportedPlatforms = []
 const Platforms = {
     linux: {
@@ -27,8 +29,8 @@ const Platforms = {
         name: "mac",
         experimental: true,
         run: async () => {
-            const basePath = path.join(__dirname, "..", "lightcord-darwin-x64")
-            const nextPath = path.join(__dirname, "builds", "lightcord-darwin-x64")
+            const basePath = path.join(PROJECT_DIR, "..", "lightcord-darwin-x64")
+            const nextPath = path.join(PROJECT_DIR, "builds", "lightcord-darwin-x64")
             if(existsSync(nextPath)){
                 console.log(`Cleaning ${nextPath}.`)
                 await fsPromises.rmdir(nextPath, {recursive: true})
@@ -54,11 +56,11 @@ const Platforms = {
             const asarUnpackPath = path.join(nextPath, "lightcord.app", "Contents", "Resources", "app.asar.unpacked")
             if(existsSync(asarUnpackPath))await fsPromises.rmdir(asarUnpackPath, {recursive: true})
             const asar = require("asar")
-            await asar.createPackageWithOptions(path.join(__dirname, "distApp"), asarPath, {
+            await asar.createPackageWithOptions(path.join(PROJECT_DIR, "distApp"), asarPath, {
                 unpack: "*.{node,dylib,so.4,dll}",
                 unpackDir: asarUnpackPath
             })
-            const iconPath = path.join(__dirname, "discord.icns")
+            const iconPath = path.join(PROJECT_DIR, "discord.icns")
             if(existsSync(iconPath)){
                 console.log(`Setting icon.`)
                 const newIconPath = path.join(nextPath, "lightcord.app", "Contents", "Resources", "electron.icns")
@@ -66,11 +68,11 @@ const Platforms = {
             }
             console.log("zipping")
             const zip = new yazl.ZipFile();
-            zip.outputStream.pipe(createWriteStream(path.join(__dirname, "builds", "lightcord-darwin-x64.zip")))
+            zip.outputStream.pipe(createWriteStream(path.join(PROJECT_DIR, "builds", "lightcord-darwin-x64.zip")))
             .on("close", function() {
                 console.log("Finished zipping.");
             });
-            const startDir = path.join(__dirname, "builds", "lightcord-darwin-x64")
+            const startDir = path.join(PROJECT_DIR, "builds", "lightcord-darwin-x64")
             async function nextDir2(dir){
                 for(let file of await fsPromises.readdir(dir, {withFileTypes: true})){
                     if(file.isDirectory()){
@@ -90,13 +92,13 @@ switch(process.platform){
     case "win32":
         supportedPlatforms.push(Platforms.win)
         supportedPlatforms.push(Platforms.linux)
-        if(existsSync(path.join(__dirname, "..", "lightcord-darwin-x64"))){
+        if(existsSync(path.join(PROJECT_DIR, "..", "lightcord-darwin-x64"))){
             supportedPlatforms.push(Platforms.mac_experimental)
         }
         break
     case "linux":
         supportedPlatforms.push(Platforms.linux)
-        if(existsSync(path.join(__dirname, "..", "lightcord-darwin-x64"))){
+        if(existsSync(path.join(PROJECT_DIR, "..", "lightcord-darwin-x64"))){
             supportedPlatforms.push(Platforms.mac_experimental)
         }
         break

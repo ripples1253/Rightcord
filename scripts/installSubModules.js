@@ -2,7 +2,9 @@ const child_process = require("child_process")
 const fs = require("fs")
 const path = require("path")
 
-const MODULES_DIRNAME = path.join(__dirname, "modules")
+const PROJECT_DIR = path.resolve(__dirname, "..");
+
+const MODULES_DIRNAME = path.join(PROJECT_DIR, "modules")
 
 var exitedWithErrorProcessList = [];
 
@@ -30,10 +32,10 @@ fs.readdirSync(MODULES_DIRNAME, {withFileTypes: true})
 })
 
 
-const MODULE_DIRNAME = path.join(__dirname, "modules", "discord_desktop_core", "core")
-const BETTERDISCORD_DIRNAME = path.join(__dirname, "BetterDiscordApp")
-const DISCORDJS_DIRNAME = path.join(__dirname, "DiscordJS")
-const LIGHTCORDAPI_DIRNAME = path.join(__dirname, "LightcordApi")
+const MODULE_DIRNAME = path.join(PROJECT_DIR, "modules", "discord_desktop_core", "core")
+const BETTERDISCORD_DIRNAME = path.join(PROJECT_DIR, "BetterDiscordApp")
+const DISCORDJS_DIRNAME = path.join(PROJECT_DIR, "DiscordJS")
+const LIGHTCORDAPI_DIRNAME = path.join(PROJECT_DIR, "LightcordApi")
 
 spawnNpmInstallProcess(MODULE_DIRNAME)
 spawnNpmInstallProcess(BETTERDISCORD_DIRNAME)
