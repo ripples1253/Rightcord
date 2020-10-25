@@ -22,10 +22,11 @@ EOF
 
 printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 12)This script depends on unzip! Install that package first!$(tput sgr0)\n";
 
-printf "Please select$(tput sgr0)\n";
+printf "Please select\n";
 printf "1: Install Lightcord\n";
 printf "2: Uninstall Lightcord\n";
 printf "3: Update Lightcord\n"
+printf "4: Troubleshooting\n"
 printf "\n";
 
 #Repeat only if the user hasn't entered an integer...
@@ -39,6 +40,7 @@ do
         printf "1: Install Lightcord\n";
         printf "2: Uninstall Lightcord\n";
         printf "3: Update Lightcord\n"
+        printf "4: Troubleshooting\n"
         printf "\n";
     fi
 done
@@ -67,17 +69,15 @@ case $selection in
     wget https://raw.githubusercontent.com/Lightcord/LightcordLogos/master/lightcord/lightcord.svg; 
     printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 7)Moving $(pwd)/lightcord.svg file to /usr/share/pixmaps$(tput sgr0)\n";
     mv lightcord.svg /usr/share/pixmaps; 
-    printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 7)Downloading /usr/share/applications/lightcord.desktop$(tput sgr0)\n";
-    wget https://raw.githubusercontent.com/PoorPocketsMcNewHold/Lightcord-PKGBUILD/master/Lightcord.desktop
     printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 7)Downloading Lightcord.desktop file to $(pwd && tput sgr0)\n";
     wget https://raw.githubusercontent.com/Lightcord/Lightcord/master/Lightcord.desktop; 
     printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 7)Moving $(pwd)/Lightcord.desktop file to /usr/share/applications$(tput sgr0)\n";
     mv Lightcord.desktop /usr/share/applications; 
-    printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 7)Giving /usr/share/Lightcord.desktop executable execute permissions$(tput sgr0)\n";
+    printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 7)Giving /usr/share/Lightcord.desktop execute permissions$(tput sgr0)\n";
     chmod +x /usr/share/applications/Lightcord.desktop;
     printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 7)Cleaning up$(tput sgr0)\n";
     rm -rf Lightcord;
-    printf "[$(tput setaf 10 && tput blink)FINISH$(tput sgr0)] Installation complete\n"
+    printf "[$(tput setaf 10 && tput blink)FINISH$(tput sgr0)] Installation complete\n";
     ;;
 
     2)
@@ -90,7 +90,7 @@ case $selection in
     rm /usr/share/applications/Lightcord.desktop;
     #printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 12)Deleting /home/*/.local/share/applications/Lightcord.desktop$(tput sgr0)\n";
     #rm /home/*/.local/share/applications/Lightcord.desktop;
-    printf "[$(tput setaf 10 && tput blink)FINISH$(tput sgr0)] Uninstall complete\n"
+    printf "[$(tput setaf 10 && tput blink)FINISH$(tput sgr0)] Uninstall complete\n";
     ;;
 
     3)
@@ -118,9 +118,13 @@ case $selection in
     rm Lightcord/; 
     printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 7)Cleaning up$(tput sgr0)\n";
     rm -rf Lightcord;
-    printf "[$(tput setaf 10 && tput blink)FINISH$(tput sgr0)] Update complete\n"
+    printf "[$(tput setaf 10 && tput blink)FINISH$(tput sgr0)] Update complete\n";
     ;;
 
+    4)
+    printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 7)If the Lightcord shortcut doesn't work, modify \"/usr/share/Lightcord.desktop\" and change the line \"Exec=/usr/bin/Lightcord\" to \"Exec=/usr/bin/lightcord\"$(tput sgr0)\n";
+    ;;
+    
     *)
     printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 12)Exiting$(tput sgr0)\n";
     ;;
