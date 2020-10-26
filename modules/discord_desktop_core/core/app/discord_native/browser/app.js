@@ -40,7 +40,12 @@ electron.ipcMain.on(APP_GET_RELEASE_CHANNEL_SYNC, event => {
 
 electron.ipcMain.on(APP_GET_HOST_VERSION_SYNC, event => {
   // hardcode because Discord could identify Lightcord or could simply bug.
-  event.returnValue = "0.0.308" //electron.app.getVersion();
+  if(process.platform === "darwin")
+    event.returnValue = "0.0.259";
+  else if(process.platform === "linux")
+    event.returnValue = "0.0.12";
+  else
+    event.returnValue = "0.0.308"; //electron.app.getVersion();
 });
 
 electron.ipcMain.handle(APP_GET_MODULE_VERSIONS, (() => {

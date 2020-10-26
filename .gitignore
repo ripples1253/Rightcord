@@ -108,7 +108,6 @@ builds
 
 # must build typescript itself
 dist
-!BetterDiscordApp/dist
 
 distApp
 
@@ -121,3 +120,12 @@ discord-webrtc_0
 
 # VS Code stuff
 .vscode
+
+# Compiled JS files
+LightcordApi/js
+DiscordJS/js
+BetterDiscordApp/dist
+
+downloaded_modules
+workspace_modules
+new_modules_version.json

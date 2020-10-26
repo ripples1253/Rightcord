@@ -14,7 +14,7 @@ jobs:
       before_cache:
         - rm -rf $ELECTRON_BUILDER_CACHE/wine
       script:
-        - npm run devInstall:64
+        - npm run devInstall
         - npm run build
 #    - stage: Windows Build
 #      os: windows

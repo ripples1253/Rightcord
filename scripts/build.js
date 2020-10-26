@@ -12,6 +12,7 @@ exports.default = async function beforeBuild(context){
     await main()
     return true
 }
+const PROJECT_DIR = path.resolve(__dirname, "..");
 
 console.log = (...args) => {
     process.stdout.write(Buffer.from(util.formatWithOptions({colors: true}, ...args)+"\n", "binary").toString("utf8"))
@@ -109,7 +110,7 @@ async function main(){
     
     console.info("Reseting existent directory...")
     await fs.promises.rmdir("./distApp", {"recursive": true})
-    await fs.promises.mkdir(__dirname+"/distApp/dist", {"recursive": true})
+    await fs.promises.mkdir(PROJECT_DIR+"/distApp/dist", {"recursive": true})
     
     console.info("Executing command `npm run compile`")
     child_process.execSync("npm run compile", {
@@ -117,8 +118,8 @@ async function main(){
         stdio: "inherit"
     })
     
-    let startDir = path.join(__dirname, "./dist")
-    let newDir = path.join(__dirname, "./distApp/dist")
+    let startDir = path.join(PROJECT_DIR, "./dist")
+    let newDir = path.join(PROJECT_DIR, "./distApp/dist")
     console.info("No error detected. Copying files from "+startDir+".")
     await fs.promises.mkdir(startDir, {recursive: true})
 
@@ -137,19 +138,19 @@ async function main(){
         console.info(`Copied files and minified them from ${startDir}.`)
     })
     
-    await processNextDir(path.join(__dirname, "modules"), {
-        startDir: path.join(__dirname, "modules"),
-        newDir: path.join(__dirname, "distApp", "modules"),
+    await processNextDir(path.join(PROJECT_DIR, "modules"), {
+        startDir: path.join(PROJECT_DIR, "modules"),
+        newDir: path.join(PROJECT_DIR, "distApp", "modules"),
         exclude: /discord_spellcheck/g
     }, ((filepath) => filepath.endsWith(".js")), async (filepath, newpath) => {
         console.info(`Minifying ${filepath} to ${newpath}`)
         await fs.promises.writeFile(newpath, terser.minify(await fs.promises.readFile(filepath, "utf8")).code, "utf8")
     }, true).then(() => {
-        console.info(`Copied files and minified them from ${path.join(__dirname, "modules")}.`)
+        console.info(`Copied files and minified them from ${path.join(PROJECT_DIR, "modules")}.`)
     })
 
-    await Promise.all((await fs.promises.readdir(path.join(__dirname, "distApp", "modules"))).map(async mdl => {
-        let dir = path.join(__dirname, "distApp", "modules", mdl)
+    await Promise.all((await fs.promises.readdir(path.join(PROJECT_DIR, "distApp", "modules"))).map(async mdl => {
+        let dir = path.join(PROJECT_DIR, "distApp", "modules", mdl)
 
         if(!fs.existsSync(path.join(dir, "package.json"))){
             if(mdl === "discord_desktop_core"){
@@ -167,48 +168,48 @@ async function main(){
         })
     }))
 
-    await fs.promises.mkdir(path.join(__dirname, "distApp", "modules", "discord_spellcheck"), {recursive: true})
-    await processNextDir(path.join(__dirname, "modules", "discord_spellcheck"), {
-        startDir: path.join(__dirname, "modules", "discord_spellcheck"),
-        newDir: path.join(__dirname, "distApp", "modules", "discord_spellcheck")
+    await fs.promises.mkdir(path.join(PROJECT_DIR, "distApp", "modules", "discord_spellcheck"), {recursive: true})
+    await processNextDir(path.join(PROJECT_DIR, "modules", "discord_spellcheck"), {
+        startDir: path.join(PROJECT_DIR, "modules", "discord_spellcheck"),
+        newDir: path.join(PROJECT_DIR, "distApp", "modules", "discord_spellcheck")
     }, ((filepath) => filepath.endsWith(".js")), async (filepath, newpath) => {
         console.info(`Minifying ${filepath} to ${newpath}`)
         await fs.promises.writeFile(newpath, terser.minify(await fs.promises.readFile(filepath, "utf8")).code, "utf8")
     }, false).then(() => {
-        console.info(`Copied files and minified them from ${path.join(__dirname, "modules")}.`)
+        console.info(`Copied files and minified them from ${path.join(PROJECT_DIR, "modules")}.`)
     })
 
-    await processNextDir(path.join(__dirname, "LightcordApi"), {
-        startDir: path.join(__dirname, "LightcordApi"),
-        newDir: path.join(__dirname, "distApp", "LightcordApi"),
+    await processNextDir(path.join(PROJECT_DIR, "LightcordApi"), {
+        startDir: path.join(PROJECT_DIR, "LightcordApi"),
+        newDir: path.join(PROJECT_DIR, "distApp", "LightcordApi"),
         exclude: /(src|webpack\.config\.js|tsconfig\.json|dist|docs)/g
     }, ((filepath) => filepath.endsWith(".js") && (!production ? !filepath.includes("node_modules") : true)), async (filepath, newpath) => {
         await fs.promises.copyFile(filepath, newpath)
     }, true).then(() => {
-        console.info(`Copied files and minified them from ${path.join(__dirname, "LightcordApi")}.`)
+        console.info(`Copied files and minified them from ${path.join(PROJECT_DIR, "LightcordApi")}.`)
     })
     
     child_process.execSync("npm install --only=prod", {
         encoding: "binary",
-        cwd: path.join(__dirname, "distApp", "LightcordApi"),
+        cwd: path.join(PROJECT_DIR, "distApp", "LightcordApi"),
         stdio: "inherit"
     })
 
     function processDJS(dir){
-        fs.mkdirSync(path.join(__dirname, "distApp", "DiscordJS", dir), {recursive: true})
-        return processNextDir(path.join(__dirname, "DiscordJS", dir), {
-            startDir: path.join(__dirname, "DiscordJS", dir),
-            newDir: path.join(__dirname, "distApp", "DiscordJS", dir),
+        fs.mkdirSync(path.join(PROJECT_DIR, "distApp", "DiscordJS", dir), {recursive: true})
+        return processNextDir(path.join(PROJECT_DIR, "DiscordJS", dir), {
+            startDir: path.join(PROJECT_DIR, "DiscordJS", dir),
+            newDir: path.join(PROJECT_DIR, "distApp", "DiscordJS", dir),
             exclude: /node_modules/g
         }, ((filepath) => filepath.endsWith(".js")), async (filepath, newpath) => {
             console.info(`Minifying ${filepath} to ${newpath}`)
             await fs.promises.writeFile(newpath, terser.minify(await fs.promises.readFile(filepath, "utf8")).code, "utf8")
         }).then(() => {
-            console.info(`Copied files and minified them from ${path.join(__dirname, "DiscordJS", dir)}.`)
+            console.info(`Copied files and minified them from ${path.join(PROJECT_DIR, "DiscordJS", dir)}.`)
         })
     }
     async function copyFileDJS(file){
-        await fs.promises.writeFile(path.join(__dirname, "distApp", "DiscordJS", file), await fs.promises.readFile(path.join(__dirname, "DiscordJS", file)))
+        await fs.promises.writeFile(path.join(PROJECT_DIR, "distApp", "DiscordJS", file), await fs.promises.readFile(path.join(PROJECT_DIR, "DiscordJS", file)))
     }
 
     await processDJS("dist")
@@ -216,13 +217,13 @@ async function main(){
     
     child_process.execSync("npm install --only=prod", {
         encoding: "binary",
-        cwd: path.join(__dirname, "distApp", "DiscordJS"),
+        cwd: path.join(PROJECT_DIR, "distApp", "DiscordJS"),
         stdio: "inherit"
     })
     
-    fs.mkdirSync(path.join(__dirname, "distApp", "BetterDiscordApp", "dist"), {recursive: true})
-    const BDPackageJSON = require("./BetterDiscordApp/package.json")
-    fs.writeFileSync(path.join(__dirname, "distApp", "BetterDiscordApp", "package.json"), JSON.stringify(BDPackageJSON), "utf8")
+    fs.mkdirSync(path.join(PROJECT_DIR, "distApp", "BetterDiscordApp", "dist"), {recursive: true})
+    const BDPackageJSON = require("../BetterDiscordApp/package.json")
+    fs.writeFileSync(path.join(PROJECT_DIR, "distApp", "BetterDiscordApp", "package.json"), JSON.stringify(BDPackageJSON), "utf8")
     const files = [
         "index.min.js",
         "style.min.css"
@@ -231,21 +232,21 @@ async function main(){
         files.push(e + ".map")
     })
     files.forEach(e => {
-        const pth = path.join(__dirname, "BetterDiscordApp", "dist", e)
+        const pth = path.join(PROJECT_DIR, "BetterDiscordApp", "dist", e)
         if(!fs.existsSync(pth))return console.error(`\x1b[31mFile ${pth} from betterdiscord does not exist.\x1b[0m`)
         if(e.endsWith(".map")){
             const data = JSON.parse(fs.readFileSync(pth, "utf8"))
             data.sourcesContent = []
-            fs.writeFileSync(path.join(__dirname, "distApp", "BetterDiscordApp", "dist", e), JSON.stringify(data))
+            fs.writeFileSync(path.join(PROJECT_DIR, "distApp", "BetterDiscordApp", "dist", e), JSON.stringify(data))
         }else{
-            fs.copyFileSync(pth, path.join(__dirname, "distApp", "BetterDiscordApp", "dist", e))
+            fs.copyFileSync(pth, path.join(PROJECT_DIR, "distApp", "BetterDiscordApp", "dist", e))
         }
     })
     
-    await fs.promises.mkdir(path.join(__dirname, "distApp", "splash", "videos"), {recursive: true})
-    await processNextDir(path.join(__dirname, "splash"), {
-        startDir: path.join(__dirname, "splash"),
-        newDir: path.join(__dirname, "distApp", "splash"),
+    await fs.promises.mkdir(path.join(PROJECT_DIR, "distApp", "splash", "videos"), {recursive: true})
+    await processNextDir(path.join(PROJECT_DIR, "splash"), {
+        startDir: path.join(PROJECT_DIR, "splash"),
+        newDir: path.join(PROJECT_DIR, "distApp", "splash"),
         exclude: /node_modules/g
     }, (filepath) => {
         if(filepath.endsWith(".js"))return true
@@ -254,21 +255,21 @@ async function main(){
         console.info(`Minifying ${filepath} to ${newpath}`)
         await fs.promises.writeFile(newpath, terser.minify(await fs.promises.readFile(filepath, "utf8")).code, "utf8")
     }).then(() => {
-        console.info(`Copied files and minified them from ${path.join(__dirname, "splash")}.`)
+        console.info(`Copied files and minified them from ${path.join(PROJECT_DIR, "splash")}.`)
     })
-    fs.writeFileSync(path.join(__dirname, "distApp", "LICENSE"), fs.readFileSync(path.join(__dirname, "LICENSE")))
+    fs.writeFileSync(path.join(PROJECT_DIR, "distApp", "LICENSE"), fs.readFileSync(path.join(PROJECT_DIR, "LICENSE")))
     
-    let packageJSON = require("./package.json")
+    let packageJSON = require("../package.json")
     packageJSON.scripts["build:electron_linux"] = packageJSON.scripts["build:electron_linux"].replace("./distApp", ".")
     packageJSON.scripts["build:electron_win"] = packageJSON.scripts["build:electron_win"].replace("./distApp", ".")
     packageJSON.scripts["build:electron_mac"] = packageJSON.scripts["build:electron_mac"].replace("./distApp", ".")
     
-    fs.writeFileSync(path.join(__dirname, "distApp", "package.json"), JSON.stringify(packageJSON), "utf8")
+    fs.writeFileSync(path.join(PROJECT_DIR, "distApp", "package.json"), JSON.stringify(packageJSON), "utf8")
     
     console.info(`Installing ${Object.keys(packageJSON.dependencies).length} packages...`)
     child_process.execSync("npm install --only=prod", {
         encoding: "binary",
-        cwd: path.join(__dirname, "distApp"),
+        cwd: path.join(PROJECT_DIR, "distApp"),
         stdio: "inherit"
     })
     console.info("Build took "+(Date.now() - startTimestamp) +"ms.")
