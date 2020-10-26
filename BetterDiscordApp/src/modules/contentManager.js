@@ -89,6 +89,14 @@ export default new class ContentManager {
         dataStore.setSettingGroup("PluginCertifierHashes", encryptSettingsCache(JSON.stringify(addonCache)))
     }
 
+    resetAddonCache(){
+        Object.keys(addonCache).forEach(key => {
+            delete addonCache[key]
+        })
+        console.log(addonCache)
+        this.saveAddonCache()
+    }
+
     watchContent(contentType) {
         if (this.watchers[contentType]) return;
         const isPlugin = contentType === "plugin";

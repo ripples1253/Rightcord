@@ -33,6 +33,7 @@ import core from "./core";
 import popoutWindow from "./popoutWindow";
 import TextInputSetting from "../ui/TextInputSetting";
 import { useForceUpdate } from "./hooks";
+import { clearCaches } from "./pluginCertifier";
 
 class BDSidebarHeader extends React.PureComponent {
     render(){
@@ -321,6 +322,7 @@ export default new class V2_SettingsPanel {
     }
 
     lightcordComponent(sidebar, forceUpdate) {
+        // this code is shit, I'm gonna rewritte everything in the next version
         let appSettings = window.Lightcord.Api.settings
         return [
             this.lightcordSettings.map((section, i) => {
@@ -461,7 +463,22 @@ export default new class V2_SettingsPanel {
                 },
                 wrapper: true,
                 disabled: isClearingCache
-            }, "Clear cache")
+            }, "Clear cache"),
+            React.createElement(Lightcord.Api.Components.inputs.Button, {
+                color: "yellow",
+                look: "ghost",
+                size: "medium",
+                hoverColor: "red",
+                onClick: () => {
+                    clearCaches()
+                    ContentManager.resetAddonCache()
+                    Utils.showToast("Cache is cleared !", {
+                        type: "success"
+                    })
+                },
+                wrapper: true,
+                disabled: false
+            }, "Clear Plugin Scan Cache")
         ]
     }
 

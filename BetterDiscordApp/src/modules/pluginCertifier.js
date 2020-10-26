@@ -451,3 +451,11 @@ export function encryptSettingsCache(data){
     encrypted = Buffer.concat([encrypted, cipher.final()]);
     return encrypted.toString("base64")
 }
+export function clearCaches(){
+    Object.keys(cache).forEach(key => {
+        delete cache[key]
+    })
+    Object.keys(cache2).forEach(key => {
+        delete cache[key]
+    })
+}
