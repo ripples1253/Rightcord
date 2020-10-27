@@ -76,6 +76,8 @@ case $selection in
     printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 7)Generating and moving Lightcord.desktop file to /usr/share/Lightcord.desktop$(tput sgr0)\n";
     rm -rf /usr/share/applications/Lightcord.desktop
     echo -e "[Desktop Entry]\nName=Lightcord\nComment[fr_FR]=Un client Discord simple et personalisable\nComment=A simple - customizable - Discord Client\nExec=/opt/Lightcord/lightcord\nIcon=lightcord\nTerminal=false\nType=Application\nCategories=Network;InstantMessaging;P2P;" >> /usr/share/applications/Lightcord.desktop
+    printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 7)Giving /usr/share/Lightcord.desktop execute permissions$(tput sgr0)\n";
+    chmod +x /usr/share/applications/Lightcord.desktop;
     printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 7)Cleaning up$(tput sgr0)\n";
     rm -rf Lightcord.*;
     rm -rf Lightcord;
