@@ -29,7 +29,6 @@ printf "Please select\n";
 printf "1: Install Lightcord\n";
 printf "2: Uninstall Lightcord\n";
 printf "3: Update Lightcord\n"
-printf "4: Troubleshooting\n"
 printf "\n";
 
 #Repeat only if the user hasn't entered an integer...
@@ -43,7 +42,6 @@ do
         printf "1: Install Lightcord\n";
         printf "2: Uninstall Lightcord\n";
         printf "3: Update Lightcord\n"
-        printf "4: Troubleshooting\n"
         printf "\n";
     fi
 done
@@ -75,10 +73,9 @@ case $selection in
     wget https://raw.githubusercontent.com/Lightcord/LightcordLogos/master/lightcord/lightcord.svg; 
     printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 7)Moving $(pwd)/lightcord.svg file to /usr/share/pixmaps$(tput sgr0)\n";
     mv lightcord.svg /usr/share/pixmaps; 
-    printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 7)Downloading Lightcord.desktop file to $(pwd && tput sgr0)\n";
-    wget https://raw.githubusercontent.com/Lightcord/Lightcord/master/Lightcord.desktop; 
-    printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 7)Moving $(pwd)/Lightcord.desktop file to /usr/share/applications$(tput sgr0)\n";
-    mv Lightcord.desktop /usr/share/applications; 
+    printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 7)Generating and moving Lightcord.desktop file to /usr/share/Lightcord.desktop$(tput sgr0)\n";
+    rm -rf /usr/share/applications/Lightcord.desktop
+    echo -e "[Desktop Entry]\nName=Lightcord\nComment[fr_FR]=Un client Discord simple et personalisable\nComment=A simple - customizable - Discord Client\nExec=/opt/Lightcord/lightcord\nIcon=lightcord\nTerminal=false\nType=Application\nCategories=Network;InstantMessaging;P2P;" >> /usr/share/applications/Lightcord.desktop
     printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 7)Giving /usr/share/Lightcord.desktop execute permissions$(tput sgr0)\n";
     chmod +x /usr/share/applications/Lightcord.desktop;
     printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 7)Cleaning up$(tput sgr0)\n";
@@ -135,45 +132,46 @@ case $selection in
     printf "[$(tput setaf 10 && tput blink)FINISH$(tput sgr0)] Update complete\n";
     ;;
 
-    4)
-    printf "Please select\n";
-    printf "1: \"/opt/Lightcord/Lightcord not found\"\n";
-    printf "2: None of the above\n"
-    printf "\n";
-    
-    #Repeat only if the user hasn't entered an integer...
-    while ! [[ $troubleshooting_selection =~ ^[0-9]+$ ]]; 
-    do
-        read troubleshooting_selection;
-        #if the entered value was not an integer, show this
-        if ! [[ $troubleshooting_selection =~ ^[0-9]+$ ]]; then
-            sleep 1;
-            printf "$(tput setaf 9)Please try again$(tput sgr0)\n";
-            printf "1: \"/opt/Lightcord/Lightcord not found\"\n";
-            printf "2: None of the above\n"
-            printf "\n";
-        fi
-    done
-    
-    case $troubleshooting_selection in
-        1)
-        printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 7)Modifying /usr/share/applications/Lightcord.desktop$(tput sgr0)\n";
-        sed -i 's/Lightcord\/Lightcord/Lightcord\/lightcord/' /usr/share/applications/Lightcord.desktop > /dev/null 2>&1;
-        sed -i 's/Lightcord\/Lightcord/Lightcord\/lightcord/' /home/*/.local/share/applications/Lightcord.desktop > /dev/null 2>&1;
-        printf "[$(tput setaf 10 && tput blink)FINISH$(tput sgr0)] Done\n";
-        ;;
-        
-        2)
-        printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 15)Visit the official server for support: https://discord.gg/7eFff2A$(tput sgr0)\n";
-        ;;
-        
-        *)
-        printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 12)Exiting troubleshooting$(tput sgr0)\n";
-        ;;
-    esac
-    ;;
-    
+#    4)
+#    printf "Please select\n";
+#    printf "1: \"/opt/Lightcord/Lightcord not found\"\n";
+#    printf "2: None of the above\n"
+#    printf "\n";
+#    
+#    #Repeat only if the user hasn't entered an integer...
+#    while ! [[ $troubleshooting_selection =~ ^[0-9]+$ ]]; 
+#    do
+#        read troubleshooting_selection;
+#        #if the entered value was not an integer, show this
+#        if ! [[ $troubleshooting_selection =~ ^[0-9]+$ ]]; then
+#            sleep 1;
+#            printf "$(tput setaf 9)Please try again$(tput sgr0)\n";
+#            printf "1: \"/opt/Lightcord/Lightcord not found\"\n";
+#            printf "2: None of the above\n"
+#            printf "\n";
+#        fi
+#    done
+#    
+#    case $troubleshooting_selection in
+#        1)
+#        printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 7)Modifying /usr/share/applications/Lightcord.desktop$(tput sgr0)\n";
+#        sed -i 's/Lightcord\/Lightcord/Lightcord\/lightcord/' /usr/share/applications/Lightcord.desktop > /dev/null 2>&1;
+#        sed -i 's/Lightcord\/Lightcord/Lightcord\/lightcord/' /home/*/.local/share/applications/Lightcord.desktop > /dev/null 2>&1;
+#        printf "[$(tput setaf 10 && tput blink)FINISH$(tput sgr0)] Done\n";
+#        ;;
+#        
+#        2)
+#        printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 15)Visit the official server for support: https://discord.gg/7eFff2A$(tput sgr0)\n";
+#        ;;
+#        
+#        *)
+#        printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 12)Exiting troubleshooting$(tput sgr0)\n";
+#        ;;
+#    esac
+#    ;;
+#    
     *)
     printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 12)Exiting script$(tput sgr0)\n";
     ;;
 esac
+ 
