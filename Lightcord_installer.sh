@@ -29,7 +29,6 @@ printf "Please select\n";
 printf "1: Install Lightcord\n";
 printf "2: Uninstall Lightcord\n";
 printf "3: Update Lightcord\n"
-printf "4: Troubleshooting\n"
 printf "\n";
 
 #Repeat only if the user hasn't entered an integer...
@@ -43,7 +42,6 @@ do
         printf "1: Install Lightcord\n";
         printf "2: Uninstall Lightcord\n";
         printf "3: Update Lightcord\n"
-        printf "4: Troubleshooting\n"
         printf "\n";
     fi
 done
@@ -132,26 +130,26 @@ case $selection in
     printf "[$(tput setaf 10 && tput blink)FINISH$(tput sgr0)] Update complete\n";
     ;;
 
-    4)
-    printf "Please select\n";
-    printf "1: \"/opt/Lightcord/Lightcord not found\"\n";
-    printf "2: None of the above\n"
-    printf "\n";
-    
-    #Repeat only if the user hasn't entered an integer...
-    while ! [[ $troubleshooting_selection =~ ^[0-9]+$ ]]; 
-    do
-        read troubleshooting_selection;
-        #if the entered value was not an integer, show this
-        if ! [[ $troubleshooting_selection =~ ^[0-9]+$ ]]; then
-            sleep 1;
-            printf "$(tput setaf 9)Please try again$(tput sgr0)\n";
-            printf "1: \"/opt/Lightcord/Lightcord not found\"\n";
-            printf "2: None of the above\n"
-            printf "\n";
-        fi
-    done
-    
+#    4)
+#    printf "Please select\n";
+#    printf "1: \"/opt/Lightcord/Lightcord not found\"\n";
+#    printf "2: None of the above\n"
+#    printf "\n";
+#    
+#    #Repeat only if the user hasn't entered an integer...
+#    while ! [[ $troubleshooting_selection =~ ^[0-9]+$ ]]; 
+#    do
+#        read troubleshooting_selection;
+#        #if the entered value was not an integer, show this
+#        if ! [[ $troubleshooting_selection =~ ^[0-9]+$ ]]; then
+#            sleep 1;
+#            printf "$(tput setaf 9)Please try again$(tput sgr0)\n";
+#            printf "1: \"/opt/Lightcord/Lightcord not found\"\n";
+#            printf "2: None of the above\n"
+#            printf "\n";
+#        fi
+#    done
+#    
 #    case $troubleshooting_selection in
 #        1)
 #        printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 7)Modifying /usr/share/applications/Lightcord.desktop$(tput sgr0)\n";
@@ -170,8 +168,8 @@ case $selection in
 #    esac
 #    ;;
 #    
-#    *)
-#    printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 12)Exiting script$(tput sgr0)\n";
-#    ;;
-#esac
+    *)
+    printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 12)Exiting script$(tput sgr0)\n";
+    ;;
+esac
  
