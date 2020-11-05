@@ -58,7 +58,7 @@ You need to install the `base-devel` and `git` packages first
 
 **For AppImage**
 
-`git clone https://aur.archlinux.org/lightcord-appimage.git && cd lightcord-appimage && makepkg-si`
+`git clone https://aur.archlinux.org/lightcord-appimage.git && cd lightcord-appimage && makepkg -si`
 
 An AUR helped such as `yay` can also be used
 
@@ -79,7 +79,7 @@ You can also install it via this install script. It will automatically :
 - Run `rm -f Lightcord_installer.sh && wget https://raw.githubusercontent.com/Lightcord/Lightcord/master/Lightcord_installer.sh && clear && sudo bash Lightcord_installer.sh && rm -f Lightcord_installer.sh`
 
 **For AppImage**
-- Run `wget -q -O - https://raw.githubusercontent.com/Lightcord/Lightcord/master/appimage_installer.sh | bash`
+- Run `wget https://raw.githubusercontent.com/Lightcord/Lightcord/master/appimage_installer.sh && bash appimage_install.sh`
 
 ## Features
 * **BetterDiscord** Themes/Plugins
