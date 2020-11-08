@@ -79,7 +79,7 @@ You can also install it via this install script. It will automatically :
 - Run `wget -N https://raw.githubusercontent.com/Lightcord/Lightcord/master/Lightcord_installer.sh && sudo bash Lightcord_installer.sh`
 
 **For AppImage install**
-- Run `wget -N https://raw.githubusercontent.com/Lightcord/Lightcord/master/appimage_installer.sh && bash appimage_install.sh`
+- Run `wget -N https://raw.githubusercontent.com/Lightcord/Lightcord/master/appimage_installer.sh && bash appimage_installer.sh`
 
 ## Features
 * **BetterDiscord** Themes/Plugins
