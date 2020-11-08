@@ -175,3 +175,18 @@ case $selection in
     ;;
 esac
  
+#ask the user if the script should not delete itself
+printf "Do you want to keep the install script? [y/N] ";
+read a;
+
+case $a in
+    y)
+        exit;
+        ;;
+    Y)
+        exit;
+        ;;
+esac
+
+#if the user didn't say yes
+rm -f Lightcord_installer.sh;	
