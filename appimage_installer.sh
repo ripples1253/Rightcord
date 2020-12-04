@@ -21,7 +21,6 @@ cat << "EOF"
  |____|_\__, |_||_\__\__\___/_| \__,_|
         |___/
     AppImage Installer and Updater
-    
 EOF
 tput sgr0
 
@@ -32,7 +31,7 @@ printf "2: Uninstall Lightcord\n";
 printf "3: Update Lightcord\n"
 printf "\n";
 
-while ! [[ $selection =~ ^[0-9]+$ ]]; 
+while ! [[ $selection =~ ^[0-9]+$ ]];
 do
     read selection;
     #if the entered value was not an integer, show this
@@ -60,6 +59,7 @@ case $selection in
     printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 7)Setting Executable Permissions$(tput sgr0)\n";
     chmod +x ~/.lightcord/lightcord.AppImage ;
     printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 7)Installing Icon$(tput sgr0)\n";
+    mkdir -p ~/.local/share/icons/hicolor/512x512/apps
     mv lightcord.png ~/.local/share/icons/hicolor/512x512/apps;
     printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 7)Installing Desktop File$(tput sgr0)\n";
     echo -e "[Desktop Entry]\nName=Lightcord\nComment[fr_FR]=Un client Discord simple et personalisable\nComment=A simple - customizable - Discord Client\nExec=${HOME}/.lightcord/lightcord.AppImage\nIcon=lightcord\nTerminal=false\nType=Application\nCategories=Network;InstantMessaging;P2P;" >> ~/.local/share/applications/lightcord.desktop;
@@ -89,9 +89,23 @@ case $selection in
     printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 7)Setting Executable Permissions$(tput sgr0)\n";
     chmod +x ~/.lightcord/lightcord.AppImage ;
     printf "[$(tput setaf 10 && tput blink)FINISH$(tput sgr0)] Update complete\n";
-    ;; 
+    ;;
     *)
     printf "[$(tput setaf 12 && tput blink)INFO$(tput sgr0)] $(tput setaf 12)Exiting script$(tput sgr0)\n";
     ;;
 esac
 
+printf "Do you want to keep the install script? [y/N] ";
+read a;
+
+case $a in
+    y)
+        exit;
+        ;;
+    Y)
+        exit;
+        ;;
+esac
+
+#if the user didn't say yes
+rm -f appimage_installer.sh;
