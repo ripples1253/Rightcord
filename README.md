@@ -12,20 +12,20 @@
 [![LTC](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/phorcysed/cryptodonate/master/badges/litecoin.json&style=flat-square)](https://unixkeys.github.io/cryptodonate/ltc.html?address=LNTmfMjHJgTHaB7rj8ZuWWuU1XkP2YeGCA&note=https://github.com/phorcysed)
 ---
 # Lightcord
-A simple - customizable - Discord Client
+A simple and customizable Discord client
 
-## What's this ?
+## What's This?
 [Lightcord](https://lightcord.org) is a simple and customizable client for Discord.
 It includes [BandagedBD](https://github.com/rauenzi/BetterDiscordApp), [Glasstron](https://github.com/AryToNeX/Glasstron) and a [discord.js-like api](https://github.com/Lightcord/Lightcord/tree/master/DiscordJS).
 
-## Informations
-Lightcord doesn't *patch* Discord with it's content. If it was, Discord could update itself and break the patch. That's why Lightcord is a standalone Discord client. Just grab the latest release version you need, and launch it !
+## Information
+Lightcord doesn't just *patch* Discord with it's content. If it did, discord updates could easily break it. That's why Lightcord is a standalone Discord client. Just grab the latest release and launch!
 
 ## Installing 
 You can download a release from the [releases tab](https://github.com/Lightcord/Lightcord/releases).
 
-## Running from source
-Prequeresites: Node.js, NPM
+## Running From Source
+Prequeresites: [Node.js](https://nodejs.org/en/) and NPM
 To run from source, follow these instructions:
 ```sh
 git clone https://github.com/Lightcord/Lightcord
@@ -35,17 +35,17 @@ npm test
 ```
 *You will have to do that everytime you pull/clone*
 <br/>
-Lightcord will launch next. You can see you have done it right by looking at the icon. 
+Lightcord will then launch. If you see the Lightcord icon, you're good to go! 
 ![icon](https://github.com/Lightcord/Lightcord/blob/master/imagery/68747470733a2f2f692e696d6775722e636f6d2f72486e73504e4f2e706e67.png?raw=true)
 <br />
-Then everytime you want to launch it just type in
+Anytime you want to launch, just run:
 ```sh
 npm run run
 ```
 
 *You can install on GNU/Linux with our install script or the AUR*
 
-## AUR (unofficial)
+## AUR (Unofficial)
 You need to install the `base-devel` and `git` packages first
 
 **For compilation** https://aur.archlinux.org/packages/lightcord-git/
@@ -62,55 +62,46 @@ You need to install the `base-devel` and `git` packages first
 
 An AUR helped such as `yay` can also be used
 
-## Other linux distribution
-You can also install it via this install script. It will automatically :
+## Other Linux Distributions
+You can also install it with our *express install script*, which will automatically do the following:
 - Download the latest Lightcord stable release from the official dev server.
-- Extract its file, and rename it to a more conventional ¨Lightcord¨ folder.
+- Extract the file, and rename it to a more conventional ¨Lightcord¨ folder.
 - Install the Lightcord files in /opt/.
-- Add execution rights to the Lightcord executable to be able to launch it.
-- Download an apropriate .desktop file and install it in /usr/share/applications.
-- Add executions rights to the .desktop file to be able to launch Lightcord from it.
-- Download the Lightcord icon in an .svg format, and will install it in /usr/share/pixmaps.
+- Add execution rights to the Lightcord executable to allow launching.
+- Download an appropriate .desktop file and install it in /usr/share/applications.
+- Add execution rights to the .desktop file to allow launching.
+- Download the Lightcord icon in the .svg format and install it in /usr/share/pixmaps.
 
-## One-liner install script
+## Express Install Script
 
-**For normal install**
-*Please install the "unzip" package before executing this script as this script depends on it.* 
+**Normal Install**
+*Please install the "unzip" package before executing this script as it depends on it.* 
 - Run `wget -N https://raw.githubusercontent.com/Lightcord/Lightcord/master/Lightcord_installer.sh && sudo bash Lightcord_installer.sh`
 
-**For AppImage install**
+**AppImage Install**
 - Run `wget -N https://raw.githubusercontent.com/Lightcord/Lightcord/master/appimage_installer.sh && bash appimage_installer.sh`
 
 ## Features
-* **BetterDiscord** Themes/Plugins
-* **Native** Custom RPC (No ban chance)
-* Blocking Discord's **trackers**
-* **Free emotes** (normal emotes) to use everywhere for Lightcord users
-* **Login with token** (user/bot) [Make **server** calls with bots]
-* DM Adverts blocker (**AdBlock**) [Even in embeds]
-* File certification/approval (tells you if a **file is safe or not**)
-* Prevent **malicious** plugins [File scanner]
-* **Always-On-Top** feature (great to chat while coding)
-* Hide sensitive informations (blurry e-mail)
-* Great scripting API
-* Account information section
-* Developer mode / experiments (get discord features before anyone else without updating)
-* Experimental tabs
-* Select your HypeSquad (manually/without doing the quizz)
-* Badges (Lightcord owners have badges so you know who to trust)
+* **BetterDiscord built in** - Use almost any BetterDiscord plugin or theme!
+* **Easy custom rich presence** - Our method of doing this ensures you won't get banned!
+* **Made for Privacy** - Lightcord automatically blocks discords trackers and blurs your email, keeping your data safe!
+* **Free Emotes** - Send any emote to other Lightcord users!
+* **Token Login** - (user/bot) [Make **server** calls with bots]
+* **AdBlock** - Automatically block bots and ads in your DMs!
+* **Always On Top** - Lightcord will always be shown in front of any other windows!
+* **Experiments** - Access Discord's hidden experiments with a single click!
+* **Tabs** - Have multiple tabs open to do more!
+* **HypeSquad Housing** - Easily change your HypeSquad house, no test required!
+* **Badges** - Important people like the developers have special badges to make sure you know who is who!
 
-### Soon
-* Username history
-* Custom BetterDiscord location (custom themes/plugins location) [more portability]
+### Planned Features
+* **Username History** - Keep track of your past usernames!
+* **New Plugin Directory** - Easily install or edit themes and plugins!
 
 ## BetterDiscord
-BetterDiscord (BandagedBD) is already installed (modified version).
-You can go into your settings to manage plugins. 
-
-Because it's more painful than anything else, global emotes are not supported on Lightcord. They have been removed. 
-The freeze caused by the emotes downloading at startup was annoying. So we removed them.
+A modified version of Bandaged Better Discord comes preinstalled, making theming and adding plugins easy.
 
 ## Plugins & Themes
-Plugins and themes are not in the standard BetterDiscord folder. They have been moved because betterdiscord supports only stable, ptb and canary release. Using the same directory could cause problems with settings.
+Plugins and themes are not in the standard BetterDiscord folder. They have been moved because BetterDiscord only supports the stable, PTB, and canary releases of Discord. Using the same directory could cause problems with settings.
 
 They are located in `%AppData%/Lightcord_BD`. This is the main folder for BetterDiscord.
