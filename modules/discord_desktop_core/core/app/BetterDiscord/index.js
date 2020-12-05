@@ -7,7 +7,7 @@ const electron = require("electron")
 const fetch = require("node-fetch").default
 const uuid = require("uuid/v4")
 
-const isPackaged = __filename.includes("app.asar")
+const isPackaged = electron.remote.app.isPackaged
 
 const events = exports.events = new EventEmitter()
 const logger = exports.logger = new Logger("Lightcord")
