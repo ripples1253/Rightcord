@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -6,11 +6,11 @@ Object.defineProperty(exports, "__esModule", {
 exports.getEnableHardwareAcceleration = getEnableHardwareAcceleration;
 exports.setEnableHardwareAcceleration = setEnableHardwareAcceleration;
 
-var _electron = require('electron');
+var _electron = require("electron");
 
-var _appSettings = require('./appSettings');
+var _appSettings = require("./appSettings");
 
-const settings = _appSettings.getSettings();
+const settings = (0, _appSettings.getSettings)();
 
 function getEnableHardwareAcceleration() {
   // TODO: This should probably a constant
@@ -22,5 +22,6 @@ function setEnableHardwareAcceleration(enableHardwareAcceleration) {
   settings.save();
 
   _electron.app.relaunch();
+
   _electron.app.exit(0);
 }

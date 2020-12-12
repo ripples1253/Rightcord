@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -6,13 +6,9 @@ Object.defineProperty(exports, "__esModule", {
 exports.init = init;
 exports.getRequestCA = getRequestCA;
 
-var _fs = require('fs');
+var _fs = _interopRequireDefault(require("fs"));
 
-var _fs2 = _interopRequireDefault(_fs);
-
-var _path = require('path');
-
-var _path2 = _interopRequireDefault(_path);
+var _path = _interopRequireDefault(require("path"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -20,17 +16,20 @@ let requestCA;
 
 function init() {
   let rootCertificateAuthorities;
+
   try {
-    rootCertificateAuthorities = _fs2.default.readFileSync(_path2.default.join(__dirname, 'data', 'cacert.pem'));
+    rootCertificateAuthorities = _fs.default.readFileSync(_path.default.join(__dirname, 'data', 'cacert.pem'));
   } catch (err) {
     console.error('Unable to load root certificate authorities.');
     console.error(err);
   }
 
-  requestCA = rootCertificateAuthorities ? { ca: rootCertificateAuthorities } : {};
-}
+  requestCA = rootCertificateAuthorities ? {
+    ca: rootCertificateAuthorities
+  } : {};
+} // TODO: do we use this export?
 
-// TODO: do we use this export?
+
 function getRequestCA() {
   return requestCA;
 }

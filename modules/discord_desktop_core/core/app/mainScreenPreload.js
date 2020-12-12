@@ -1,7 +1,15 @@
-'use strict';
+"use strict";
 
+if (!process.isMainFrame) {
+  throw new Error('Preload scripts should not be running in a subframe');
+}
+
+if (window.opener === null) {
 // App preload script, used to provide a replacement native API now that
 // we turned off node integration.
+const {
+  contextBridge
+} = require("electron")
 
 process.on("uncaughtException", console.error)
 
@@ -9,28 +17,14 @@ const ipcRenderer = require('./discord_native/renderer/ipc');
 const electron = require("electron")
 const moduleAlias = require("./BetterDiscord/loaders/module-alias")
 const path = require("path")
-const Buffer = require("safe-buffer").Buffer
 
 moduleAlias.setMain(module)
 moduleAlias.addAlias("@lightcord/api", path.join(__dirname, "../../../../LightcordApi"))
 moduleAlias.addAlias("lightcordapi", path.join(__dirname, "../../../../LightcordApi"))
 moduleAlias.addPath(path.join(__dirname, "BetterDiscord", "modules"))
 
-const TRACK_ANALYTICS_EVENT = 'TRACK_ANALYTICS_EVENT';
-const TRACK_ANALYTICS_EVENT_COMMIT = 'TRACK_ANALYTICS_EVENT_COMMIT';
-
-// We don't care about logging these anymore.
-// just commit so that they don't back up on disk.
-ipcRenderer.on(TRACK_ANALYTICS_EVENT, e => {
-  e.sender.send(TRACK_ANALYTICS_EVENT_COMMIT);
-});
-
-global.isTab = !!global.isTab
-
-
 const DiscordNative = {
   isRenderer: process.type === 'renderer',
-
   nativeModules: require('./discord_native/renderer/nativeModules'),
   process: require('./discord_native/renderer/process'),
   os: require('./discord_native/renderer/os'),
@@ -49,48 +43,32 @@ const DiscordNative = {
   http: require('./discord_native/renderer/http'),
   accessibility: require('./discord_native/renderer/accessibility'),
   features: require('./discord_native/renderer/features'),
-  settings: require('./discord_native/renderer/settings')
-};
+  settings: require('./discord_native/renderer/settings'),
+  userDataCache: require('./discord_native/renderer/userDataCache')
+}; // TODO: remove these once web no longer uses them
 
-// TODO: remove these once web no longer uses them
 DiscordNative.remoteApp = DiscordNative.app;
 DiscordNative.remotePowerMonitor = DiscordNative.powerMonitor;
+contextBridge.exposeInMainWorld('DiscordNative', DiscordNative);
 
 const BetterDiscord = require("./BetterDiscord")
-
-const _setImmediate = setImmediate;
-const _clearImmediate = clearImmediate;
 process.once('loaded', () => {
-  // Implementing DiscordNative
+  // ensures native module `require` context has access to DiscordNative
   global.DiscordNative = DiscordNative;
-
-  // We keep these two functions in global because electron doesn't put these
-  // nodejs APIs in the module scope, and these two functions
-  // aren't harmful at all.
-  global.setImmediate = _setImmediate;
-  global.clearImmediate = _clearImmediate;
-
-  // Since nodeIntegration has been disable
-  // We're adding node propertys on window so it's easier
-  // to write code / debug
-  window.global = window
-  global.Buffer = Buffer
-
-  global.setImmediate = function(callback, ...args){
-    return setTimeout(callback, 0, ...args);
-  };
-  global.clearImmediate = clearTimeout;
 
   const buildInfo = electron.ipcRenderer.sendSync("LIGHTCORD_GET_BUILD_INFOS")
   console.log("%c%s", "color: #3767ad;font-size:25px", 'Lightcord Client\nhttps://github.com/Lightcord/Lightcord');
   console.log("%c%s", "font-size:15px", `Version: ${buildInfo.version}\nCommit: ${buildInfo.commit || "Unknown"}`)
 
 
-  let ftime = Date.now()
-  BetterDiscord.init()
+  let startTime = Date.now()
+  BetterDiscord.init({
+    // Detect if tabPreload was used.
+    isTab: require.main !== module
+  })
   BetterDiscord.events.on("debug", BetterDiscord.logger.log.bind(BetterDiscord.logger))
   BetterDiscord.events.on("ready", () => {
-    BetterDiscord.logger.log("BetterDiscord Loaded. took: "+(Date.now() - ftime)+"ms.")
+    BetterDiscord.logger.log("BetterDiscord Loaded. took: "+(Date.now() - startTime)+"ms.")
 
     try{
       // better disabling Discord's tracking request, no error in console.
@@ -99,4 +77,13 @@ process.once('loaded', () => {
       }
     }catch(e){}
   })
-})
+});
+window.popouts = new Map();
+} else {
+  window.addEventListener('load', _ => {
+    window.opener.popouts.set(window.name, window);
+  });
+  window.addEventListener('beforeunload', _ => {
+    window.opener.popouts.delete(window.name);
+  });
+}

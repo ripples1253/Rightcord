@@ -1,15 +1,20 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.startup = startup;
-exports.handleSingleInstance = handleSingleInstance;
+exports.handleOpenUrl = handleOpenUrl;
 exports.setMainWindowVisible = setMainWindowVisible;
-const { Menu, BrowserWindow } = require('electron');
+
+const {
+  Menu,
+  BrowserWindow
+} = require('electron');
 const fetch = require("node-fetch").default
 
 let mainScreen;
+
 function startup(bootstrapModules) {
   // below modules are required and initted
   // in this order to prevent dependency conflicts
@@ -17,58 +22,94 @@ function startup(bootstrapModules) {
   require('./bootstrapModules').init(bootstrapModules);
 
   require('./paths');
+
   require('./splashScreen');
+
   const moduleUpdater = require('./moduleUpdater');
+
+  const updater = require('./updater');
+
   require('./autoStart');
+
   const buildInfo = require('./buildInfo');
+
   const appSettings = require('./appSettings');
 
   const Constants = require('./Constants');
+
   Constants.init(bootstrapModules.Constants);
 
   const appFeatures = require('./appFeatures');
+
   appFeatures.init();
 
   const GPUSettings = require('./GPUSettings');
+
   bootstrapModules.GPUSettings.replace(GPUSettings);
 
   const rootCertificates = require('./rootCertificates');
+
   rootCertificates.init();
 
   require('./discord_native/browser/accessibility');
+
   const app = require('./discord_native/browser/app');
+
   app.injectBuildInfo(buildInfo);
   app.injectModuleUpdater(moduleUpdater);
+  app.injectUpdater(updater);
+
   require('./discord_native/browser/clipboard');
-  const crashReporter = require('./discord_native/browser/crashReporter');
-  crashReporter.injectBuildInfo(buildInfo);
+
+  require('./discord_native/browser/constants');
+
+  require('./discord_native/browser/crashReporter');
+
   const features = require('./discord_native/browser/features');
+
   features.injectFeaturesBackend(appFeatures.getFeatures());
+
   require('./discord_native/browser/fileManager');
+
+  require('./discord_native/browser/userDataCache');
+
   const gpuSettings = require('./discord_native/browser/gpuSettings');
+
   gpuSettings.injectGpuSettingsBackend(GPUSettings);
+
   const nativeModules = require('./discord_native/browser/nativeModules');
+
   nativeModules.injectModuleUpdater(moduleUpdater);
+  nativeModules.injectUpdater(updater);
+
   require('./discord_native/browser/powerMonitor');
+
   require('./discord_native/browser/powerSaveBlocker');
+
   require('./discord_native/browser/processUtils');
+
   const settings = require('./discord_native/browser/settings');
+
   settings.injectSettingsBackend(appSettings.getSettings());
+
   require('./discord_native/browser/spellCheck');
-  const windowNative = require('./discord_native/browser/window');
   require("./lightcordMainProcess")
 
-  // expose globals that will be imported by the webapp
+  const windowNative = require('./discord_native/browser/window'); // expose globals that will be imported by the webapp
   // global.releaseChannel is set in bootstrap
-  global.crashReporterMetadata = crashReporter.metadata;
+
+
+  const crashReporterSetup = require('./crashReporterSetup');
+
+  global.crashReporterMetadata = crashReporterSetup.metadata;
   global.mainAppDirname = Constants.MAIN_APP_DIRNAME;
   global.features = appFeatures.getFeatures();
-  global.appSettings = appSettings();
-  // this gets updated when launching a new main app window
+  global.appSettings = appSettings.getSettings(); // this gets updated when launching a new main app window
+
   global.mainWindowId = Constants.DEFAULT_MAIN_WINDOW_ID;
   global.moduleUpdater = moduleUpdater;
 
-  let applicationMenu = require('./applicationMenu');
+  const applicationMenu = require('./applicationMenu');
 
   if(appSettings().get("isTabs", false)){
     applicationMenu = applicationMenu.map(e => {
@@ -104,16 +145,14 @@ function startup(bootstrapModules) {
       })
       return e
     })
-    Menu.setApplicationMenu(Menu.buildFromTemplate(applicationMenu));
-  }else{
-    Menu.setApplicationMenu(Menu.buildFromTemplate(applicationMenu));
   }
 
-  const ipc = require("./ipcMain") // TODO: Fix NEW_TAB
+  const ipc = require("./ipcMain")
   ipc.on("NEW_TAB", () => {
     mainScreen.webContentsSend("NEW_TAB")
   })
 
+  Menu.setApplicationMenu(Menu.buildFromTemplate(applicationMenu));
   mainScreen = require('./mainScreen');
 
   let version = bootstrapModules.Constants.version
@@ -181,10 +220,18 @@ function startup(bootstrapModules) {
       })
     })
   }
+
+  const {
+    getWindow: getPopoutWindowByKey
+  } = require('./popoutWindows');
+
+  windowNative.injectGetWindow(key => {
+    return getPopoutWindowByKey(key) || BrowserWindow.fromId(mainScreen.getMainWindowId());
+  });
 }
 
-function handleSingleInstance(args) {
-  mainScreen.handleSingleInstance(args);
+function handleOpenUrl(url) {
+  mainScreen.handleOpenUrl(url);
 }
 
 function setMainWindowVisible(visible) {

@@ -55,11 +55,9 @@
     "node_modules\\cross-spawn\\node_modules\\semver\\README.md", 
     "node_modules\\cross-spawn\\node_modules\\semver\\semver.js", 
     "node_modules\\cross-spawn\\node_modules\\semver\\bin\\semver", 
-    "node_modules\\debug\\CHANGELOG.md", 
     "node_modules\\debug\\LICENSE", 
     "node_modules\\debug\\package.json", 
     "node_modules\\debug\\README.md", 
-    "node_modules\\debug\\dist\\debug.js", 
     "node_modules\\debug\\src\\browser.js", 
     "node_modules\\debug\\src\\common.js", 
     "node_modules\\debug\\src\\index.js", 
@@ -307,6 +305,8 @@
     "node_modules\\wrappy\\README.md", 
     "node_modules\\wrappy\\wrappy.js", 
     "discord_utils.node", 
+    "input_capture.js", 
+    "input_event.js", 
     "index.js", 
     "manifest.json"
   ]

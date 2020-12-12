@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -8,23 +8,16 @@ exports.init = init;
 exports.getUserData = getUserData;
 exports.getUserDataVersioned = getUserDataVersioned;
 exports.getResources = getResources;
-exports.getModulePath = getModulePath;
+exports.getModuleDataPath = getModuleDataPath;
+exports.getInstallPath = getInstallPath;
 
-var _fs = require('fs');
+var _fs = _interopRequireDefault(require("fs"));
 
-var _fs2 = _interopRequireDefault(_fs);
+var _mkdirp = _interopRequireDefault(require("mkdirp"));
 
-var _mkdirp = require('mkdirp');
+var _path = _interopRequireDefault(require("path"));
 
-var _mkdirp2 = _interopRequireDefault(_mkdirp);
-
-var _path = require('path');
-
-var _path2 = _interopRequireDefault(_path);
-
-var _rimraf = require('rimraf');
-
-var _rimraf2 = _interopRequireDefault(_rimraf);
+var _rimraf = _interopRequireDefault(require("rimraf"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -34,26 +27,31 @@ const originalFs = require('original-fs');
 let userDataPath = null;
 let userDataVersionedPath = null;
 let resourcesPath = null;
-let modulePath = null;
+let moduleDataPath = null;
+let installPath = null;
 
 function determineAppUserDataRoot() {
-  const { app } = require('electron');
+  const {
+    app
+  } = require('electron');
+
   return app.getPath('appData');
 }
 
 function determineUserData(userDataRoot, buildInfo) {
-  return _path2.default.join(userDataRoot, 'discord' + (buildInfo.releaseChannel == 'stable' ? '' : buildInfo.releaseChannel));
-}
+  return _path.default.join(userDataRoot, 'discord' + (buildInfo.releaseChannel == 'stable' ? '' : buildInfo.releaseChannel));
+} // cleans old version data in the background
 
-// cleans old version data in the background
+
 function cleanOldVersions(buildInfo) {
-  const entries = _fs2.default.readdirSync(userDataPath) || [];
+  const entries = _fs.default.readdirSync(userDataPath) || [];
   entries.forEach(entry => {
-    const fullPath = _path2.default.join(userDataPath, entry);
-    if (_fs2.default.statSync(fullPath).isDirectory() && entry.indexOf(buildInfo.version) === -1) {
+    const fullPath = _path.default.join(userDataPath, entry);
+
+    if (_fs.default.lstatSync(fullPath).isDirectory() && entry.indexOf(buildInfo.version) === -1) {
       if (entry.match('^[0-9]+.[0-9]+.[0-9]+') != null) {
         console.log('Removing old directory ', entry);
-        (0, _rimraf2.default)(fullPath, originalFs, error => {
+        (0, _rimraf.default)(fullPath, originalFs, error => {
           if (error) {
             console.warn('...failed with error: ', error);
           }
@@ -64,19 +62,32 @@ function cleanOldVersions(buildInfo) {
 }
 
 function init(buildInfo) {
-  resourcesPath = _path2.default.join(require.main.filename, '..', '..', '..');
-
+  resourcesPath = _path.default.join(require.main.filename, '..', '..', '..');
   const userDataRoot = determineAppUserDataRoot();
-
   userDataPath = determineUserData(userDataRoot, buildInfo);
 
-  const { app } = require('electron');
+  const {
+    app
+  } = require('electron');
+
   app.setPath('userData', userDataPath);
+  userDataVersionedPath = _path.default.join(userDataPath, buildInfo.version);
 
-  userDataVersionedPath = _path2.default.join(userDataPath, buildInfo.version);
-  _mkdirp2.default.sync(userDataVersionedPath);
+  _mkdirp.default.sync(userDataVersionedPath);
 
-  modulePath = buildInfo.localModulesRoot ? buildInfo.localModulesRoot : _path2.default.join(userDataVersionedPath, 'modules');
+  if (buildInfo.localModulesRoot != null) {
+    moduleDataPath = buildInfo.localModulesRoot;
+  } else if (buildInfo.newUpdater) {
+    moduleDataPath = _path.default.join(userDataPath, 'module_data');
+  } else {
+    moduleDataPath = _path.default.join(userDataVersionedPath, 'modules');
+  }
+
+  const exeDir = _path.default.dirname(app.getPath('exe'));
+
+  if (/^app-[0-9]+\.[0-9]+\.[0-9]+/.test(_path.default.basename(exeDir))) {
+    installPath = _path.default.join(exeDir, '..');
+  }
 }
 
 function getUserData() {
@@ -91,6 +102,10 @@ function getResources() {
   return resourcesPath;
 }
 
-function getModulePath() {
-  return modulePath;
+function getModuleDataPath() {
+  return moduleDataPath;
+}
+
+function getInstallPath() {
+  return installPath;
 }

@@ -1,30 +1,29 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.hasInit = undefined;
 exports.init = init;
 exports.show = show;
 exports.displayHowToCloseHint = displayHowToCloseHint;
+exports.hasInit = void 0;
 
-var _electron = require('electron');
+var _electron = require("electron");
 
-var _utils = require('./utils');
+var _securityUtils = require("../common/securityUtils");
 
-var _appSettings = require('./appSettings');
+var _appSettings = require("./appSettings");
 
-var _ipcMain = require('./ipcMain');
+var _ipcMain = _interopRequireDefault(require("./ipcMain"));
 
-var _ipcMain2 = _interopRequireDefault(_ipcMain);
+var _utils = require("./utils");
 
-var _Constants = require('./Constants');
+var _Constants = require("./Constants");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const settings = _appSettings();
+const settings = (0, _appSettings.getSettings)(); // These are lazy loaded into temp files
 
-// These are lazy loaded into temp files
 const TrayIconNames = {
   DEFAULT: 'tray',
   UNREAD: 'tray-unread',
@@ -33,7 +32,6 @@ const TrayIconNames = {
   MUTED: 'tray-muted',
   DEAFENED: 'tray-deafened'
 };
-
 const MenuItems = {
   SECRET: 'SECRET',
   MUTE: 'MUTE',
@@ -44,8 +42,8 @@ const MenuItems = {
   QUIT: 'QUIT',
   ACKNOWLEDGEMENTS: 'ACKNOWLEDGEMENTS'
 };
-
-let hasInit = exports.hasInit = false;
+let hasInit = false;
+exports.hasInit = hasInit;
 let currentIcon;
 let options;
 let menuItems;
@@ -62,19 +60,18 @@ function init(_options) {
 
   trayIcons = {};
   generateTrayIconPaths();
-
   exports.hasInit = hasInit = true;
   options = _options;
   currentIcon = trayIcons.DEFAULT;
   menuItems = {};
   applications = [];
   contextMenu = [];
-
   initializeMenuItems();
   buildContextMenu();
 
-  _ipcMain2.default.on('SYSTEM_TRAY_SET_ICON', (evt, icon) => setTrayIcon(icon));
-  _ipcMain2.default.on('SYSTEM_TRAY_SET_APPLICATIONS', (evt, newApplications) => setApplications(newApplications));
+  _ipcMain.default.on('SYSTEM_TRAY_SET_ICON', (evt, icon) => setTrayIcon(icon));
+
+  _ipcMain.default.on('SYSTEM_TRAY_SET_APPLICATIONS', (evt, newApplications) => setApplications(newApplications));
 }
 
 function generateTrayIconPaths() {
@@ -83,14 +80,19 @@ function generateTrayIconPaths() {
   const suffix = process.platform === 'darwin' ? 'Template' : '';
 
   for (const key of Object.keys(TrayIconNames)) {
-    trayIcons[key] = _utils.exposeModuleResource(resourcePath, `${TrayIconNames[key]}${suffix}.png`);
+    trayIcons[key] = (0, _utils.exposeModuleResource)(resourcePath, `${TrayIconNames[key]}${suffix}.png`);
   }
 }
 
 function initializeMenuItems() {
-  const { onToggleMute, onToggleDeafen, onTrayClicked, onOpenVoiceSettings, onCheckForUpdates } = options;
+  const {
+    onToggleMute,
+    onToggleDeafen,
+    onTrayClicked,
+    onOpenVoiceSettings,
+    onCheckForUpdates
+  } = options;
   const voiceConnected = currentIcon !== trayIcons.DEFAULT && currentIcon !== trayIcons.UNREAD;
-
   menuItems[MenuItems.SECRET] = {
     label: `Lightcord`,
     icon: trayIcons.DEFAULT,
@@ -122,14 +124,12 @@ function initializeMenuItems() {
     visible: voiceConnected,
     click: onOpenVoiceSettings
   };
-  /*
   menuItems[MenuItems.CHECK_UPDATE] = {
     label: 'Check for Updates...',
     type: 'normal',
     visible: process.platform !== 'darwin',
     click: onCheckForUpdates
   };
-  */
   menuItems[MenuItems.QUIT] = {
     label: `Quit ${_Constants.APP_NAME}`,
     role: 'quit'
@@ -138,14 +138,15 @@ function initializeMenuItems() {
     label: 'Acknowledgements',
     type: 'normal',
     visible: process.platform !== 'darwin',
-    click: () => _electron.shell.openExternal('https://discord.com/acknowledgements')
+    click: () => (0, _securityUtils.saferShellOpenExternal)('https://discord.com/acknowledgements')
   };
 }
 
 function buildContextMenu() {
-  const separator = { type: 'separator' };
+  const separator = {
+    type: 'separator'
+  };
   const hasApplications = applications != null && applications.length > 0;
-
   contextMenu = [
     menuItems[MenuItems.SECRET], 
     separator, ...(hasApplications ? [...applications, separator] : []), 
@@ -153,26 +154,26 @@ function buildContextMenu() {
     menuItems[MenuItems.MUTE], 
     menuItems[MenuItems.DEAFEN], 
     menuItems[MenuItems.VOICE_SETTINGS], 
-    /*menuItems[MenuItems.CHECK_UPDATE], */
+    // menuItems[MenuItems.CHECK_UPDATE], 
     menuItems[MenuItems.ACKNOWLEDGEMENTS], 
-    separator, menuItems[MenuItems.QUIT]
+    separator, 
+    menuItems[MenuItems.QUIT]
   ];
 }
 
 function setTrayIcon(icon) {
   // Keep track of last set icon
-  currentIcon = trayIcons[icon];
-
-  // If icon is null, hide the tray icon.  Otherwise show
+  currentIcon = trayIcons[icon]; // If icon is null, hide the tray icon.  Otherwise show
   // These calls also check for tray existence, so minimal cost.
+
   if (icon == null) {
     hide();
     return;
   } else {
     show();
-  }
+  } // Keep mute/deafen menu items in sync with client, based on icon states
 
-  // Keep mute/deafen menu items in sync with client, based on icon states
+
   const muteIndex = contextMenu.indexOf(menuItems[MenuItems.MUTE]);
   const deafenIndex = contextMenu.indexOf(menuItems[MenuItems.DEAFEN]);
   const voiceConnected = contextMenu[muteIndex].visible;
@@ -229,14 +230,12 @@ function setContextMenu() {
 
 function show() {
   if (atomTray != null) return;
-
   atomTray = new _electron.Tray(_electron.nativeImage.createFromPath(currentIcon)); // Initialize with last set icon
-  atomTray.setToolTip(_Constants.APP_NAME);
 
-  // Set tray context menu
-  setContextMenu();
+  atomTray.setToolTip(_Constants.APP_NAME); // Set tray context menu
 
-  // Set Tray click behavior
+  setContextMenu(); // Set Tray click behavior
+
   atomTray.on('click', options.onTrayClicked);
 }
 
@@ -252,9 +251,9 @@ function hide() {
 function displayHowToCloseHint() {
   if (settings.get('trayBalloonShown') != null || atomTray == null) {
     return;
-  }
+  } // TODO: localize
 
-  // TODO: localize
+
   const balloonMessage = 'Hi! Lightcord will run in the background to keep you in touch with your friends.' + ' You can right-click here to quit.';
   settings.set('trayBalloonShown', true);
   settings.save();

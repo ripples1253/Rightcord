@@ -103,7 +103,7 @@ function createRenderer(pid, url) {
         offscreen: true,
         transparent: true,
         nodeIntegration: false,
-        preload: path.join(__dirname, '..', 'discord_desktop_core', 'core', 'app', 'mainScreenPreload.js'),
+        preload: require.resolve('discord_desktop_core/core/app/mainScreenPreload.js'),
         enableRemoteModule: false,
         contextIsolation: true
       }
@@ -264,16 +264,23 @@ function loadOverlay(pid) {
       renderer.window.loadURL(renderer.url);
     });
   });
-  renderer.window.on('ready-to-show', function () {
+  renderer.window.webContents.on('did-finish-load', function () {
     if (renderer.window.webContents.getURL() === renderer.overlayURL) {
       renderer.window.focusOnWebView();
       renderer.backoff.succeed();
       Overlay.logMessage('Overlay is ready to show');
-      Overlay.sendCommand(renderer.pid, {
-        message: 'relay',
-        _relay: 'ready_to_show'
-      });
-      renderer.window.webContents.invalidate();
+      renderer.window.webContents.invalidate(); // NB: allow a short window for repainting to ameliorate white-screen flashes some users experience.
+      // see https://github.com/electron/electron/pull/25448 for context as to why we aren't using
+      // `ready-to-show` -- tl;dr: it is not consistent and the hack fix in electron only "fixes"
+      // the event on the first page load. we load `start.html` as a canary test *before* loading the
+      // overlay url and, thusly, miss `ready-to-show` on some systems / chromium versions.
+
+      setTimeout(function () {
+        Overlay.sendCommand(renderer.pid, {
+          message: 'relay',
+          _relay: 'ready_to_show'
+        });
+      }, 200);
     }
   });
 

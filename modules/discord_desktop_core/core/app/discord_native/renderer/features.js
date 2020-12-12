@@ -1,8 +1,10 @@
-'use strict';
+"use strict";
 
 const electron = require('electron');
 
-const { FEATURES_GET_BROWSER_FEATURES } = require('../common/constants').IPCEvents;
+const {
+  FEATURES_GET_BROWSER_FEATURES
+} = require('../common/constants').IPCEvents;
 
 let supportedFeatures = new Set(electron.ipcRenderer.sendSync(FEATURES_GET_BROWSER_FEATURES));
 

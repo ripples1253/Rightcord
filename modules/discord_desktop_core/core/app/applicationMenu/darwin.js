@@ -1,44 +1,54 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.default = void 0;
 
-var _electron = require('electron');
+var _electron = require("electron");
 
-var _Constants = require('../Constants');
+var _securityUtils = require("../../common/securityUtils");
 
-var Constants = _interopRequireWildcard(_Constants);
+var Constants = _interopRequireWildcard(require("../Constants"));
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
-const { MenuEvents } = Constants;
-const SEPARATOR = { type: 'separator' };
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+const {
+  MenuEvents
+} = Constants;
+const SEPARATOR = {
+  type: 'separator'
+};
 
 function getWindow() {
   let window = _electron.BrowserWindow.getFocusedWindow();
+
   if (!window) {
     const windowList = _electron.BrowserWindow.getAllWindows();
+
     if (windowList && windowList[0]) {
       window = windowList[0];
       window.show();
       window.focus();
     }
   }
+
   return window;
 }
 
-exports.default = [{
+var _default = [{
   label: 'Lightcord',
   submenu: [{
-    label: 'About Lightcord',
+    label: 'About Discord',
     selector: 'orderFrontStandardAboutPanel:'
   }, {
     label: 'Check for Updates...',
     click: () => _electron.app.emit(MenuEvents.CHECK_FOR_UPDATES)
   }, {
     label: 'Acknowledgements',
-    click: () => _electron.shell.openExternal('https://discord.com/acknowledgements')
+    click: () => (0, _securityUtils.saferShellOpenExternal)('https://discord.com/acknowledgements')
   }, SEPARATOR, {
     label: 'Preferences',
     click: () => _electron.app.emit(MenuEvents.OPEN_SETTINGS),
@@ -89,6 +99,7 @@ exports.default = [{
     label: 'Reload',
     click: () => {
       const window = getWindow();
+
       if (window) {
         window.webContents.reloadIgnoringCache();
       }
@@ -98,6 +109,7 @@ exports.default = [{
     label: 'Toggle Full Screen',
     click: () => {
       const window = getWindow();
+
       if (window) {
         window.setFullScreen(!window.isFullScreen());
       }
@@ -109,6 +121,7 @@ exports.default = [{
       label: 'Toggle Developer Tools',
       click: () => {
         const window = getWindow();
+
         if (window) {
           window.toggleDevTools();
         }
@@ -128,7 +141,14 @@ exports.default = [{
   }, {
     label: 'Close',
     accelerator: 'Command+W',
-    selector: 'hide:'
+    click: (_, window) => {
+      // Main window
+      if (window == null || window.windowKey == null) {
+        _electron.Menu.sendActionToFirstResponder('hide:');
+      } else {
+        window.close();
+      }
+    }
   }, SEPARATOR, {
     label: 'Bring All to Front',
     selector: 'arrangeInFront:'
@@ -136,8 +156,9 @@ exports.default = [{
 }, {
   label: 'Help',
   submenu: [{
-    label: 'Lightcord Help',
+    label: 'Discord Help',
     click: () => _electron.app.emit(MenuEvents.OPEN_HELP)
   }]
 }];
+exports.default = _default;
 module.exports = exports.default;

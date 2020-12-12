@@ -1,12 +1,11 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.injectBuildInfo = injectBuildInfo;
 exports.injectModuleUpdater = injectModuleUpdater;
-
-function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+exports.injectUpdater = injectUpdater;
 
 const electron = require('electron');
 
@@ -25,6 +24,7 @@ const {
 
 let injectedBuildInfo = null;
 let injectedModuleUpdater = null;
+let injectedUpdater = null;
 
 function injectBuildInfo(buildInfo) {
   injectedBuildInfo = buildInfo;
@@ -34,110 +34,67 @@ function injectModuleUpdater(moduleUpdater) {
   injectedModuleUpdater = moduleUpdater;
 }
 
+function injectUpdater(updater) {
+  injectedUpdater = updater;
+}
+
 electron.ipcMain.on(APP_GET_RELEASE_CHANNEL_SYNC, event => {
   event.returnValue = injectedBuildInfo.releaseChannel;
 });
-
 electron.ipcMain.on(APP_GET_HOST_VERSION_SYNC, event => {
-  // hardcode because Discord could identify Lightcord or could simply bug.
-  if(process.platform === "darwin")
-    event.returnValue = "0.0.259";
-  else if(process.platform === "linux")
-    event.returnValue = "0.0.12";
-  else
-    event.returnValue = "0.0.308"; //electron.app.getVersion();
+  event.returnValue = electron.app.getVersion();
 });
 
-electron.ipcMain.handle(APP_GET_MODULE_VERSIONS, (() => {
-  var _ref = _asyncToGenerator(function* (_) {
-    const versions = {};
-    const installed = injectedModuleUpdater != null ? injectedModuleUpdater.getInstalled() : {};
-    for (const name of Object.keys(installed)) {
-      versions[name] = installed[name].installedVersion;
-    }
-    return versions;
-  });
+async function newUpdaterGetModuleVersions(updater) {
+  // eslint-disable-next-line camelcase
+  return (await updater.queryCurrentVersions()).current_modules;
+}
 
-  return function (_x) {
-    return _ref.apply(this, arguments);
-  };
-})());
+electron.ipcMain.handle(APP_GET_MODULE_VERSIONS, async _ => {
+  var _injectedUpdater;
 
-electron.ipcMain.handle(APP_GET_PATH, (() => {
-  var _ref2 = _asyncToGenerator(function* (_, path) {
-    return electron.app.getPath(path);
-  });
+  const newUpdater = (_injectedUpdater = injectedUpdater) === null || _injectedUpdater === void 0 ? void 0 : _injectedUpdater.getUpdater();
 
-  return function (_x2, _x3) {
-    return _ref2.apply(this, arguments);
-  };
-})());
+  if (newUpdater != null) {
+    return newUpdaterGetModuleVersions(newUpdater);
+  }
 
-electron.ipcMain.handle(APP_SET_BADGE_COUNT, (() => {
-  var _ref3 = _asyncToGenerator(function* (_, count) {
-    electron.app.setBadgeCount(count);
-  });
+  const versions = {};
+  const installed = injectedModuleUpdater != null ? injectedModuleUpdater.getInstalled() : {};
 
-  return function (_x4, _x5) {
-    return _ref3.apply(this, arguments);
-  };
-})());
+  for (const name of Object.keys(installed)) {
+    versions[name] = installed[name].installedVersion;
+  }
 
-electron.ipcMain.handle(APP_DOCK_SET_BADGE, (() => {
-  var _ref4 = _asyncToGenerator(function* (_, badge) {
-    if (electron.app.dock != null) {
-      electron.app.dock.setBadge(badge);
-    }
-  });
-
-  return function (_x6, _x7) {
-    return _ref4.apply(this, arguments);
-  };
-})());
-
-electron.ipcMain.handle(APP_DOCK_BOUNCE, (() => {
-  var _ref5 = _asyncToGenerator(function* (_, type) {
-    if (electron.app.dock != null) {
-      return electron.app.dock.bounce(type);
-    } else {
-      return -1;
-    }
-  });
-
-  return function (_x8, _x9) {
-    return _ref5.apply(this, arguments);
-  };
-})());
-
-electron.ipcMain.handle(APP_DOCK_CANCEL_BOUNCE, (() => {
-  var _ref6 = _asyncToGenerator(function* (_, id) {
-    if (electron.app.dock != null) {
-      electron.app.dock.cancelBounce(id);
-    }
-  });
-
-  return function (_x10, _x11) {
-    return _ref6.apply(this, arguments);
-  };
-})());
-
-electron.ipcMain.handle(APP_RELAUNCH, (() => {
-  var _ref7 = _asyncToGenerator(function* (_) {
-    electron.app.relaunch();
-    electron.app.exit(0);
-  });
-
-  return function (_x12) {
-    return _ref7.apply(this, arguments);
-  };
-})());
-
-electron.ipcMain.handle(APP_GET_DEFAULT_DOUBLE_CLICK_ACTION, (() => {
-  var _ref8 = _asyncToGenerator(function* (_) {
-    return electron.systemPreferences.getUserDefault('AppleActionOnDoubleClick', 'string');
-  });
-
-  return function (_x13) {
-    return _ref8.apply(this, arguments);
-  };
-})());
+  return versions;
+});
+electron.ipcMain.handle(APP_GET_PATH, async (_, path) => {
+  return electron.app.getPath(path);
+});
+electron.ipcMain.handle(APP_SET_BADGE_COUNT, async (_, count) => {
+  electron.app.setBadgeCount(count);
+});
+electron.ipcMain.handle(APP_DOCK_SET_BADGE, async (_, badge) => {
+  if (electron.app.dock != null) {
+    electron.app.dock.setBadge(badge);
+  }
+});
+electron.ipcMain.handle(APP_DOCK_BOUNCE, async (_, type) => {
+  if (electron.app.dock != null) {
+    return electron.app.dock.bounce(type);
+  } else {
+    return -1;
+  }
+});
+electron.ipcMain.handle(APP_DOCK_CANCEL_BOUNCE, async (_, id) => {
+  if (electron.app.dock != null) {
+    electron.app.dock.cancelBounce(id);
+  }
+});
+electron.ipcMain.handle(APP_RELAUNCH, async _ => {
+  electron.app.relaunch();
+  electron.app.exit(0);
+});
+electron.ipcMain.handle(APP_GET_DEFAULT_DOUBLE_CLICK_ACTION, async _ => {
+  return electron.systemPreferences.getUserDefault('AppleActionOnDoubleClick', 'string');
+});

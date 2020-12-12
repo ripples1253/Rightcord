@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -6,10 +6,11 @@ Object.defineProperty(exports, "__esModule", {
 exports.getMainWindowId = getMainWindowId;
 exports.webContentsSend = webContentsSend;
 exports.init = init;
-exports.handleSingleInstance = handleSingleInstance;
+exports.handleOpenUrl = handleOpenUrl;
 exports.setMainWindowVisible = setMainWindowVisible;
 exports.setBlurType = setBlurType
 exports.setVibrancy = setVibrancy
+const events = exports.events = new (require("events").EventEmitter)()
 
 const VIBRANCY_TYPES = [
   "titlebar", 
@@ -33,127 +34,137 @@ const BLUR_TYPES = ["blurbehind", "acrylic", "transparent"]
 
 var glasstron = require("glasstron")
 
-var electron = require('electron');
+var _electron = require("electron");
 
-var _path = require('path');
+var _fs = _interopRequireDefault(require("fs"));
 
-var _url = require('url');
+var _path = _interopRequireDefault(require("path"));
 
-var _Backoff = require('../common/Backoff');
+var _url = _interopRequireDefault(require("url"));
 
-var _Backoff2 = _interopRequireDefault(_Backoff);
+var _Backoff = _interopRequireDefault(require("../common/Backoff"));
 
-var _appBadge = require('./appBadge');
+var _securityUtils = require("../common/securityUtils");
 
-var appBadge = _interopRequireWildcard(_appBadge);
+var appBadge = _interopRequireWildcard(require("./appBadge"));
 
-var _appConfig = require('./appConfig');
+var appConfig = _interopRequireWildcard(require("./appConfig"));
 
-var appConfig = _interopRequireWildcard(_appConfig);
+var _appSettings = require("./appSettings");
 
-var _appSettings = require('./appSettings');
+var _buildInfo = _interopRequireDefault(require("./buildInfo"));
 
-var _buildInfo = require('./buildInfo');
+var _ipcMain = _interopRequireDefault(require("./ipcMain"));
 
-var _buildInfo2 = _interopRequireDefault(_buildInfo);
+var legacyModuleUpdater = _interopRequireWildcard(require("./moduleUpdater"));
 
-var _ipcMain = require('./ipcMain');
+var _updater = _interopRequireDefault(require("./updater"));
 
-var _ipcMain2 = _interopRequireDefault(_ipcMain);
+var notificationScreen = _interopRequireWildcard(require("./notificationScreen"));
 
-var _moduleUpdater = require('./moduleUpdater');
+var paths = _interopRequireWildcard(require("./paths"));
 
-var moduleUpdater = _interopRequireWildcard(_moduleUpdater);
+var popoutWindows = _interopRequireWildcard(require("./popoutWindows"));
 
-var _notificationScreen = require('./notificationScreen');
+var splashScreen = _interopRequireWildcard(require("./splashScreen"));
 
-var notificationScreen = _interopRequireWildcard(_notificationScreen);
+var systemTray = _interopRequireWildcard(require("./systemTray"));
 
-var _popoutWindows = require('./popoutWindows');
+var _Constants = require("./Constants");
 
-var popoutWindows = _interopRequireWildcard(_popoutWindows);
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
-var _systemTray = require('./systemTray');
-
-var systemTray = _interopRequireWildcard(_systemTray);
-
-var _Constants = require('./Constants');
-
-const EventEmitter = require("events").EventEmitter
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const settings = _appSettings();
-const connectionBackoff = new _Backoff2.default(1000, 20000);
-const events = exports.events = new EventEmitter()
+const settings = (0, _appSettings.getSettings)();
+const connectionBackoff = new _Backoff.default(1000, 20000);
 const DISCORD_NAMESPACE = 'DISCORD_';
 
 let isTabs = false
+function checkCanMigrate() {
+  return _fs.default.existsSync(_path.default.join(paths.getUserData(), 'userDataCache.json'));
+}
+
+function checkAlreadyMigrated() {
+  return _fs.default.existsSync(_path.default.join(paths.getUserData(), 'domainMigrated'));
+}
+
 const getWebappEndpoint = () => {
   isTabs = settings.get("isTabs", false)
   if(!isTabs){
     let endpoint = settings.get('WEBAPP_ENDPOINT');
     if (!endpoint) {
-      if (_buildInfo2.default.releaseChannel === 'stable') {
+      if (_buildInfo.default.releaseChannel === 'stable') {
         endpoint = 'https://discord.com';
+      } else if (_buildInfo.default.releaseChannel === 'development') {
+        endpoint = 'https://canary.discord.com';
       } else {
-        endpoint = `https://${_buildInfo2.default.releaseChannel}.discord.com`;
+        endpoint = `https://${_buildInfo.default.releaseChannel}.discord.com`;
       }
     }
     return endpoint;
   }else{
-    return "file://"+_path.join(__dirname, "tabs", "index.html")
+    return "file://"+_path.default.join(__dirname, "tabs", "index.html")
   }
 };
 
 const WEBAPP_ENDPOINT = getWebappEndpoint();
 
+function checkUrlOriginMatches(urlA, urlB) {
+  let parsedUrlA;
+  let parsedUrlB;
+
+  try {
+    parsedUrlA = _url.default.parse(urlA);
+    parsedUrlB = _url.default.parse(urlB);
+  } catch (_) {
+    return false;
+  }
+
+  return parsedUrlA.protocol === parsedUrlB.protocol && parsedUrlA.slashes === parsedUrlB.slashes && parsedUrlA.host === parsedUrlB.host;
+}
+
 function getSanitizedPath(path) {
   // using the whatwg URL api, get a sanitized pathname from given path
   // this is because url.parse's `path` may not always have a slash
   // in front of it
-  return new _url.URL(path, WEBAPP_ENDPOINT).pathname;
+  return new _url.default.URL(path, WEBAPP_ENDPOINT).pathname;
 }
 
-function extractPathFromArgs(args, fallbackPath) {
-  if (args.length === 3 && args[0] === '--url' && args[1] === '--') {
-    try {
-      const parsedURL = _url.parse(args[2]);
-      if (parsedURL.protocol === 'discord:') {
-        return getSanitizedPath(parsedURL.path);
-      }
-    } catch (_) {} // protect against URIError: URI malformed
-  }
-  return fallbackPath;
-}
+function getSanitizedProtocolPath(url_) {
+  try {
+    const parsedURL = _url.default.parse(url_);
 
-// TODO: These should probably be thrown in constants.
-const INITIAL_PATH = extractPathFromArgs(process.argv.slice(1), '/app');
-const WEBAPP_PATH = settings.get('WEBAPP_PATH', `${INITIAL_PATH}?_=${Date.now()}`);
-const URL_TO_LOAD = isTabs ? WEBAPP_ENDPOINT : `${WEBAPP_ENDPOINT}${WEBAPP_PATH}`;
+    if (parsedURL.protocol === 'discord:') {
+      return getSanitizedPath(parsedURL.path);
+    }
+  } catch (_) {} // protect against URIError: URI malformed
+
+
+  return null;
+} // TODO: These should probably be thrown in constants.
+
+
+const WEBAPP_PATH = settings.get('WEBAPP_PATH', `/app?_=${Date.now()}`);
+const URL_TO_LOAD = `${WEBAPP_ENDPOINT}${WEBAPP_PATH}`;
 const MIN_WIDTH = settings.get('MIN_WIDTH', 940);
 const MIN_HEIGHT = settings.get('MIN_HEIGHT', 500);
 const DEFAULT_WIDTH = 1280;
-const DEFAULT_HEIGHT = 720;
-// TODO: document this var's purpose
-const MIN_VISIBLE_ON_SCREEN = 32;
+const DEFAULT_HEIGHT = 720; // TODO: document this var's purpose
 
-/**
- * @type {electron.BrowserWindow}
- */
+const MIN_VISIBLE_ON_SCREEN = 32;
 let mainWindow = null;
 let mainWindowId = _Constants.DEFAULT_MAIN_WINDOW_ID;
+let mainWindowInitialPath = null;
+let mainWindowDidFinishLoad = false; // whether we are in an intermediate auth process outside of our normal login screen (for e.g. internal builds)
 
-// whether we are in an intermediate auth process outside of our normal login screen (for e.g. internal builds)
-let insideAuthFlow = false;
+let insideAuthFlow = false; // last time the main app renderer has crashed ('crashed' event)
 
-// last time the main app renderer has crashed ('crashed' event)
-let lastCrashed = 0;
-
-// whether we failed to load a page outside of the intermediate auth flow
+let lastCrashed = 0; // whether we failed to load a page outside of the intermediate auth flow
 // used to reload the page after a delay
+
 let lastPageLoadFailed = false;
 
 function getMainWindowId() {
@@ -177,6 +188,7 @@ function saveWindowConfig(browserWindow) {
 
     settings.set('IS_MAXIMIZED', browserWindow.isMaximized());
     settings.set('IS_MINIMIZED', browserWindow.isMinimized());
+
     if (!settings.get('IS_MAXIMIZED') && !settings.get('IS_MINIMIZED')) {
       settings.set('WINDOW_BOUNDS', browserWindow.getBounds());
     }
@@ -239,7 +251,8 @@ function setWindowVisible(isVisible, andUnminimize) {
     }
   } else {
     webContentsSend('MAIN_WINDOW_BLUR');
-    mainWindow.hide(); 
+    mainWindow.hide();
+
     if (systemTray.hasInit) {
       systemTray.displayHowToCloseHint();
     }
@@ -252,36 +265,41 @@ function doAABBsOverlap(a, b) {
   const ax1 = a.x + a.width;
   const bx1 = b.x + b.width;
   const ay1 = a.y + a.height;
-  const by1 = b.y + b.height;
-  // clamp a to b, see if it is non-empty
+  const by1 = b.y + b.height; // clamp a to b, see if it is non-empty
+
   const cx0 = a.x < b.x ? b.x : a.x;
   const cx1 = ax1 < bx1 ? ax1 : bx1;
+
   if (cx1 - cx0 > 0) {
     const cy0 = a.y < b.y ? b.y : a.y;
     const cy1 = ay1 < by1 ? ay1 : by1;
+
     if (cy1 - cy0 > 0) {
       return true;
     }
   }
+
   return false;
 }
 
 function applyWindowBoundsToConfig(mainWindowOptions) {
-  const bounds = settings.get('WINDOW_BOUNDS')
-  if (!bounds) {
+  if (!settings.get('WINDOW_BOUNDS')) {
     mainWindowOptions.center = true;
     return;
   }
 
-  bounds.width = typeof bounds.width === "number" ? Math.max(MIN_WIDTH, bounds.width) : mainWindowOptions.width;
-  bounds.height = typeof bounds.height === "number" ? Math.max(MIN_HEIGHT, bounds.height) : mainWindowOptions.height;
-
+  const bounds = settings.get('WINDOW_BOUNDS');
+  bounds.width = Math.max(MIN_WIDTH, bounds.width);
+  bounds.height = Math.max(MIN_HEIGHT, bounds.height);
   let isVisibleOnAnyScreen = false;
-  const displays = electron.screen.getAllDisplays();
+
+  const displays = _electron.screen.getAllDisplays();
+
   displays.forEach(display => {
     if (isVisibleOnAnyScreen) {
       return;
     }
+
     const displayBound = display.workArea;
     displayBound.x += MIN_VISIBLE_ON_SCREEN;
     displayBound.y += MIN_VISIBLE_ON_SCREEN;
@@ -298,10 +316,10 @@ function applyWindowBoundsToConfig(mainWindowOptions) {
   } else {
     mainWindowOptions.center = true;
   }
-}
-
-// this can be called multiple times (due to recreating the main app window),
+} // this can be called multiple times (due to recreating the main app window),
 // so we only want to update existing if we already initialized it
+
+
 function setupNotificationScreen(mainWindow) {
   if (!notificationScreen.hasInit) {
     notificationScreen.init({
@@ -310,21 +328,28 @@ function setupNotificationScreen(mainWindow) {
       maxVisible: 5,
       screenPosition: 'bottom'
     });
-
     notificationScreen.events.on(notificationScreen.NOTIFICATION_CLICK, () => {
       setWindowVisible(true, true);
     });
   } else {
     notificationScreen.setMainWindow(mainWindow);
   }
-}
-
-// this can be called multiple times (due to recreating the main app window),
+} // this can be called multiple times (due to recreating the main app window),
 // so we only want to update existing if we already initialized it
+
+
 function setupSystemTray() {
   if (!systemTray.hasInit) {
     systemTray.init({
-      onCheckForUpdates: () => moduleUpdater.checkForUpdates(),
+      onCheckForUpdates: () => {
+        const updater = _updater.default === null || _updater.default === void 0 ? void 0 : _updater.default.getUpdater();
+
+        if (updater != null) {
+          checkForUpdatesWithUpdater(updater);
+        } else {
+          legacyModuleUpdater.checkForUpdates();
+        }
+      },
       onTrayClicked: () => setWindowVisible(true, true),
       onOpenVoiceSettings: openVoiceSettings,
       onToggleMute: toggleMute,
@@ -332,26 +357,26 @@ function setupSystemTray() {
       onLaunchApplication: launchApplication
     });
   }
-}
-
-// this can be called multiple times (due to recreating the main app window),
+} // this can be called multiple times (due to recreating the main app window),
 // so we only want to update existing if we already initialized it
+
+
 function setupAppBadge() {
   if (!appBadge.hasInit) {
     appBadge.init();
   }
-}
-
-// this can be called multiple times (due to recreating the main app window),
+} // this can be called multiple times (due to recreating the main app window),
 // so we only want to update existing if we already initialized it
+
+
 function setupAppConfig() {
   if (!appConfig.hasInit) {
     appConfig.init();
   }
-}
-
-// this can be called multiple times (due to recreating the main app window),
+} // this can be called multiple times (due to recreating the main app window),
 // so we only want to update existing if we already initialized it
+
+
 function setupPopouts() {
   if (!popoutWindows.hasInit) {
     popoutWindows.init();
@@ -391,13 +416,12 @@ function setBackgroundColor(color) {
   settings.set(BACKGROUND_COLOR_KEY, color);
   //mainWindow.setBackgroundColor(color);
   settings.save();
-}
+} // launch main app window; could be called multiple times for various reasons
 
-// launch main app window; could be called multiple times for various reasons
+
 function launchMainAppWindow(isVisible) {
   if (mainWindow) {
     // TODO: message here?
-    console.log("[MainScreen] Destroying window "+mainWindow.id)
     mainWindow.destroy();
   }
 
@@ -416,16 +440,22 @@ function launchMainAppWindow(isVisible) {
       nativeWindowOpen: true,
       enableRemoteModule: true,
       spellcheck: true,
+      contextIsolation: false,
       ...(isTabs ? {
         nodeIntegration: true,
         webviewTag: true
       } : {
         nodeIntegration: false,
         webviewTag: false,
-        preload: _path.join(__dirname, 'mainScreenPreload.js')
-      })
+        contextIsolation: true,
+        preload: _path.default.join(__dirname, 'mainScreenPreload.js')
+      }),
+      // NB: this is required in order to give popouts (or any child window opened via window.open w/ nativeWindowOpen)
+      // a chance at a node environment (i.e. they run the preload, have an isolated context, etc.) when
+      // `app.allowRendererProcessReuse === false` (default in Electron 7).
+      additionalArguments: ['--enable-node-leakage-in-renderers']
     },
-    icon: _path.join(__dirname, "images", 'discord.png')
+    icon: _path.default.join(__dirname, "images", 'discord.png')
   };
 
   if (process.platform === 'linux') {
@@ -435,7 +465,7 @@ function launchMainAppWindow(isVisible) {
   if(!settings.get("NO_WINDOWS_BOUND", false))applyWindowBoundsToConfig(mainWindowOptions);
 
   const useGlasstron = settings.get("GLASSTRON", true)
-  const BrowserWindow = useGlasstron ? glasstron.BrowserWindow : electron.BrowserWindow
+  const BrowserWindow = useGlasstron ? glasstron.BrowserWindow : _electron.BrowserWindow
   mainWindow = new BrowserWindow(mainWindowOptions);
   mainWindowId = mainWindow.id;
   global.mainWindowId = mainWindowId;
@@ -463,13 +493,14 @@ function launchMainAppWindow(isVisible) {
 
   mainWindow.webContents.on('new-window', (e, windowURL, frameName, disposition, options) => {
     e.preventDefault();
-    if (frameName.startsWith(DISCORD_NAMESPACE) && windowURL.startsWith(WEBAPP_ENDPOINT)) {
-      popoutWindows.openOrFocusWindow(e, windowURL, frameName, options);
-    } else {
-      electron.shell.openExternal(windowURL);
-    }
-  });
 
+    if (frameNames.tartsWith(DISCORD_NAMESPACE) && checkUrlOriginMatches(windowURL, WEBAPP_ENDPOINT) && getSanitizedPath(windowURL) === '/popout') {
+      popoutWindows.openOrFocusWindow(e, windowURL, frameName, options);
+      return;
+    }
+
+    (0, _securityUtils.saferShellOpenExternal)(windowURL);
+  });
   mainWindow.webContents.on('did-fail-load', (e, errCode, errDesc, validatedUrl) => {
     if (insideAuthFlow) {
       return;
@@ -477,12 +508,11 @@ function launchMainAppWindow(isVisible) {
 
     if (validatedUrl !== URL_TO_LOAD) {
       return;
-    }
-
-    // -3 (ABORTED) means we are reloading the page before it has finished loading
+    } // -3 (ABORTED) means we are reloading the page before it has finished loading
     // 0 (???) seems to also mean the same thing
-    if (errCode === -3 || errCode === 0) return;
 
+
+    if (errCode === -3 || errCode === 0) return;
     lastPageLoadFailed = true;
     console.error('[WebContents] did-fail-load', errCode, errDesc, `retry in ${connectionBackoff.current} ms`);
     connectionBackoff.fail(() => {
@@ -490,87 +520,132 @@ function launchMainAppWindow(isVisible) {
       loadMainPage();
     });
   });
-
   mainWindow.webContents.on('did-finish-load', () => {
-    if (insideAuthFlow && mainWindow.webContents && mainWindow.webContents.getURL().startsWith(WEBAPP_ENDPOINT)) {
+    if (insideAuthFlow && mainWindow.webContents && checkUrlOriginMatches(mainWindow.webContents.getURL(), WEBAPP_ENDPOINT)) {
       insideAuthFlow = false;
     }
 
+    mainWindowDidFinishLoad = true; // if this is a first open and there's an initial path, direct user to that path
+
+    if (mainWindowInitialPath != null) {
+      webContentsSend('MAIN_WINDOW_PATH', mainWindowInitialPath);
+      mainWindowInitialPath = null;
+    }
+
     webContentsSend(mainWindow != null && mainWindow.isFocused() ? 'MAIN_WINDOW_FOCUS' : 'MAIN_WINDOW_BLUR');
-    
+
     if (!lastPageLoadFailed) {
       connectionBackoff.succeed();
     }
     events.emit("ready")
   });
-
   mainWindow.webContents.on('crashed', (e, killed) => {
     if (killed) {
-      electron.app.quit();
+      _electron.app.quit();
+
+      return;
+    } // if we just crashed under 5 seconds ago, we are probably in a loop, so just die.
+
+
+    const crashTime = Date.now();
+
+    if (crashTime - lastCrashed < 5 * 1000) {
+      console.error('[WebContents] double crashed... RIP =(');
+
+      _electron.app.quit();
+
       return;
     }
 
-    // if we just crashed under 5 seconds ago, we are probably in a loop, so just die.
-    const crashTime = Date.now();
-    if (crashTime - lastCrashed < 5 * 1000) {
-      console.error('[WebContents] double crashed... RIP =(');
-      electron.app.quit();
-      return;
-    }
     lastCrashed = crashTime;
     console.error('[WebContents] crashed... reloading');
     launchMainAppWindow(true);
-  });
-
-  // Prevent navigation when links or files are dropping into the app, turning it into a browser.
+  }); // Prevent navigation when links or files are dropping into the app, turning it into a browser.
   // https://github.com/discord/discord/pull/278
+
   mainWindow.webContents.on('will-navigate', (evt, url) => {
-    if (!insideAuthFlow && !url.startsWith(WEBAPP_ENDPOINT)) {
+    if (!insideAuthFlow && !checkUrlOriginMatches(url, WEBAPP_ENDPOINT)) {
       evt.preventDefault();
     }
-  });
+  }); // track intermediate auth flow
 
-  // track intermediate auth flow
   mainWindow.webContents.on('did-get-redirect-request', (event, oldUrl, newUrl) => {
-    if (oldUrl.startsWith(WEBAPP_ENDPOINT) && newUrl.startsWith('https://accounts.google.com/')) {
+    if (checkUrlOriginMatches(oldUrl, WEBAPP_ENDPOINT) && checkUrlOriginMatches(newUrl, 'https://accounts.google.com/')) {
       insideAuthFlow = true;
     }
   });
-
   mainWindow.webContents.on('context-menu', (_, params) => {
     webContentsSend('SPELLCHECK_RESULT', params.misspelledWord, params.dictionarySuggestions);
   });
-
   mainWindow.webContents.on('devtools-opened', () => {
     webContentsSend('WINDOW_DEVTOOLS_OPENED');
   });
-
   mainWindow.webContents.on('devtools-closed', () => {
     webContentsSend('WINDOW_DEVTOOLS_CLOSED');
   });
-
   mainWindow.on('focus', () => {
     webContentsSend('MAIN_WINDOW_FOCUS');
   });
-
   mainWindow.on('blur', () => {
     webContentsSend('MAIN_WINDOW_BLUR');
   });
-
   mainWindow.on('page-title-updated', (e, title) => {
     if (mainWindow === null) {
       return;
     }
+
     e.preventDefault();
+
     if (!title.endsWith('Lightcord')) {
       title += ' - Lightcord';
     }
+
     mainWindow.setTitle(title);
   });
-
   mainWindow.on('leave-html-full-screen', () => {
     // fixes a bug wherein embedded videos returning from full screen cause our menu to be visible.
     mainWindow.setMenuBarVisibility(false);
+  });
+  mainWindow.webContents.on('did-navigate-in-page', (_, eventUrl) => {
+    let parsedUrl;
+
+    try {
+      parsedUrl = _url.default.parse(eventUrl);
+    } catch (_) {
+      return;
+    } // Prevent back navigation from revisting the login page after logging in,
+    // or being able to navigate back after signing out.
+
+
+    if (parsedUrl && parsedUrl.pathname === '/login') {
+      mainWindow.webContents.clearHistory();
+    }
+  }); // 'swipe' only works if the classic 3 finger swipe style is enabled in
+  // 'System Preferences > Trackpad > More Gestures.' The more modern 2 finger
+  // gesture should be added when Electron adds support.
+
+  mainWindow.on('swipe', (_, direction) => {
+    switch (direction) {
+      case 'left':
+        webContentsSend('NAVIGATE_BACK', 'SWIPE');
+        break;
+
+      case 'right':
+        webContentsSend('NAVIGATE_FORWARD', 'SWIPE');
+        break;
+    }
+  }); // Windows/Linux media keys and 4th/5th mouse buttons.
+
+  mainWindow.on('app-command', (_, cmd) => {
+    switch (cmd) {
+      case 'browser-backward':
+        webContentsSend('NAVIGATE_BACK', 'BROWSER');
+        break;
+
+      case 'browser-forward':
+        webContentsSend('NAVIGATE_FORWARD', 'BROWSER');
+        break;
+    }
   });
 
   if (process.platform === 'win32') {
@@ -584,25 +659,24 @@ function launchMainAppWindow(isVisible) {
 
   if (process.platform === 'linux' || process.platform === 'win32') {
     systemTray.show();
-
     mainWindow.on('close', e => {
       if (mainWindow === null) {
         // this means we're quitting
         popoutWindows.closePopouts();
         return;
       }
-      webContentsSend('MAIN_WINDOW_BLUR');
 
-      // Save our app settings
-      saveWindowConfig(mainWindow);
+      webContentsSend('MAIN_WINDOW_BLUR'); // Save our app settings
 
-      // Quit app if that's the setting
+      saveWindowConfig(mainWindow); // Quit app if that's the setting
+
       if (!settings.get('MINIMIZE_TO_TRAY', true)) {
-        electron.app.quit();
-        return;
-      }
+        _electron.app.quit();
 
-      // Else, minimize to tray
+        return;
+      } // Else, minimize to tray
+
+
       setWindowVisible(false);
       e.preventDefault();
     });
@@ -627,6 +701,7 @@ function handleModuleUpdateCheckFinished(succeeded, updateCount, manualRequired)
   } else {
     updaterState = _Constants.UpdaterEvents.UPDATE_AVAILABLE;
   }
+
   webContentsSend(updaterState);
 }
 
@@ -634,6 +709,7 @@ function handleModuleUpdateDownloadProgress(name, progress) {
   if (mainWindow) {
     mainWindow.setProgressBar(progress);
   }
+
   webContentsSend(_Constants.UpdaterEvents.MODULE_INSTALL_PROGRESS, name, progress);
 }
 
@@ -657,93 +733,171 @@ function handleModuleUpdateInstalledModule(name, current, total, succeeded) {
   if (mainWindow) {
     mainWindow.setProgressBar(-1);
   }
+
   webContentsSend(_Constants.UpdaterEvents.MODULE_INSTALLED, name, succeeded);
 }
 
-// sets up event listeners between the browser window and the app to send
-// and listen to update-related events
-function setupUpdaterIPC() {
-  moduleUpdater.events.on(moduleUpdater.CHECKING_FOR_UPDATES, () => {
-    updaterState = _Constants.UpdaterEvents.CHECKING_FOR_UPDATES;
+function setUpdaterState(newUpdaterState) {
+  updaterState = newUpdaterState;
+  webContentsSend(updaterState);
+}
+
+async function checkForUpdatesWithUpdater(updater) {
+  if (updaterState === _Constants.UpdaterEvents.UPDATE_NOT_AVAILABLE) {
+    setUpdaterState(_Constants.UpdaterEvents.CHECKING_FOR_UPDATES);
+
+    try {
+      let installedAnything = false;
+      await updater.updateToLatest(progress => {
+        const task = progress.task.HostInstall || progress.task.ModuleInstall;
+
+        if (task != null && progress.state === 'Complete') {
+          if (!installedAnything) {
+            installedAnything = true;
+            setUpdaterState(_Constants.UpdaterEvents.UPDATE_AVAILABLE);
+          }
+        }
+      });
+      setUpdaterState(installedAnything ? _Constants.UpdaterEvents.UPDATE_DOWNLOADED : _Constants.UpdaterEvents.UPDATE_NOT_AVAILABLE);
+    } catch (e) {
+      console.error('Update to latest failed: ', e);
+      updaterState = _Constants.UpdaterEvents.UPDATE_NOT_AVAILABLE;
+      webContentsSend(_Constants.UpdaterEvents.UPDATE_FAILED);
+    }
+  } else {
     webContentsSend(updaterState);
+  }
+} // Setup handling of events related to updates using the new updater.
+
+
+function setupUpdaterEventsWithUpdater(updater) {
+  _electron.app.on(_Constants.MenuEvents.CHECK_FOR_UPDATES, () => checkForUpdatesWithUpdater());
+
+  _ipcMain.default.on(_Constants.UpdaterEvents.CHECK_FOR_UPDATES, () => {
+    return checkForUpdatesWithUpdater(updater);
   });
 
-  // TODO(eiz): We currently still need to handle the old style non-object-based
+  _ipcMain.default.on(_Constants.UpdaterEvents.QUIT_AND_INSTALL, () => {
+    saveWindowConfig(mainWindow);
+    mainWindow = null; // TODO(eiz): This is a workaround for old Linux host versions whose host
+    // updater did not have a quitAndInstall() method, which causes the module
+    // updater to crash if a host update is available and we try to restart to
+    // install modules. Remove when all hosts are updated.
+
+    try {
+      legacyModuleUpdater.quitAndInstallUpdates();
+    } catch (e) {
+      _electron.app.relaunch();
+
+      _electron.app.quit();
+    }
+  });
+
+  _ipcMain.default.on(_Constants.UpdaterEvents.UPDATER_HISTORY_QUERY_AND_TRUNCATE, () => {
+    if (updater.queryAndTruncateHistory != null) {
+      webContentsSend(_Constants.UpdaterEvents.UPDATER_HISTORY_RESPONSE, updater.queryAndTruncateHistory());
+    } else {
+      webContentsSend(_Constants.UpdaterEvents.UPDATER_HISTORY_RESPONSE, []);
+    }
+  });
+} // Setup events related to updates using the old module updater.
+//
+// sets up event listeners between the browser window and the app to send
+// and listen to update-related events
+
+
+function setupLegacyUpdaterEvents() {
+  _electron.app.on(_Constants.MenuEvents.CHECK_FOR_UPDATES, () => legacyModuleUpdater.checkForUpdates());
+
+  legacyModuleUpdater.events.on(legacyModuleUpdater.CHECKING_FOR_UPDATES, () => {
+    updaterState = _Constants.UpdaterEvents.CHECKING_FOR_UPDATES;
+    webContentsSend(updaterState);
+  }); // TODO(eiz): We currently still need to handle the old style non-object-based
   // updater events to allow discord_desktop_core to be newer than the host asar,
   // which contains the updater itself.
   //
   // Once all clients have updated to a sufficiently new host, we can delete this.
-  if (moduleUpdater.supportsEventObjects) {
-    moduleUpdater.events.on(moduleUpdater.UPDATE_CHECK_FINISHED, ({ succeeded, updateCount, manualRequired }) => {
+
+  if (legacyModuleUpdater.supportsEventObjects) {
+    legacyModuleUpdater.events.on(legacyModuleUpdater.UPDATE_CHECK_FINISHED, ({
+      succeeded,
+      updateCount,
+      manualRequired
+    }) => {
       handleModuleUpdateCheckFinished(succeeded, updateCount, manualRequired);
     });
-
-    moduleUpdater.events.on(moduleUpdater.DOWNLOADING_MODULE_PROGRESS, ({ name, progress }) => {
+    legacyModuleUpdater.events.on(legacyModuleUpdater.DOWNLOADING_MODULE_PROGRESS, ({
+      name,
+      progress
+    }) => {
       handleModuleUpdateDownloadProgress(name, progress);
     });
-
-    moduleUpdater.events.on(moduleUpdater.DOWNLOADING_MODULES_FINISHED, ({ succeeded, failed }) => {
+    legacyModuleUpdater.events.on(legacyModuleUpdater.DOWNLOADING_MODULES_FINISHED, ({
+      succeeded,
+      failed
+    }) => {
       handleModuleUpdateDownloadsFinished(succeeded, failed);
     });
-
-    moduleUpdater.events.on(moduleUpdater.INSTALLED_MODULE, ({ name, current, total, succeeded }) => {
+    legacyModuleUpdater.events.on(legacyModuleUpdater.INSTALLED_MODULE, ({
+      name,
+      current,
+      total,
+      succeeded
+    }) => {
       handleModuleUpdateInstalledModule(name, current, total, succeeded);
     });
   } else {
-    moduleUpdater.events.on(moduleUpdater.UPDATE_CHECK_FINISHED, (succeeded, updateCount, manualRequired) => {
+    legacyModuleUpdater.events.on(legacyModuleUpdater.UPDATE_CHECK_FINISHED, (succeeded, updateCount, manualRequired) => {
       handleModuleUpdateCheckFinished(succeeded, updateCount, manualRequired);
     });
-
-    moduleUpdater.events.on(moduleUpdater.DOWNLOADING_MODULE_PROGRESS, (name, progress) => {
+    legacyModuleUpdater.events.on(legacyModuleUpdater.DOWNLOADING_MODULE_PROGRESS, (name, progress) => {
       handleModuleUpdateDownloadProgress(name, progress);
     });
-
-    moduleUpdater.events.on(moduleUpdater.DOWNLOADING_MODULES_FINISHED, (succeeded, failed) => {
+    legacyModuleUpdater.events.on(legacyModuleUpdater.DOWNLOADING_MODULES_FINISHED, (succeeded, failed) => {
       handleModuleUpdateDownloadsFinished(succeeded, failed);
     });
-
-    moduleUpdater.events.on(moduleUpdater.INSTALLED_MODULE, (name, current, total, succeeded) => {
+    legacyModuleUpdater.events.on(legacyModuleUpdater.INSTALLED_MODULE, (name, current, total, succeeded) => {
       handleModuleUpdateInstalledModule(name, current, total, succeeded);
     });
   }
 
-  _ipcMain2.default.on(_Constants.UpdaterEvents.CHECK_FOR_UPDATES, () => {
+  _ipcMain.default.on(_Constants.UpdaterEvents.CHECK_FOR_UPDATES, () => {
     if (updaterState === _Constants.UpdaterEvents.UPDATE_NOT_AVAILABLE) {
-      moduleUpdater.checkForUpdates();
+      legacyModuleUpdater.checkForUpdates();
     } else {
       webContentsSend(updaterState);
     }
   });
 
-  _ipcMain2.default.on(_Constants.UpdaterEvents.QUIT_AND_INSTALL, () => {
+  _ipcMain.default.on(_Constants.UpdaterEvents.QUIT_AND_INSTALL, () => {
     saveWindowConfig(mainWindow);
-    mainWindow = null;
-
-    // TODO(eiz): This is a workaround for old Linux host versions whose host
+    mainWindow = null; // TODO(eiz): This is a workaround for old Linux host versions whose host
     // updater did not have a quitAndInstall() method, which causes the module
     // updater to crash if a host update is available and we try to restart to
     // install modules. Remove when all hosts are updated.
+
     try {
-      moduleUpdater.quitAndInstallUpdates();
+      legacyModuleUpdater.quitAndInstallUpdates();
     } catch (e) {
-      electron.app.relaunch();
-      electron.app.quit();
+      _electron.app.relaunch();
+
+      _electron.app.quit();
     }
   });
 
-  _ipcMain2.default.on(_Constants.UpdaterEvents.MODULE_INSTALL, (_event, name) => {
+  _ipcMain.default.on(_Constants.UpdaterEvents.MODULE_INSTALL, (_event, name) => {
     // NOTE: do NOT allow options to be passed in, as this enables a client to downgrade its modules to potentially
     // insecure versions.
-    moduleUpdater.install(name, false);
+    legacyModuleUpdater.install(name, false);
   });
 
-  _ipcMain2.default.on(_Constants.UpdaterEvents.MODULE_QUERY, (_event, name) => {
-    webContentsSend(_Constants.UpdaterEvents.MODULE_INSTALLED, name, moduleUpdater.isInstalled(name));
+  _ipcMain.default.on(_Constants.UpdaterEvents.MODULE_QUERY, (_event, name) => {
+    webContentsSend(_Constants.UpdaterEvents.MODULE_INSTALLED, name, legacyModuleUpdater.isInstalled(name));
   });
 
-  _ipcMain2.default.on(_Constants.UpdaterEvents.UPDATER_HISTORY_QUERY_AND_TRUNCATE, () => {
-    webContentsSend(_Constants.UpdaterEvents.UPDATER_HISTORY_RESPONSE, moduleUpdater.events.history);
-    moduleUpdater.events.history = [];
+  _ipcMain.default.on(_Constants.UpdaterEvents.UPDATER_HISTORY_QUERY_AND_TRUNCATE, () => {
+    webContentsSend(_Constants.UpdaterEvents.UPDATER_HISTORY_RESPONSE, legacyModuleUpdater.events.history);
+    legacyModuleUpdater.events.history = [];
   });
 }
 
@@ -751,46 +905,82 @@ function init() {
   // electron default behavior is to app.quit here, so long as there are no other listeners. we handle quitting
   // or minimizing to system tray ourselves via mainWindow.on('closed') so this is simply to disable the electron
   // default behavior.
-  electron.app.on('window-all-closed', () => {});
+  _electron.app.on('window-all-closed', () => {});
 
-  electron.app.on('before-quit', () => {
+  _electron.app.on('before-quit', () => {
     saveWindowConfig(mainWindow);
     mainWindow = null;
     notificationScreen.close();
-  });
+  }); // TODO: move this to main startup
 
-  // TODO: move this to main startup
-  electron.app.on('gpu-process-crashed', (e, killed) => {
+
+  _electron.app.on('gpu-process-crashed', (e, killed) => {
     if (killed) {
-      electron.app.quit();
+      _electron.app.quit();
     }
   });
 
-  electron.app.on('accessibility-support-changed', (_event, accessibilitySupportEnabled) => webContentsSend('ACCESSIBILITY_SUPPORT_CHANGED', accessibilitySupportEnabled));
+  _electron.app.on('accessibility-support-changed', (_event, accessibilitySupportEnabled) => webContentsSend('ACCESSIBILITY_SUPPORT_CHANGED', accessibilitySupportEnabled));
 
-  electron.app.on(_Constants.MenuEvents.OPEN_HELP, () => webContentsSend('HELP_OPEN'));
-  electron.app.on(_Constants.MenuEvents.OPEN_SETTINGS, () => webContentsSend('USER_SETTINGS_OPEN'));
-  electron.app.on(_Constants.MenuEvents.CHECK_FOR_UPDATES, () => moduleUpdater.checkForUpdates());
+  _electron.app.on(_Constants.MenuEvents.OPEN_HELP, () => webContentsSend('HELP_OPEN'));
 
-  _ipcMain2.default.on('SETTINGS_UPDATE_BACKGROUND_COLOR', (_event, backgroundColor) => {
+  _electron.app.on(_Constants.MenuEvents.OPEN_SETTINGS, () => webContentsSend('USER_SETTINGS_OPEN')); // TODO: this hotpatches an issue with focusing the app from background.
+  //       delete this after next stable electron release.
+
+
+  _electron.app.on('second-instance', (_event, args) => {
+    // if the second instance is the uninstaller, the bootstrap listener will quit the running app
+    if (args != null && args.indexOf('--squirrel-uninstall') > -1) {
+      return;
+    } // if the current instance is multi instance, we want to leave the window alone
+
+
+    if (process.argv != null && process.argv.slice(1).includes('--multi-instance')) {
+      return;
+    }
+
+    if (mainWindow == null) {
+      return;
+    }
+
+    setWindowVisible(true, false);
+    mainWindow.focus();
+  });
+
+  _ipcMain.default.on('SETTINGS_UPDATE_BACKGROUND_COLOR', (_event, backgroundColor) => {
     if (getBackgroundColor() !== backgroundColor) {
       setBackgroundColor(backgroundColor);
     }
   });
 
-  setupUpdaterIPC();
+  const updater = _updater.default === null || _updater.default === void 0 ? void 0 : _updater.default.getUpdater();
+
+  if (updater != null) {
+    setupUpdaterEventsWithUpdater(updater);
+  } else {
+    setupLegacyUpdaterEvents();
+  }
+
   launchMainAppWindow(false);
 }
 
-function handleSingleInstance(args) {
-  if (mainWindow != null) {
-    const appPath = extractPathFromArgs(args);
-    if (appPath != null) {
-      webContentsSend('MAIN_WINDOW_PATH', appPath);
+function handleOpenUrl(url) {
+  const path = getSanitizedProtocolPath(url);
+
+  if (path != null) {
+    if (!mainWindowDidFinishLoad) {
+      mainWindowInitialPath = path;
     }
-    setWindowVisible(true, false);
-    mainWindow.focus();
+
+    webContentsSend('MAIN_WINDOW_PATH', path);
   }
+
+  if (mainWindow == null) {
+    return;
+  }
+
+  setWindowVisible(true, false);
+  mainWindow.focus();
 }
 
 function setMainWindowVisible(visible) {

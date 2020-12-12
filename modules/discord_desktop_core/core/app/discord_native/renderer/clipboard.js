@@ -1,9 +1,14 @@
-'use strict';
+"use strict";
 
 const electron = require('electron');
+
 const invariant = require('invariant');
 
-const { CLIPBOARD_COPY, CLIPBOARD_CUT, CLIPBOARD_PASTE } = require('../common/constants').IPCEvents;
+const {
+  CLIPBOARD_COPY,
+  CLIPBOARD_CUT,
+  CLIPBOARD_PASTE
+} = require('../common/constants').IPCEvents;
 
 function copy(text) {
   if (text) {
@@ -15,9 +20,11 @@ function copy(text) {
 
 function copyImage(imageArrayBuffer, imageSrc) {
   invariant(imageArrayBuffer != null, 'Image data is empty');
-
   const nativeImg = electron.nativeImage.createFromBuffer(imageArrayBuffer);
-  electron.clipboard.write({ html: `<img src="${imageSrc}">`, image: nativeImg });
+  electron.clipboard.write({
+    html: `<img src="${imageSrc}">`,
+    image: nativeImg
+  });
 }
 
 function cut() {

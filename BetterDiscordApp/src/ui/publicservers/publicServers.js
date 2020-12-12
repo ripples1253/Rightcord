@@ -167,8 +167,8 @@ export default class V2C_PublicServers extends BDV2.reactComponent {
         };
         const server2 = {
             name: "Lightcord",
-            online: "100+",
-            members: "300+",
+            online: "500+",
+            members: "1200+",
             categories: ["community", "programming", "support"],
             description: "Official Lightcord server for support etc",
             identifier: "705908350218666117",

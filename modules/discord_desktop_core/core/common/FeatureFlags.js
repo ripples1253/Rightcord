@@ -1,8 +1,10 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.default = void 0;
+
 class FeatureFlags {
   constructor() {
     this.flags = new Set();
@@ -24,6 +26,8 @@ class FeatureFlags {
 
     this.flags.add(feature);
   }
+
 }
+
 exports.default = FeatureFlags;
 module.exports = exports.default;

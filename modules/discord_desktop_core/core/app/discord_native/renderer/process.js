@@ -1,9 +1,10 @@
-'use strict';
+"use strict";
 
 const electron = require('electron');
-const process = require('process');
-const env = process.env;
 
+const process = require('process');
+
+const env = process.env;
 module.exports = {
   platform: process.platform,
   arch: process.arch,

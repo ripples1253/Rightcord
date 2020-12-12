@@ -1,10 +1,14 @@
-'use strict';
+"use strict";
 
-const process = require('process');
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.flatten = flatten;
+exports.reconcileCrashReporterMetadata = reconcileCrashReporterMetadata;
 
-function getElectronMajorVersion() {
-  return process.versions.electron != null ? parseInt(process.versions.electron.split('.')[0]) : 0;
-}
+const {
+  getElectronMajorVersion
+} = require('./processUtils');
 
 function flatten(metadata, prefix, root) {
   root = root ? root : {};
@@ -23,7 +27,7 @@ function flatten(metadata, prefix, root) {
 }
 
 function reconcileCrashReporterMetadata(crashReporter, metadata) {
-  if (getElectronMajorVersion() < 9) {
+  if (getElectronMajorVersion() < 8) {
     return;
   }
 
@@ -42,9 +46,3 @@ function reconcileCrashReporterMetadata(crashReporter, metadata) {
     }
   }
 }
-
-module.exports = {
-  getElectronMajorVersion,
-  flatten,
-  reconcileCrashReporterMetadata
-};

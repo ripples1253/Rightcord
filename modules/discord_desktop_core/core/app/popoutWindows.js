@@ -1,20 +1,19 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.hasInit = undefined;
 exports.init = init;
 exports.getWindow = getWindow;
 exports.openOrFocusWindow = openOrFocusWindow;
 exports.closePopouts = closePopouts;
+exports.hasInit = void 0;
 
-var _electron = require('electron');
+var _electron = require("electron");
 
-var _appFeatures = require('./appFeatures');
+var _appFeatures = require("./appFeatures");
 
-var _mainScreen = require('./mainScreen');
-const { join } = require('path');
+var _mainScreen = require("./mainScreen");
 
 const MIN_POPOUT_WIDTH = 320;
 const MIN_POPOUT_HEIGHT = 180;
@@ -30,14 +29,14 @@ const DEFAULT_POPOUT_OPTIONS = {
   show: true,
   webPreferences: {
     nodeIntegration: false,
-    nativeWindowOpen: true
-  },
-  icon: join(__dirname, "images", 'discord.png')
+    nativeWindowOpen: true,
+    enableRemoteModule: false,
+    contextIsolation: true
+  }
 };
 const features = (0, _appFeatures.getFeatures)();
-
-let hasInit = exports.hasInit = false;
-
+let hasInit = false;
+exports.hasInit = hasInit;
 let popoutWindows = {};
 
 function init() {
@@ -45,15 +44,15 @@ function init() {
     console.warn('popoutWindows: Has already init! Cancelling init.');
     return;
   }
-  exports.hasInit = hasInit = true;
 
+  exports.hasInit = hasInit = true;
   features.declareSupported('popout_windows');
 }
 
 function focusWindow(window) {
-  if (window == null) return;
-  // The focus call is not always respected.
+  if (window == null) return; // The focus call is not always respected.
   // This uses a hack defined in https://github.com/electron/electron/issues/2867
+
   window.setAlwaysOnTop(true);
   window.focus();
   window.setAlwaysOnTop(false);
@@ -62,7 +61,6 @@ function focusWindow(window) {
 function getWindow(key) {
   return popoutWindows[key];
 }
-
 /**
  * Open a popout window with the specified key, or focus it if it's already open.
  *
@@ -75,11 +73,19 @@ function getWindow(key) {
  * @param {number} options.x the x position of the window
  * @param {number} options.y the y position of the window
  */
+
+
 function openOrFocusWindow(e, windowURL, key, options) {
   // Without webContents, window will not properly signal parent
-  const { width, height, x, y, webContents } = options;
-
+  const {
+    width,
+    height,
+    x,
+    y,
+    webContents
+  } = options;
   const existingWindow = popoutWindows[key];
+
   if (existingWindow != null) {
     e.newGuest = existingWindow;
     focusWindow(existingWindow);
@@ -93,20 +99,21 @@ function openOrFocusWindow(e, windowURL, key, options) {
     y,
     webContents
   });
-
   const newWindow = e.newGuest = new _electron.BrowserWindow(newOptions);
   newWindow.windowKey = key;
   popoutWindows[key] = newWindow;
+
   if (windowURL) {
     newWindow.loadURL(windowURL);
   }
-
   /**
    * Handle events for our new window
    *
    * NOTE: Wanted to handle 'always-on-top-changed' and send to client but currently
    * the event seems to not fire.
    * */
+
+
   newWindow.once('closed', () => {
     newWindow.removeAllListeners();
     delete popoutWindows[key];

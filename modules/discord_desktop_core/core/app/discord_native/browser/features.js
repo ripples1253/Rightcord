@@ -1,12 +1,15 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.injectFeaturesBackend = injectFeaturesBackend;
+
 const electron = require('electron');
 
-const { FEATURES_GET_BROWSER_FEATURES } = require('../common/constants').IPCEvents;
+const {
+  FEATURES_GET_BROWSER_FEATURES
+} = require('../common/constants').IPCEvents;
 
 let injectedFeatures = null;
 
