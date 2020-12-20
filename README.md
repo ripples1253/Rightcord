@@ -60,7 +60,7 @@ You need to install the `base-devel` and `git` packages first
 
 `git clone https://aur.archlinux.org/lightcord-appimage.git && cd lightcord-appimage && makepkg -si`
 
-An AUR helped such as `yay` can also be used
+An AUR helper such as `yay` can also be used
 
 ## Other Linux Distributions
 You can also install it with our *express install script*, which will automatically do the following:
