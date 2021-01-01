@@ -1171,7 +1171,7 @@ function installReactDevtools(){
 require.extensions[".css"] = (m, filename) => {
     let content = fs.readFileSync(filename, "binary")
     let style = document.createElement("style")
-    style.id = btoa(filename)
+    style.id = Buffer.from(filename, "utf8").toString("base64")
     style.innerHTML = content
     document.head.appendChild(style)
     m.exports = {
