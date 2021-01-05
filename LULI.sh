@@ -132,8 +132,8 @@ case $method in
         sudo mv lightcord.svg /usr/share/pixmaps; 
         sudo rm -rf /usr/share/applications/Lightcord.desktop
         SubInfo "Creating Desktop entry"
-        echo -e "[Desktop Entry]\nName=Lightcord\nComment[fr_FR]=Un client Discord simple et personalisable\nComment=A simple - customizable - Discord Client\nExec=/opt/Lightcord/lightcord\nIcon=lightcord\nTerminal=false\nType=Application\nCategories=Network;InstantMessaging;P2P;" >> /usr/share/applications/Lightcord.desktop
-        sudo chmod +x /usr/share/applications/Lightcord.desktop;
+        sudo echo -e "[Desktop Entry]\nName=Lightcord\nComment[fr_FR]=Un client Discord simple et personalisable\nComment=A simple - customizable - Discord Client\nExec=/opt/Lightcord/lightcord\nIcon=lightcord\nTerminal=false\nType=Application\nCategories=Network;InstantMessaging;P2P;" >> /usr/share/applications/Lightcord.desktop
+        sudo sudo chmod +x /usr/share/applications/Lightcord.desktop;
         SubInfo "Cleaning up"
         rm -rf Lightcord.*;
         rm -rf Lightcord;
@@ -154,10 +154,11 @@ case $method in
         3) # Update LC
         Info 'Updating Lightcord'
         SubInfo "Preparing"
-        rm -r /opt/Lightcord;
         rm -rf Lightcord.*;
         rm -rf Lightcord;
         rm -rf lightcord-linux-x64.*;
+        SubInfo "Deleting old Lightcord install"
+        sudo rm -r /opt/Lightcord;
         SubInfo "Downloading Lightcord"
         wget https://lightcord.org/api/v1/gh/releases/Lightcord/Lightcord/dev/lightcord-linux-x64.zip; 
         unzip lightcord-linux-x64.zip -d Lightcord; 
@@ -166,7 +167,7 @@ case $method in
         cd Lightcord; 
         chmod +x ./lightcord; 
         cd ..; 
-        mv Lightcord/ /opt/; 
+        sudo mv Lightcord/ /opt/; 
         SubInfo "Cleaning up"
         rm Lightcord/; 
         rm -rf Lightcord.*;
