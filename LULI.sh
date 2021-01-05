@@ -131,7 +131,7 @@ case $method in
         SubInfo "Creating Desktop entry"
         echo -e "[Desktop Entry]\nName=Lightcord\nComment[fr_FR]=Un client Discord simple et personalisable\nComment=A simple - customizable - Discord Client\nExec=/opt/Lightcord/lightcord\nIcon=lightcord\nTerminal=false\nType=Application\nCategories=Network;InstantMessaging;P2P;" > Lightcord.desktop
         sudo mv Lightcord.desktop /usr/share/applications/Lightcord.desktop
-        sudo sudo chmod +x /usr/share/applications/Lightcord.desktop;
+        sudo chmod +x /usr/share/applications/Lightcord.desktop;
         SubInfo "Cleaning up"
         rm -rf Lightcord.*;
         rm -rf Lightcord;
