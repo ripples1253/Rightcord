@@ -121,12 +121,10 @@ case $method in
         SubInfo "Downloading Lightcord"
         wget -O lightcord-linux-x64.zip https://lightcord.org/api/v1/gh/releases/Lightcord/Lightcord/dev/lightcord-linux-x64.zip; 
         unzip lightcord-linux-x64.zip -d Lightcord; 
-        prev_pwd = $(pwd);
         cd Lightcord; 
         chmod +x ./lightcord; 
         cd ..; 
         sudo mv Lightcord/ /opt/; 
-        rm Lightcord/; 
         SubInfo "Downloading Lightcord icon"
         wget -O lightcord.svg https://raw.githubusercontent.com/Lightcord/LightcordLogos/master/lightcord/lightcord.svg; 
         sudo mv lightcord.svg /usr/share/pixmaps; 
@@ -144,9 +142,9 @@ case $method in
         Info "Uninstalling Lightcord"
         SubInfo "Deleting Lightcord folder"
         sudo rm -r /opt/Lightcord;
-        SubInfo "Deleting Lightcord Icon"
+        SubInfo "Deleting Lightcord icon"
         sudo rm /usr/share/pixmaps/lightcord.svg;
-        SubInfo "Deleting Desktop Entry"
+        SubInfo "Deleting Desktop entry"
         sudo rm /usr/share/applications/Lightcord.desktop;
         sudo rm /home/*/.local/share/applications/Lightcord.desktop;
         ;;
@@ -157,12 +155,11 @@ case $method in
         rm -rf Lightcord.*;
         rm -rf Lightcord;
         rm -rf lightcord-linux-x64.*;
-        SubInfo "Deleting old Lightcord install"
+        SubInfo "Deleting Lightcord"
         sudo rm -r /opt/Lightcord;
         SubInfo "Downloading Lightcord"
         wget -O https://lightcord.org/api/v1/gh/releases/Lightcord/Lightcord/dev/lightcord-linux-x64.zip; 
         unzip lightcord-linux-x64.zip -d Lightcord; 
-        prev_pwd = $(pwd);
         cd Lightcord; 
         chmod +x ./lightcord; 
         cd ..; 
@@ -215,26 +212,34 @@ case $method in
     case $selection in
         1) # Install LC
         Info 'Installing Lightcord'
+        SubInfo "Downloading Lightcord"
         wget -O lightcord.AppImage $appimage;
+        SubInfo "Downloading Lightcord icon"
         wget -O lightcord.png $icon;
         mkdir -p ~/.lightcord;
         mv lightcord.AppImage ~/.lightcord;
         chmod +x ~/.lightcord/lightcord.AppImage ;
         mkdir -p ~/.local/share/icons/hicolor/512x512/apps
         mv lightcord.png ~/.local/share/icons/hicolor/512x512/apps;
+        SubInfo "Creating local desktop entry"
         echo -e "[Desktop Entry]\nName=Lightcord\nComment[fr_FR]=Un client Discord simple et personalisable\nComment=A simple - customizable - Discord Client\nExec=${HOME}/.lightcord/lightcord.AppImage\nIcon=lightcord\nTerminal=false\nType=Application\nCategories=Network;InstantMessaging;P2P;" >> ~/.local/share/applications/lightcord.desktop;
         ;;
 
         2) # Uninstall LC
         Info 'Uninstalling Lightcord'
+        SubInfo "Deleting Lightcord folder"
         rm -r ~/.lightcord;
+        SubInfo "Deleting Lightcord icon"
         rm ~/.local/share/icons/hicolor/512x512/apps/lightcord.png;
+        SubInfo "Deleting desktop entry"
         rm ~/.local/share/applications/lightcord.desktop;
         ;;
 
         3) # Update LC
         Info 'Updating Lightcord'
+        SubInfo "Deleting Lightcord"
         rm ~/.lightcord/lightcord.AppImage;
+        SubInfo "Downloading Lightcord"
         wget -O lightcord.AppImage $appimage;
         mkdir -p ~/.lightcord;
         mv lightcord.AppImage ~/.lightcord;
