@@ -158,7 +158,7 @@ case $method in
         SubInfo "Deleting Lightcord"
         sudo rm -r /opt/Lightcord;
         SubInfo "Downloading Lightcord"
-        wget -O https://lightcord.org/api/v1/gh/releases/Lightcord/Lightcord/dev/lightcord-linux-x64.zip; 
+        wget -O lightcord-linux-x64.zip https://lightcord.org/api/v1/gh/releases/Lightcord/Lightcord/dev/lightcord-linux-x64.zip; 
         unzip lightcord-linux-x64.zip -d Lightcord; 
         cd Lightcord; 
         chmod +x ./lightcord; 
