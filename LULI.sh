@@ -77,7 +77,8 @@ if [[ $method == 1 ]]; then
     Warning "Warning:\n\tBlindly running software as root is a massive security issue.\n\tIf you don't fully trust the software you're running DON'T RUN IT AS ROOT.\n\tIf you know exactly what you are doing, continue.\n\tOtherwise restart this script and choose the second option.\n"
 
     Info "Please enter your password"
-    if [[ "$(sudo -k whoami)" != "root" ]]; then
+    sudo -K
+    if [[ "$(sudo whoami)" != "root" ]]; then
         Error "Authentication failed"
         exit
     fi
@@ -118,21 +119,20 @@ case $method in
         rm -rf Lightcord;
         rm -rf lightcord-linux-x64.*;
         SubInfo "Downloading Lightcord"
-        wget https://lightcord.org/api/v1/gh/releases/Lightcord/Lightcord/dev/lightcord-linux-x64.zip; 
+        wget -O lightcord-linux-x64.zip https://lightcord.org/api/v1/gh/releases/Lightcord/Lightcord/dev/lightcord-linux-x64.zip; 
         unzip lightcord-linux-x64.zip -d Lightcord; 
-        rm lightcord-linux-x64.zip; 
-        prev_pwd = pwd;
+        prev_pwd = $(pwd);
         cd Lightcord; 
         chmod +x ./lightcord; 
         cd ..; 
         sudo mv Lightcord/ /opt/; 
         rm Lightcord/; 
         SubInfo "Downloading Lightcord icon"
-        wget https://raw.githubusercontent.com/Lightcord/LightcordLogos/master/lightcord/lightcord.svg; 
+        wget -O lightcord.svg https://raw.githubusercontent.com/Lightcord/LightcordLogos/master/lightcord/lightcord.svg; 
         sudo mv lightcord.svg /usr/share/pixmaps; 
-        sudo rm -rf /usr/share/applications/Lightcord.desktop
         SubInfo "Creating Desktop entry"
-        sudo echo -e "[Desktop Entry]\nName=Lightcord\nComment[fr_FR]=Un client Discord simple et personalisable\nComment=A simple - customizable - Discord Client\nExec=/opt/Lightcord/lightcord\nIcon=lightcord\nTerminal=false\nType=Application\nCategories=Network;InstantMessaging;P2P;" >> /usr/share/applications/Lightcord.desktop
+        echo -e "[Desktop Entry]\nName=Lightcord\nComment[fr_FR]=Un client Discord simple et personalisable\nComment=A simple - customizable - Discord Client\nExec=/opt/Lightcord/lightcord\nIcon=lightcord\nTerminal=false\nType=Application\nCategories=Network;InstantMessaging;P2P;" > Lightcord.desktop
+        sudo mv Lightcord.desktop /usr/share/applications/Lightcord.desktop
         sudo sudo chmod +x /usr/share/applications/Lightcord.desktop;
         SubInfo "Cleaning up"
         rm -rf Lightcord.*;
@@ -146,9 +146,9 @@ case $method in
         sudo rm -r /opt/Lightcord;
         SubInfo "Deleting Lightcord Icon"
         sudo rm /usr/share/pixmaps/lightcord.svg;
-        SubInfo "Deleting Desktop entry"
+        SubInfo "Deleting Desktop Entry"
         sudo rm /usr/share/applications/Lightcord.desktop;
-        sudo rm -f /home/*/.local/share/applications/Lightcord.desktop;
+        sudo rm /home/*/.local/share/applications/Lightcord.desktop;
         ;;
 
         3) # Update LC
@@ -160,16 +160,14 @@ case $method in
         SubInfo "Deleting old Lightcord install"
         sudo rm -r /opt/Lightcord;
         SubInfo "Downloading Lightcord"
-        wget https://lightcord.org/api/v1/gh/releases/Lightcord/Lightcord/dev/lightcord-linux-x64.zip; 
+        wget -O https://lightcord.org/api/v1/gh/releases/Lightcord/Lightcord/dev/lightcord-linux-x64.zip; 
         unzip lightcord-linux-x64.zip -d Lightcord; 
-        rm lightcord-linux-x64.zip; 
-        prev_pwd = pwd;
+        prev_pwd = $(pwd);
         cd Lightcord; 
         chmod +x ./lightcord; 
         cd ..; 
         sudo mv Lightcord/ /opt/; 
         SubInfo "Cleaning up"
-        rm Lightcord/; 
         rm -rf Lightcord.*;
         rm -rf Lightcord;
         rm -rf lightcord-linux-x64.*;
@@ -229,18 +227,18 @@ case $method in
 
         2) # Uninstall LC
         Info 'Uninstalling Lightcord'
-        rm -rf ~/.lightcord;
+        rm -r ~/.lightcord;
         rm ~/.local/share/icons/hicolor/512x512/apps/lightcord.png;
         rm ~/.local/share/applications/lightcord.desktop;
         ;;
 
         3) # Update LC
         Info 'Updating Lightcord'
-        rm -f ~/.lightcord/lightcord.AppImage;
+        rm ~/.lightcord/lightcord.AppImage;
         wget -O lightcord.AppImage $appimage;
         mkdir -p ~/.lightcord;
         mv lightcord.AppImage ~/.lightcord;
-        chmod +x ~/.lightcord/lightcord.AppImage ;
+        chmod +x ~/.lightcord/lightcord.AppImage;
         ;;
         
         *)
@@ -259,12 +257,16 @@ read a;
 
 case $a in
     y)
+    Info "Kept install script"
     exit;
     ;;
     Y)
+    Info "Kept install script"
     exit;
     ;;
 esac
 
 # Remove the script
-rm -f LULI.sh;
+rm LULI.sh;
+Info "Removed install script"
+exit;
