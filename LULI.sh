@@ -146,7 +146,7 @@ case $method in
         sudo rm /usr/share/pixmaps/lightcord.svg;
         SubInfo "Deleting Desktop entry"
         sudo rm /usr/share/applications/Lightcord.desktop;
-        sudo rm /home/*/.local/share/applications/Lightcord.desktop;
+        sudo rm -f /home/*/.local/share/applications/Lightcord.desktop;
         ;;
 
         3) # Update LC
