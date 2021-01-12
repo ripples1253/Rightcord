@@ -139,7 +139,7 @@ case $method in
         cd Lightcord; 
         chmod +x ./lightcord; 
         cd ..; 
-        sudo mv Lightcord/ $GLOBAL_INSTALL_DIR/; 
+        sudo mv Lightcord/ $GLOBAL_INSTALL_DIR; 
         SubInfo "Downloading Lightcord icon"
         wget -O lightcord.png $ICON; 
         sudo mkdir -p /usr/share/pixmaps;
@@ -236,7 +236,7 @@ case $method in
         mkdir -p ~/.local/share/icons/hicolor/512x512/apps
         mv lightcord.png ~/.local/share/icons/hicolor/512x512/apps;
         SubInfo "Creating local desktop entry"
-        echo -e "[Desktop Entry]\nName=Lightcord\nComment[fr_FR]=Un client Discord simple et personalisable\nComment=A simple - customizable - Discord Client\nExec=${HOME}/.lightcord/lightcord.AppImage\nIcon=lightcord\nTerminal=false\nType=Application\nCategories=Network;InstantMessaging;P2P;" >> ~/.local/share/applications/lightcord.desktop;
+        echo -e "[Desktop Entry]\nName=Lightcord\nComment[fr_FR]=Un client Discord simple et personalisable\nComment=A simple - customizable - Discord Client\nExec=$LOCAL_INSTALL_DIR/lightcord.AppImage\nIcon=lightcord\nTerminal=false\nType=Application\nCategories=Network;InstantMessaging;P2P;" >> ~/.local/share/applications/lightcord.desktop;
         ;;
 
         2) # Uninstall LC
