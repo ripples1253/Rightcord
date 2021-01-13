@@ -2,6 +2,16 @@
 # Original script by https://github.com/GermanBread
 # Lightcord unified Linux installer by Germanbread
 
+# Some variables
+ALLOW_NIXOS='false'
+
+GLOBAL_INSTALL_DIR='/opt'
+LOCAL_INSTALL_DIR="$HOME/.lightcord"
+
+LC_APPIMAGE='https://lightcord.org/api/gh/releases/Lightcord/Lightcord/dev/lightcord-linux-x86_64.AppImage'
+LC='https://lightcord.org/api/v1/gh/releases/Lightcord/Lightcord/dev/lightcord-linux-x64.zip'
+ICON='https://raw.githubusercontent.com/Lightcord/Lightcord/master/discord.png'
+
 # Some helper funtions
 function Info {
     tput setaf 8
@@ -74,9 +84,14 @@ do
 done
 
 if [[ $method == 1 ]]; then
-    Warning "Warning:\n\tBlindly running software as root is a massive security issue.\n\tIf you don't fully trust the software you're running DON'T RUN IT AS ROOT.\n\tIf you know exactly what you are doing, continue.\n\tOtherwise restart this script and choose the second option.\n"
-
-    Info "Please enter your password"
+    Warning "Warning:\n\tBlindly running software as root is a massive security issue.\n\tIf you don't fully trust the software you're running DON'T RUN IT AS ROOT.\n\tIf you know exactly what you are doing, continue.\n\tOtherwise restart this script and choose the second option."
+    if [ -d "/nix" ] && [ $ALLOW_NIXOS == 'false' ]; then
+        Error "Error:\n\tUsing the global install option on NixOS is not supported due to the way this distribution handles software not present in the repositories.\n\tUse the AppImage install method instead.\n\tIf you still plan on installing Lightcord this way, change the \"OVERRIDE_NIXOS\" variable in this script to any value other than \"true\".\n\tYou can also modify the installation path variables if you want LC at a specific location."
+        exit;
+    fi  # We want to prevent NixOS users from installing LC this way because:
+        # A) NixOS is very "special" i.e. it blocks LC from running
+        # B) /opt gets cleared upon boot
+    Info "Please enter your password to proceed"
     sudo -K
     if [[ "$(sudo whoami)" != "root" ]]; then
         Error "Authentication failed"
@@ -119,17 +134,18 @@ case $method in
         rm -rf Lightcord;
         rm -rf lightcord-linux-x64.*;
         SubInfo "Downloading Lightcord"
-        wget -O lightcord-linux-x64.zip https://lightcord.org/api/v1/gh/releases/Lightcord/Lightcord/dev/lightcord-linux-x64.zip; 
+        wget -O lightcord-linux-x64.zip $LC; 
         unzip lightcord-linux-x64.zip -d Lightcord; 
         cd Lightcord; 
         chmod +x ./lightcord; 
         cd ..; 
-        sudo mv Lightcord/ /opt/; 
+        sudo mv Lightcord/ $GLOBAL_INSTALL_DIR; 
         SubInfo "Downloading Lightcord icon"
-        wget -O lightcord.svg https://raw.githubusercontent.com/Lightcord/LightcordLogos/master/lightcord/lightcord.svg; 
-        sudo mv lightcord.svg /usr/share/pixmaps; 
+        wget -O lightcord.png $ICON; 
+        sudo mkdir -p /usr/share/pixmaps;
+        sudo mv lightcord.png /usr/share/pixmaps; 
         SubInfo "Creating Desktop entry"
-        echo -e "[Desktop Entry]\nName=Lightcord\nComment[fr_FR]=Un client Discord simple et personalisable\nComment=A simple - customizable - Discord Client\nExec=/opt/Lightcord/lightcord\nIcon=lightcord\nTerminal=false\nType=Application\nCategories=Network;InstantMessaging;P2P;" > Lightcord.desktop
+        echo -e "[Desktop Entry]\nName=Lightcord\nComment[fr_FR]=Un client Discord simple et personalisable\nComment=A simple - customizable - Discord Client\nExec=$GLOBAL_INSTALL_DIR/Lightcord/lightcord\nIcon=lightcord\nTerminal=false\nType=Application\nCategories=Network;InstantMessaging;P2P;" > Lightcord.desktop
         sudo mv Lightcord.desktop /usr/share/applications/Lightcord.desktop
         sudo chmod +x /usr/share/applications/Lightcord.desktop;
         SubInfo "Cleaning up"
@@ -141,9 +157,9 @@ case $method in
         2) # Uninstall LC
         Info "Uninstalling Lightcord"
         SubInfo "Deleting Lightcord folder"
-        sudo rm -r /opt/Lightcord;
+        sudo rm -r $GLOBAL_INSTALL_DIR/Lightcord;
         SubInfo "Deleting Lightcord icon"
-        sudo rm /usr/share/pixmaps/lightcord.svg;
+        sudo rm /usr/share/pixmaps/lightcord.png;
         SubInfo "Deleting Desktop entry"
         sudo rm /usr/share/applications/Lightcord.desktop;
         sudo rm -f /home/*/.local/share/applications/Lightcord.desktop;
@@ -156,14 +172,14 @@ case $method in
         rm -rf Lightcord;
         rm -rf lightcord-linux-x64.*;
         SubInfo "Deleting Lightcord"
-        sudo rm -r /opt/Lightcord;
+        sudo rm -r $GLOBAL_INSTALL_DIR/Lightcord;
         SubInfo "Downloading Lightcord"
-        wget -O lightcord-linux-x64.zip https://lightcord.org/api/v1/gh/releases/Lightcord/Lightcord/dev/lightcord-linux-x64.zip; 
+        wget -O lightcord-linux-x64.zip $LC; 
         unzip lightcord-linux-x64.zip -d Lightcord; 
         cd Lightcord; 
         chmod +x ./lightcord; 
         cd ..; 
-        sudo mv Lightcord/ /opt/; 
+        sudo mv Lightcord/ $GLOBAL_INSTALL_DIR; 
         SubInfo "Cleaning up"
         rm -rf Lightcord.*;
         rm -rf Lightcord;
@@ -178,8 +194,6 @@ case $method in
 
     2)
     # Appimage installer
-    appimage='https://lightcord.org/api/gh/releases/Lightcord/Lightcord/dev/lightcord-linux-x86_64.AppImage'
-    icon='https://raw.githubusercontent.com/Lightcord/Lightcord/master/discord.png'
     if [[ $TERM == dumb ]]; then
         exit;
     fi
@@ -213,22 +227,22 @@ case $method in
         1) # Install LC
         Info 'Installing Lightcord'
         SubInfo "Downloading Lightcord"
-        wget -O lightcord.AppImage $appimage;
+        wget -O lightcord.AppImage $LC_APPIMAGE;
         SubInfo "Downloading Lightcord icon"
-        wget -O lightcord.png $icon;
-        mkdir -p ~/.lightcord;
-        mv lightcord.AppImage ~/.lightcord;
-        chmod +x ~/.lightcord/lightcord.AppImage ;
+        wget -O lightcord.png $ICON;
+        mkdir -p $LOCAL_INSTALL_DIR;
+        mv lightcord.AppImage $LOCAL_INSTALL_DIR;
+        chmod +x $LOCAL_INSTALL_DIR/lightcord.AppImage ;
         mkdir -p ~/.local/share/icons/hicolor/512x512/apps
         mv lightcord.png ~/.local/share/icons/hicolor/512x512/apps;
         SubInfo "Creating local desktop entry"
-        echo -e "[Desktop Entry]\nName=Lightcord\nComment[fr_FR]=Un client Discord simple et personalisable\nComment=A simple - customizable - Discord Client\nExec=${HOME}/.lightcord/lightcord.AppImage\nIcon=lightcord\nTerminal=false\nType=Application\nCategories=Network;InstantMessaging;P2P;" >> ~/.local/share/applications/lightcord.desktop;
+        echo -e "[Desktop Entry]\nName=Lightcord\nComment[fr_FR]=Un client Discord simple et personalisable\nComment=A simple - customizable - Discord Client\nExec=$LOCAL_INSTALL_DIR/lightcord.AppImage\nIcon=lightcord\nTerminal=false\nType=Application\nCategories=Network;InstantMessaging;P2P;" >> ~/.local/share/applications/lightcord.desktop;
         ;;
 
         2) # Uninstall LC
         Info 'Uninstalling Lightcord'
         SubInfo "Deleting Lightcord folder"
-        rm -r ~/.lightcord;
+        rm -r $LOCAL_INSTALL_DIR;
         SubInfo "Deleting Lightcord icon"
         rm ~/.local/share/icons/hicolor/512x512/apps/lightcord.png;
         SubInfo "Deleting desktop entry"
@@ -238,12 +252,12 @@ case $method in
         3) # Update LC
         Info 'Updating Lightcord'
         SubInfo "Deleting Lightcord"
-        rm ~/.lightcord/lightcord.AppImage;
+        rm $LOCAL_INSTALL_DIR/lightcord.AppImage;
         SubInfo "Downloading Lightcord"
-        wget -O lightcord.AppImage $appimage;
-        mkdir -p ~/.lightcord;
-        mv lightcord.AppImage ~/.lightcord;
-        chmod +x ~/.lightcord/lightcord.AppImage;
+        wget -O lightcord.AppImage $LC_APPIMAGE;
+        mkdir -p $LOCAL_INSTALL_DIR;
+        mv lightcord.AppImage $LOCAL_INSTALL_DIR;
+        chmod +x $LOCAL_INSTALL_DIR/lightcord.AppImage;
         ;;
         
         *)
