@@ -8,9 +8,13 @@ ALLOW_NIXOS='false'
 GLOBAL_INSTALL_DIR='/opt'
 LOCAL_INSTALL_DIR="$HOME/.lightcord"
 
+# URL for downloads
+ICON='https://raw.githubusercontent.com/Lightcord/Lightcord/master/discord.png'
 LC_APPIMAGE='https://lightcord.org/api/gh/releases/Lightcord/Lightcord/dev/lightcord-linux-x86_64.AppImage'
 LC='https://lightcord.org/api/v1/gh/releases/Lightcord/Lightcord/dev/lightcord-linux-x64.zip'
-ICON='https://raw.githubusercontent.com/Lightcord/Lightcord/master/discord.png'
+# Fallback URL
+ALT_LC_APPIMAGE='https://github.com/Lightcord/Lightcord/releases/latest/download/Lightcord-linux-x86_64.AppImage'
+ALT_LC='https://github.com/Lightcord/Lightcord/releases/latest/download/lightcord-linux-x64.zip'
 
 # Some helper funtions
 function Info {
@@ -134,7 +138,11 @@ case $method in
         rm -rf Lightcord;
         rm -rf lightcord-linux-x64.*;
         SubInfo "Downloading Lightcord"
-        wget -O lightcord-linux-x64.zip $LC; 
+        wget -O lightcord-linux-x64.zip $LC;
+        if [ $? > '0' ]; then
+            SubInfo "Trying alternate URL"
+            wget -O lightcord-linux-x64.zip $ALT_LC;
+        fi
         unzip lightcord-linux-x64.zip -d Lightcord; 
         cd Lightcord; 
         chmod +x ./lightcord; 
@@ -152,6 +160,7 @@ case $method in
         rm -rf Lightcord.*;
         rm -rf Lightcord;
         rm -rf lightcord-linux-x64.*;
+        rm 0
         ;;
 
         2) # Uninstall LC
@@ -174,7 +183,11 @@ case $method in
         SubInfo "Deleting Lightcord"
         sudo rm -r $GLOBAL_INSTALL_DIR/Lightcord;
         SubInfo "Downloading Lightcord"
-        wget -O lightcord-linux-x64.zip $LC; 
+        wget -O lightcord-linux-x64.zip $LC;
+        if [ $? > '0' ]; then
+            SubInfo "Trying alternate URL"
+            wget -O lightcord-linux-x64.zip $ALT_LC;
+        fi
         unzip lightcord-linux-x64.zip -d Lightcord; 
         cd Lightcord; 
         chmod +x ./lightcord; 
@@ -184,6 +197,7 @@ case $method in
         rm -rf Lightcord.*;
         rm -rf Lightcord;
         rm -rf lightcord-linux-x64.*;
+        rm 0
         ;;
 
         *) # Do nothing
@@ -228,6 +242,10 @@ case $method in
         Info 'Installing Lightcord'
         SubInfo "Downloading Lightcord"
         wget -O lightcord.AppImage $LC_APPIMAGE;
+        if [ $? > '0' ]; then
+            SubInfo "Trying alternate URL"
+            wget -O lightcord.AppImage $ALT_LC_APPIMAGE;
+        fi
         SubInfo "Downloading Lightcord icon"
         wget -O lightcord.png $ICON;
         mkdir -p $LOCAL_INSTALL_DIR;
@@ -237,6 +255,8 @@ case $method in
         mv lightcord.png ~/.local/share/icons/hicolor/512x512/apps;
         SubInfo "Creating local desktop entry"
         echo -e "[Desktop Entry]\nName=Lightcord\nComment[fr_FR]=Un client Discord simple et personalisable\nComment=A simple - customizable - Discord Client\nExec=$LOCAL_INSTALL_DIR/lightcord.AppImage\nIcon=lightcord\nTerminal=false\nType=Application\nCategories=Network;InstantMessaging;P2P;" >> ~/.local/share/applications/lightcord.desktop;
+        SubInfo "Cleaning up"
+        rm 0
         ;;
 
         2) # Uninstall LC
@@ -255,9 +275,15 @@ case $method in
         rm $LOCAL_INSTALL_DIR/lightcord.AppImage;
         SubInfo "Downloading Lightcord"
         wget -O lightcord.AppImage $LC_APPIMAGE;
+        if [ $? > '0' ]; then
+            SubInfo "Trying alternate URL"
+            wget -O lightcord.AppImage $ALT_LC_APPIMAGE;
+        fi
         mkdir -p $LOCAL_INSTALL_DIR;
         mv lightcord.AppImage $LOCAL_INSTALL_DIR;
         chmod +x $LOCAL_INSTALL_DIR/lightcord.AppImage;
+        SubInfo "Cleaning up"
+        rm 0
         ;;
         
         *)
