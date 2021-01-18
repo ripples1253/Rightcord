@@ -90,7 +90,7 @@ done
 if [[ $method == 1 ]]; then
     Warning "Warning:\n\tBlindly running software as root is a massive security issue.\n\tIf you don't fully trust the software you're running DON'T RUN IT AS ROOT.\n\tIf you know exactly what you are doing, continue.\n\tOtherwise restart this script and choose the second option."
     if [ -d "/nix" ] && [ $ALLOW_NIXOS == 'false' ]; then
-        Error "Error:\n\tUsing the global install option on NixOS is not supported due to the way this distribution handles software not present in the repositories.\n\tUse the AppImage install method instead.\n\tIf you still plan on installing Lightcord this way, change the \"OVERRIDE_NIXOS\" variable in this script to any value other than \"true\".\n\tYou can also modify the installation path variables if you want LC at a specific location."
+        Error "Error:\n\tUsing the global install option on NixOS is not supported due to the way this distribution handles software not present in the repositories.\n\tUse the AppImage install method instead.\n\tIf you still plan on installing Lightcord this way, change the \"ALLOW_NIXOS\" variable in this script to any value other than \"false\".\n\tYou should also modify the installation path variables if you want LC to not be wiped by NixOS."
         exit;
     fi  # We want to prevent NixOS users from installing LC this way because:
         # A) NixOS is very "special" i.e. it blocks LC from running
