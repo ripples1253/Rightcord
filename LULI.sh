@@ -57,6 +57,12 @@ if [[ "$(whoami)" == "root" ]]; then
     exit
 fi
 
+# Check if unzip is installed
+if [ ! -e /usr/bin/unzip ]; then
+    Warning "Unzip does not seem to be installed!\n\tThis script depends on this package.\n\tInstall unzip and restart this script.\n\tPress enter if you believe that this is a false-positive."
+    read
+fi
+
 cat << "logo_end"
   _    _      _   _                 _
  | |  (_)__ _| |_| |_ __ ___ _ _ __| |
@@ -138,18 +144,18 @@ case $method in
         rm -rf Lightcord;
         rm -rf lightcord-linux-x64.*;
         SubInfo "Downloading Lightcord"
-        wget -O lightcord-linux-x64.zip $LC;
-        if [ $? > '0' ]; then
+        wget -qO lightcord-linux-x64.zip $LC;
+        if [ ! $? ]; then
             SubInfo "Trying alternate URL"
-            wget -O lightcord-linux-x64.zip $ALT_LC;
+            wget -qO lightcord-linux-x64.zip $ALT_LC;
         fi
-        unzip lightcord-linux-x64.zip -d Lightcord; 
+        unzip -qq lightcord-linux-x64.zip -d Lightcord; 
         cd Lightcord; 
         chmod +x ./lightcord; 
         cd ..; 
         sudo mv Lightcord/ $GLOBAL_INSTALL_DIR; 
         SubInfo "Downloading Lightcord icon"
-        wget -O lightcord.png $ICON; 
+        wget -qO lightcord.png $ICON;
         sudo mkdir -p /usr/share/pixmaps;
         sudo mv lightcord.png /usr/share/pixmaps; 
         SubInfo "Creating Desktop entry"
@@ -183,12 +189,12 @@ case $method in
         SubInfo "Deleting Lightcord"
         sudo rm -r $GLOBAL_INSTALL_DIR/Lightcord;
         SubInfo "Downloading Lightcord"
-        wget -O lightcord-linux-x64.zip $LC;
-        if [ $? > '0' ]; then
+        wget -qO lightcord-linux-x64.zip $LC;
+        if [ ! $? ]; then
             SubInfo "Trying alternate URL"
-            wget -O lightcord-linux-x64.zip $ALT_LC;
+            wget -qO lightcord-linux-x64.zip $ALT_LC;
         fi
-        unzip lightcord-linux-x64.zip -d Lightcord; 
+        unzip -qq lightcord-linux-x64.zip -d Lightcord; 
         cd Lightcord; 
         chmod +x ./lightcord; 
         cd ..; 
@@ -241,13 +247,13 @@ case $method in
         1) # Install LC
         Info 'Installing Lightcord'
         SubInfo "Downloading Lightcord"
-        wget -O lightcord.AppImage $LC_APPIMAGE;
+        wget -qO lightcord.AppImage $LC_APPIMAGE;
         if [ $? > '0' ]; then
             SubInfo "Trying alternate URL"
-            wget -O lightcord.AppImage $ALT_LC_APPIMAGE;
+            wget -qO lightcord.AppImage $ALT_LC_APPIMAGE;
         fi
         SubInfo "Downloading Lightcord icon"
-        wget -O lightcord.png $ICON;
+        wget -qO lightcord.png $ICON;
         mkdir -p $LOCAL_INSTALL_DIR;
         mv lightcord.AppImage $LOCAL_INSTALL_DIR;
         chmod +x $LOCAL_INSTALL_DIR/lightcord.AppImage ;
@@ -274,10 +280,10 @@ case $method in
         SubInfo "Deleting Lightcord"
         rm $LOCAL_INSTALL_DIR/lightcord.AppImage;
         SubInfo "Downloading Lightcord"
-        wget -O lightcord.AppImage $LC_APPIMAGE;
+        wget -qO lightcord.AppImage $LC_APPIMAGE;
         if [ $? > '0' ]; then
             SubInfo "Trying alternate URL"
-            wget -O lightcord.AppImage $ALT_LC_APPIMAGE;
+            wget -qO lightcord.AppImage $ALT_LC_APPIMAGE;
         fi
         mkdir -p $LOCAL_INSTALL_DIR;
         mv lightcord.AppImage $LOCAL_INSTALL_DIR;
