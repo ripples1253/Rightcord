@@ -1,5 +1,4 @@
-const VoiceEngine = require('./discord_voice.node');
-const ChildProcess = require('child_process');
+const VoiceEngine = require('./discord_voice_'+process.platform+'.node');
 const fs = require('fs');
 const path = require('path');
 const yargs = require('yargs');
