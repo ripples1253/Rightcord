@@ -35,9 +35,9 @@ linux:
   - target: zip
     arch:
     - x64
-#  - target: AppImage
-#    arch:
-#    - x64
+  - target: AppImage
+    arch:
+    - x64
   icon: discord.png
   files:
   - "**/*"
