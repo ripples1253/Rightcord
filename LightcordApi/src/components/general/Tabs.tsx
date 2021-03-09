@@ -47,7 +47,7 @@ export default class Tabs extends React.Component<TabsProps, {
         return (<div className="lc-tabWrapper" style={this.props.style}>
             <div className="lc-tabnav" style={{flex: "0 1 auto"}}>
                 {this.tabs.map(tab => {
-                    return React.createElement(Tab, {TabContainer: this, title: tab.label, id: tab.id, key: btoa(tab.label+":"+tab.id)})
+                    return React.createElement(Tab, {TabContainer: this, title: tab.label, id: tab.id, key: Buffer.from(tab.label+":"+tab.id, "utf8").toString("base64")})
                 })}
             </div>
             <div className="lc-tab">

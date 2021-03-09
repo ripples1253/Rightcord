@@ -109,7 +109,12 @@ async function main(){
     console.info("Starting build")
     
     console.info("Reseting existent directory...")
-    await fs.promises.rmdir("./distApp", {"recursive": true})
+    try{
+    	await fs.promises.rmdir("./distApp", {"recursive": true})
+    } catch (error) {
+	    console.error(error);
+	}
+
     await fs.promises.mkdir(PROJECT_DIR+"/distApp/dist", {"recursive": true})
     
     console.info("Executing command `npm run compile`")

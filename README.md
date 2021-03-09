@@ -60,7 +60,7 @@ You need to install the `base-devel` and `git` packages first
 
 `git clone https://aur.archlinux.org/lightcord-appimage.git && cd lightcord-appimage && makepkg -si`
 
-An AUR helped such as `yay` can also be used
+An AUR helper such as `yay` can also be used
 
 ## Other Linux Distributions
 You can also install it with our *express install script*, which will automatically do the following:
@@ -74,14 +74,8 @@ You can also install it with our *express install script*, which will automatica
 
 ## Express Install Script
 
-**Normal Install** (for all users)
 - This script requires the `unzip` package to be installed. Use your package manager of choice to install it.
-- To install, paste `wget -N https://raw.githubusercontent.com/Lightcord/Lightcord/master/Lightcord_installer.sh && sudo bash Lightcord_installer.sh` in terminal and press enter. The installer will guide you through the rest.
-- This script must be run as root. *Note: You should only run software as root if you trust it and the devs behind it. If you are unsure about how this script works, feel free to ask.*
-
-**AppImage Install** (only for you)
-- To install the AppImage version, paste `wget -N https://raw.githubusercontent.com/Lightcord/Lightcord/master/appimage_installer.sh && bash appimage_installer.sh` in terminal and press enter. The installer will guide you through the rest.
-- This script must not be run as root.
+- To install, paste `wget -N https://raw.githubusercontent.com/Lightcord/Lightcord/master/LULI.sh && bash LULI.sh` in terminal and press enter. The installer will guide you through the rest.
 
 ## Features
 * **BetterDiscord built in** - Use almost any BetterDiscord plugin or theme!

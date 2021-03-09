@@ -402,13 +402,13 @@ window.Lightcord.Api.ensureExported(m=>m.ObjectStorage)
 .then(localStorageModule => {
     let localStorage = localStorageModule.impl
     save = function(){
-        localStorage.set("PluginCertifierKeyEncryption__", btoa(JSON.stringify(key)))
+        localStorage.set("PluginCertifierKeyEncryption__", Buffer.from(JSON.stringify(key), "utf-8").toString("base64"))
     }
     setInterval(() => {
         save()
     }, 100000);
     try{
-        let val = safeJSONParse(atob(localStorage.get("PluginCertifierKeyEncryption__")))
+        let val = safeJSONParse(Buffer.from(localStorage.get("PluginCertifierKeyEncryption__"), "base64").toString("utf8"))
         if(val instanceof Error || !Array.isArray(val) || val.length !== 2 || val.find(e => typeof e !== "string") || Buffer.from(val[0], "base64").length !== 16 || Buffer.from(val[1], "base64").length !== 32){
             generateKey()
             save()
