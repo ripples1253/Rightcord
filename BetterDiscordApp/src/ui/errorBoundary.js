@@ -6,7 +6,8 @@ export default class BDErrorBoundary extends BDV2.reactComponent {
       this.state = {hasError: false};
     }
 
-    componentDidCatch() {
+    componentDidCatch(error, errorStack) {
+      console.log(error, errorStack)
       this.setState({hasError: true});
     }
 

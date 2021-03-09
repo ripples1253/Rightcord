@@ -52,9 +52,6 @@ export default class V2C_PluginCard extends BDV2.reactComponent {
 
     componentDidUpdate() {
         if (!this.state.settings) return;
-        if (typeof this.settingsPanel === "object") {
-            this.refs.settingspanel.appendChild(this.settingsPanel);
-        }
 
         if (!settingsCookie["fork-ps-3"]) return;
         setImmediate(() => {
@@ -97,15 +94,28 @@ export default class V2C_PluginCard extends BDV2.reactComponent {
         try { this.settingsPanel = this.props.addon.plugin.getSettingsPanel(); }
         catch (err) { Utils.err("Plugins", "Unable to get settings panel for " + this.name + ".", err); }
 
+        let settingPanel
+        if(typeof this.settingsPanel === "object"){
+            if(this.settingsPanel instanceof Node){
+                settingPanel = BVD2.react.createElement("div", {id: `plugin-settings-${this.name}`, className: "plugin-settings", ref: (elem) => {
+                    elem.appendChild(this.settingsPanel)
+                }})
+            }else{
+                settingPanel = BDV2.react.createElement("div", {id: `plugin-settings-${this.name}`, className: "plugin-settings"}, 
+                this.settingsPanel)
+            }
+        }else if(typeof this.settingsPanel === "string"){
+            settingPanel = BVD2.react.createElement("div", {id: `plugin-settings-${this.name}`, className: "plugin-settings", dangerouslySetInnerHTML: {__html: this.settingsPanel}})
+        }
         return BDV2.react.createElement("div", {className: "bd-card bd-addon-card settings-open ui-switch-item", ref: "cardNode"},
                 BDV2.react.createElement("div", {style: {"float": "right", "cursor": "pointer"}, onClick: () => {
-                        this.refs.settingspanel.innerHTML = "";
-                        this.setState({settings: false});
+                        this.setState({
+                            settings: false
+                        });
                     }},
                 BDV2.react.createElement(XSvg, null)
             ),
-            typeof this.settingsPanel === "object" && BDV2.react.createElement("div", {id: `plugin-settings-${this.name}`, className: "plugin-settings", ref: "settingspanel"}),
-            typeof this.settingsPanel !== "object" && BDV2.react.createElement("div", {id: `plugin-settings-${this.name}`, className: "plugin-settings", ref: "settingspanel", dangerouslySetInnerHTML: {__html: this.settingsPanel}})
+            settingPanel
         );
     }
 

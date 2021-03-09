@@ -483,7 +483,7 @@ export default class Utils {
 }
 
 function removeDa(className){
-    if(!className)return className
+    if(typeof className !== "string" || !className)return className
     return className.split(" ").filter(e => !e.startsWith("da-")).join(" ")
 }
 

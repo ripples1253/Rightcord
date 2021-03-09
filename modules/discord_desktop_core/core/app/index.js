@@ -13,7 +13,7 @@ const {
 } = require('electron');
 const fetch = require("node-fetch").default
 
-let mainScreen;
+let mainScreen
 
 function startup(bootstrapModules) {
   // below modules are required and initted
@@ -109,7 +109,7 @@ function startup(bootstrapModules) {
   global.mainWindowId = Constants.DEFAULT_MAIN_WINDOW_ID;
   global.moduleUpdater = moduleUpdater;
 
-  const applicationMenu = require('./applicationMenu');
+  let applicationMenu = require('./applicationMenu');
 
   if(appSettings().get("isTabs", false)){
     applicationMenu = applicationMenu.map(e => {
@@ -180,7 +180,7 @@ function startup(bootstrapModules) {
   let initByUpdate = false
 
   if(Date.now() - global.appSettings.get("LAST_UPDATE_CHECK_TIMESTAMP", 0) < 6.48e+8){
-    console.log("Starting with version "+version+" because it haven't been 1 week since the last check.")
+    console.log("Starting with version "+version+" because it hasn't been 1 week since the last check.")
     mainScreen.init(false)
 
     const { getWindow: getPopoutWindowByKey } = require('./popoutWindows');

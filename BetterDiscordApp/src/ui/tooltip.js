@@ -107,7 +107,7 @@ export default class EmulatedTooltip {
 
     /** Container where the tooltip will be appended. */
     get container() { 
-		return document.querySelector("."+Utils.removeDa(BDModules.get(e => e.popouts)[0].popouts)+" ~ ."+Utils.removeDa(BDModules.get(e => e.layerContainer)[0].layerContainer)); 
+		return document.querySelector("."+Utils.removeDa(BDModules.get(e => typeof e.popouts === "string")[0].popouts)+" ~ ."+Utils.removeDa(BDModules.get(e => typeof e.layerContainer === "string")[0].layerContainer)); 
 	}
     /** Boolean representing if the tooltip will fit on screen above the element */
     get canShowAbove() { return this.node.getBoundingClientRect().top - this.element.offsetHeight >= 0; }

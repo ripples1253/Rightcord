@@ -49,7 +49,7 @@ const DiscordNative = {
 
 DiscordNative.remoteApp = DiscordNative.app;
 DiscordNative.remotePowerMonitor = DiscordNative.powerMonitor;
-contextBridge.exposeInMainWorld('DiscordNative', DiscordNative);
+window.DiscordNative = DiscordNative
 
 const BetterDiscord = require("./BetterDiscord")
 process.once('loaded', () => {
@@ -64,7 +64,7 @@ process.once('loaded', () => {
   let startTime = Date.now()
   BetterDiscord.init({
     // Detect if tabPreload was used.
-    isTab: require.main !== module
+    isTab: false
   })
   BetterDiscord.events.on("debug", BetterDiscord.logger.log.bind(BetterDiscord.logger))
   BetterDiscord.events.on("ready", () => {

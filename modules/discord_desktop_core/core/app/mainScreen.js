@@ -83,13 +83,6 @@ const connectionBackoff = new _Backoff.default(1000, 20000);
 const DISCORD_NAMESPACE = 'DISCORD_';
 
 let isTabs = false
-function checkCanMigrate() {
-  return _fs.default.existsSync(_path.default.join(paths.getUserData(), 'userDataCache.json'));
-}
-
-function checkAlreadyMigrated() {
-  return _fs.default.existsSync(_path.default.join(paths.getUserData(), 'domainMigrated'));
-}
 
 const getWebappEndpoint = () => {
   isTabs = settings.get("isTabs", false)
@@ -447,7 +440,7 @@ function launchMainAppWindow(isVisible) {
       } : {
         nodeIntegration: false,
         webviewTag: false,
-        contextIsolation: true,
+        contextIsolation: false,
         preload: _path.default.join(__dirname, 'mainScreenPreload.js')
       }),
       // NB: this is required in order to give popouts (or any child window opened via window.open w/ nativeWindowOpen)
@@ -494,7 +487,7 @@ function launchMainAppWindow(isVisible) {
   mainWindow.webContents.on('new-window', (e, windowURL, frameName, disposition, options) => {
     e.preventDefault();
 
-    if (frameNames.tartsWith(DISCORD_NAMESPACE) && checkUrlOriginMatches(windowURL, WEBAPP_ENDPOINT) && getSanitizedPath(windowURL) === '/popout') {
+    if (frameName.startsWith(DISCORD_NAMESPACE) && checkUrlOriginMatches(windowURL, WEBAPP_ENDPOINT) && getSanitizedPath(windowURL) === '/popout') {
       popoutWindows.openOrFocusWindow(e, windowURL, frameName, options);
       return;
     }

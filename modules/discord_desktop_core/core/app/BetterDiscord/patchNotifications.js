@@ -1,4 +1,4 @@
-const ipcRenderer = require("../discord_native/renderer/ipc")
+const ipcRenderer = require("electron").ipcRenderer
 
 
 if(process.platform === "win32"){
@@ -98,5 +98,5 @@ let settingStore
 ensureExported((e => e.default && e.default.theme))
 .then(themeStore => {
     settingStore = themeStore
-    ipcRenderer.send("UPDATE_THEME", themeStore.default.theme)
+    ipcRenderer.send("DISCORD_UPDATE_THEME", themeStore.default.theme)
 }).catch(console.error)

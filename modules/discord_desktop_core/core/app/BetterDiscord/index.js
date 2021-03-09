@@ -20,9 +20,11 @@ const localStorage = window.localStorage
 const UserAgent = electron.ipcRenderer.sendSync("LIGHTCORD_GET_USER_AGENT").replace(/lightcord\/[^ ]+/g, "discord/"+require("../discord_native/renderer/app").getVersion())
 electron.ipcRenderer.sendSync("LIGHTCORD_SET_USER_AGENT", UserAgent)
 
-exports.init = function(){
+exports.init = function({
+    isTab
+}){
     if(hasInit == true){
-        console.warn(new Error("Lightcord has already inited."))
+        console.warn(new Error("Lightcord has already started."))
         return
     }
     formatLogger.log("The app is", isPackaged ? "packaged." : "not packaged.")
@@ -33,6 +35,7 @@ exports.init = function(){
         try{
             if(!global.webpackJsonp)return
             if(isTab && !hasReplacedLocalstorage){
+                console.log("Replacing localStorage...")
                 hasReplacedLocalstorage = true
                 const localstr = require("localstorage-polyfill")
                 Object.defineProperty(window, "localStorage", {
@@ -66,10 +69,10 @@ async function privateInit(){
     ModuleLoader.get(e => e.getCurrentHub)[0].getCurrentHub().getClient().getOptions().enabled = false
 
     // setting react in require cache
-    const React = ModuleLoader.get(e => !["Component", "PureComponent", "Children", "createElement", "cloneElement"].find(k => !e[k]))[0]
+    const React = await ensureExported(e => !["Component", "PureComponent", "Children", "createElement", "cloneElement"].find(k => !e[k]))
     window.React = React
 
-    const ReactDOM = ModuleLoader.get(e => e.findDOMNode)[0]
+    const ReactDOM = await ensureExported(e => e.findDOMNode)
     window.ReactDOM = ReactDOM
 
     //stop here if betterdiscord is disabled.
@@ -108,7 +111,7 @@ async function privateInit(){
         // fix notifications here
         let dispatcher = ModuleLoader.get(m=>m.Dispatcher&&m.default&&m.default.dispatch)[0].default
         dispatcher.subscribe("USER_SETTINGS_UPDATE", (data) => {
-            DiscordNative.ipc.send("UPDATE_THEME", data.settings.theme)
+            ipcRenderer.send("DISCORD_UPDATE_THEME", data.settings.theme)
         })
 
         let constants = ModuleLoader.get(m=>m.API_HOST)[0]
@@ -153,11 +156,12 @@ async function privateInit(){
         return
     }
     
-    let createSoundOriginal = ModuleLoader.get((e) =>  e.createSound)[0].createSound
-    ModuleLoader.get((e) =>  e.createSound)[0].createSound = function(sound){
+    let soundModule = await ensureExported((e) =>  e.createSound)
+    let createSound = soundModule.createSound
+    soundModule.createSound = function(sound){
         let isCalling = sound === "call_ringing_beat" || sound === "call_ringing"
         if(isCalling){
-            let returned = createSoundOriginal.call(this, ...arguments)
+            let returned = createSound.call(this, ...arguments)
             Object.defineProperty(returned, "name", {
                 get(){
                     return window.Lightcord.Settings.callRingingBeat ? "call_ringing_beat" : "call_ringing"
@@ -169,7 +173,7 @@ async function privateInit(){
             })
             return returned
         }else{
-            return createSoundOriginal(...arguments)
+            return createSound(...arguments)
         }
     }
 
@@ -187,7 +191,7 @@ async function privateInit(){
         return undefined
     }
     
-    window.$ = window.jQuery = require("./jquery.min.js")
+    window.$ = window.jQuery = require("./jquery-3.6.0.slim.min.js")
     require("./ace.js")
     installReactDevtools()
 
@@ -305,7 +309,7 @@ async function privateInit(){
     })
 
     dispatcher.subscribe("USER_SETTINGS_UPDATE", (data) => {
-        DiscordNative.ipc.send("UPDATE_THEME", data.settings.theme)
+        ipcRenderer.send("DISCORD_UPDATE_THEME", data.settings.theme)
     })
 
     require(formatMinified("lightcordapi/js/main{min}.js"))

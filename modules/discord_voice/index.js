@@ -1,4 +1,4 @@
-const VoiceEngine = require('./discord_voice_'+process.platform+'.node');
+const VoiceEngine = require('./discord_voice.node');
 const ChildProcess = require('child_process');
 const fs = require('fs');
 const path = require('path');
@@ -82,6 +82,7 @@ features.declareSupported('experiment_config');
 features.declareSupported('remote_locus_network_control');
 features.declareSupported('connection_replay');
 features.declareSupported('simulcast');
+features.declareSupported('direct_video');
 
 if (process.platform === 'win32') {
   features.declareSupported('voice_legacy_subsystem');
@@ -120,6 +121,7 @@ function bindConnectionInstance(instance) {
     configureConnectionRetries: (baseDelay, maxDelay, maxAttempts) =>
       instance.configureConnectionRetries(baseDelay, maxDelay, maxAttempts),
     setOnSpeakingCallback: (callback) => instance.setOnSpeakingCallback(callback),
+    setOnSpeakingWhileMutedCallback: (callback) => instance.setOnSpeakingWhileMutedCallback(callback),
     setPingInterval: (interval) => instance.setPingInterval(interval),
     setPingCallback: (callback) => instance.setPingCallback(callback),
     setPingTimeoutCallback: (callback) => instance.setPingTimeoutCallback(callback),
@@ -166,7 +168,7 @@ VoiceEngine.createReplayConnection = function (audioEngineId, callback, replayLo
     return null;
   }
 
-  return new VoiceEngine.VoiceReplayConnection(replayLog, audioEngineId, callback);
+  return bindConnectionInstance(new VoiceEngine.VoiceReplayConnection(replayLog, audioEngineId, callback));
 };
 
 VoiceEngine.setAudioSubsystem = function (subsystem) {
