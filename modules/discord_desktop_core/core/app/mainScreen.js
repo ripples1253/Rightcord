@@ -471,7 +471,6 @@ function launchMainAppWindow(isVisible) {
   mainWindow = new BrowserWindow(mainWindowOptions);
   mainWindowId = mainWindow.id;
   global.mainWindowId = mainWindowId;
-  mainWindow.webContents.openDevTools()
 
   if(useGlasstron)setDefaultBlur()
 

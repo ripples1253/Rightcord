@@ -50,7 +50,7 @@ linux:
   - "**/*_linux.node"
   - "**/*.so.4"
 mac:
-  artifactName: ${name}-darwin-${arch}.${ext}
+  artifactName: ${name}-darwin-x64.${ext}
   target:
   - target: zip
     arch:
