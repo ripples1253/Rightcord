@@ -141,13 +141,19 @@ function getSanitizedProtocolPath(url_) {
 
 
 const WEBAPP_PATH = settings.get('WEBAPP_PATH', `/app?_=${Date.now()}`);
-const URL_TO_LOAD = `${WEBAPP_ENDPOINT}${WEBAPP_PATH}`;
+let URL_TO_LOAD = `${WEBAPP_ENDPOINT}${WEBAPP_PATH}`;
+if(WEBAPP_ENDPOINT.startsWith("file://")){
+  URL_TO_LOAD = `${WEBAPP_ENDPOINT}?path=${encodeURIComponent(WEBAPP_PATH)}`;
+}
 const MIN_WIDTH = settings.get('MIN_WIDTH', 940);
 const MIN_HEIGHT = settings.get('MIN_HEIGHT', 500);
 const DEFAULT_WIDTH = 1280;
 const DEFAULT_HEIGHT = 720; // TODO: document this var's purpose
 
 const MIN_VISIBLE_ON_SCREEN = 32;
+/**
+ * @type {Electron.BrowserWindow}
+ */
 let mainWindow = null;
 let mainWindowId = _Constants.DEFAULT_MAIN_WINDOW_ID;
 let mainWindowInitialPath = null;
@@ -418,6 +424,9 @@ function launchMainAppWindow(isVisible) {
     mainWindow.destroy();
   }
 
+  /**
+   * @type {Electron.BrowserWindowConstructorOptions}
+   */
   const mainWindowOptions = {
     title: 'Lightcord',
     width: DEFAULT_WIDTH,
@@ -462,6 +471,7 @@ function launchMainAppWindow(isVisible) {
   mainWindow = new BrowserWindow(mainWindowOptions);
   mainWindowId = mainWindow.id;
   global.mainWindowId = mainWindowId;
+  mainWindow.webContents.openDevTools()
 
   if(useGlasstron)setDefaultBlur()
 
