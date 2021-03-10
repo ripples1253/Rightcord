@@ -19,7 +19,7 @@ A simple and customizable Discord client
 It includes [BandagedBD](https://github.com/rauenzi/BetterDiscordApp), [Glasstron](https://github.com/AryToNeX/Glasstron) and a [discord.js-like api](https://github.com/Lightcord/Lightcord/tree/master/DiscordJS).
 
 ## Information
-Lightcord doesn't just *patch* Discord with its content. If it did, discord updates could easily break it. That's why Lightcord is a standalone Discord client. Just grab the latest release and launch!
+Lightcord doesn't just *patch* Discord with its content. If it did, Discord updates could easily break it. That's why Lightcord is a standalone Discord client. Just grab the latest release and launch!
 
 ## Installing 
 You can download a release from the [releases tab](https://github.com/Lightcord/Lightcord/releases).
