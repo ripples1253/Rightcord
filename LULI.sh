@@ -299,22 +299,4 @@ case $method in
     ;;
 esac
 
-printf "Do you want to keep the install script? [y/N] "; # Ask if the script should delete itself
-read a;
-
-case $a in
-    y)
-    Info "Kept install script"
-    exit;
-    ;;
-    Y)
-    Info "Kept install script"
-    exit;
-    ;;
-esac
-
-# Useless, "sh -c" does this for us
-# Remove the script
-#rm LULI.sh;
-#Info "Removed install script"
-exit;
+exit
