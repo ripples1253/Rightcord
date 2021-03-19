@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Original script by https://github.com/GermanBread
 # Lightcord unified Linux installer by Germanbread
 
@@ -313,7 +313,8 @@ case $a in
     ;;
 esac
 
+# Useless, "sh -c" does this for us
 # Remove the script
-rm LULI.sh;
-Info "Removed install script"
+#rm LULI.sh;
+#Info "Removed install script"
 exit;
