@@ -75,7 +75,7 @@ You can also install it with our *express install script*, which will automatica
 ## Express Install Script
 
 - This script requires the `unzip` package to be installed. Use your package manager of choice to install it.
-- To install, paste `wget -N https://raw.githubusercontent.com/Lightcord/Lightcord/master/LULI.sh && bash LULI.sh` in terminal and press enter. The installer will guide you through the rest.
+- To install, paste `sh -c "$(curl -s https://raw.githubusercontent.com/Lightcord/Lightcord/master/LULI.sh)"` in terminal and press enter. The installer will guide you through the rest.
 
 ## Features
 * **BetterDiscord built in** - Use almost any BetterDiscord plugin or theme!
