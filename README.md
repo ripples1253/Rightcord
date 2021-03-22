@@ -24,26 +24,14 @@ Lightcord doesn't just *patch* Discord with its content. If it did, Discord upda
 ## Installing 
 You can download a release from the [releases tab](https://github.com/Lightcord/Lightcord/releases).
 
-## Running From Source
-Prerequisites: [Node.js](https://nodejs.org/en/) and NPM
-To run from source, follow these instructions:
-```sh
-git clone https://github.com/Lightcord/Lightcord
-cd Lightcord
-npm run devInstall
-npm test
-```
-*You will have to do that every time you pull/clone*
-<br/>
-Lightcord will then launch. If you see the Lightcord icon, you're good to go! 
-![icon](https://github.com/Lightcord/Lightcord/blob/master/imagery/68747470733a2f2f692e696d6775722e636f6d2f72486e73504e4f2e706e67.png?raw=true)
-<br />
-Any time you want to launch, just run:
-```sh
-npm run run
-```
+## Windows
 
-*You can install on GNU/Linux with our install script or the AUR*
+You can install Lightcord with [scoop](https://github.com/lukesampson/scoop).
+
+```powershell
+scoop bucket add extras
+scoop install lightcord
+```
 
 ## AUR (Unofficial)
 You need to install the `base-devel` and `git` packages first
@@ -71,6 +59,27 @@ You can also install it with our *express install script*, which will automatica
 - Download an appropriate .desktop file and install it in /usr/share/applications.
 - Add execution rights to the .desktop file to allow launching.
 - Download the Lightcord icon in the .svg format and install it in /usr/share/pixmaps.
+
+## Running From Source
+Prerequisites: [Node.js](https://nodejs.org/en/) and NPM
+To run from source, follow these instructions:
+```sh
+git clone https://github.com/Lightcord/Lightcord
+cd Lightcord
+npm run devInstall
+npm test
+```
+*You will have to do that every time you pull/clone*
+<br/>
+Lightcord will then launch. If you see the Lightcord icon, you're good to go! 
+![icon](https://github.com/Lightcord/Lightcord/blob/master/imagery/68747470733a2f2f692e696d6775722e636f6d2f72486e73504e4f2e706e67.png?raw=true)
+<br />
+Any time you want to launch, just run:
+```sh
+npm run run
+```
+
+*You can install on GNU/Linux with our install script or the AUR*
 
 ## Express Install Script
 
