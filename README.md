@@ -85,8 +85,6 @@ npm run run
 
 - This script requires the `unzip` package to be installed. Use your package manager of choice to install it.
 - Note: Do not use fish. This shell is not POSIX compliant and will therefore not be supported.
-<br>
-*Moving on*
 
 To install, paste `bash -c "$(curl -s https://raw.githubusercontent.com/Lightcord/Lightcord/master/LULI.sh)"` in terminal and press enter. The installer will guide you through the rest.
 
