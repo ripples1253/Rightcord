@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Original script by https://github.com/GermanBread
 # Lightcord unified Linux installer by Germanbread
 
