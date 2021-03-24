@@ -63,7 +63,7 @@ You can also install it with our *express install script*, which will automatica
 ## Running From Source
 Prerequisites: [Node.js](https://nodejs.org/en/) and NPM
 To run from source, follow these instructions:
-```sh
+```bash
 git clone https://github.com/Lightcord/Lightcord
 cd Lightcord
 npm run devInstall
@@ -75,7 +75,7 @@ Lightcord will then launch. If you see the Lightcord icon, you're good to go!
 ![icon](https://github.com/Lightcord/Lightcord/blob/master/imagery/68747470733a2f2f692e696d6775722e636f6d2f72486e73504e4f2e706e67.png?raw=true)
 <br />
 Any time you want to launch, just run:
-```sh
+```bash
 npm run run
 ```
 
@@ -84,7 +84,11 @@ npm run run
 ## Express Install Script
 
 - This script requires the `unzip` package to be installed. Use your package manager of choice to install it.
-- To install, paste `sh -c "$(curl -s https://raw.githubusercontent.com/Lightcord/Lightcord/master/LULI.sh)"` in terminal and press enter. The installer will guide you through the rest.
+- Note: Do not use fish. This shell is not POSIX compliant and will therefore not be supported.
+<br>
+*Moving on*
+
+To install, paste `bash -c "$(curl -s https://raw.githubusercontent.com/Lightcord/Lightcord/master/LULI.sh)"` in terminal and press enter. The installer will guide you through the rest.
 
 ## Features
 * **BetterDiscord built in** - Use almost any BetterDiscord plugin or theme!
