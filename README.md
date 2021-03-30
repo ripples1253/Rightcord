@@ -12,10 +12,8 @@
 [![LTC](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/papycochob/cryptodonate/master/badges/litecoin.json&style=flat-square)](https://papycochon.github.io/cryptodonate/ltc.html?address=LNTmfMjHJgTHaB7rj8ZuWWuU1XkP2YeGCA&note=https://github.com/Lightcord/Lightcord)
 ---
 
-# Lightcord
-A simple and customizable Discord client
+# About
 
-# Summary
 [Lightcord](https://lightcord.org) is a simple and customizable client for Discord.
 It includes [BandagedBD](https://github.com/rauenzi/BetterDiscordApp), [Glasstron](https://github.com/AryToNeX/Glasstron) and a [discord.js-like api](https://github.com/Lightcord/Lightcord/tree/master/DiscordJS).
 
