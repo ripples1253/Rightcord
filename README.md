@@ -92,5 +92,5 @@ Lightcord will then launch. If you see the Lightcord icon, you're good to go!
 Any time you want to launch, just run:
 
 ```bash
-npm run run
+npm start
 ```
