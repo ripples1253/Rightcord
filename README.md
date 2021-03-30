@@ -11,14 +11,15 @@
 [![ETH](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/papycochon/cryptodonate/master/badges/ethereum.json&style=flat-square)](https://papycochon.github.io/cryptodonate/eth.html?address=0xEFE45F22Ee844bf2Ba0E4d853FA0bC8c028fAfFe&note=https://github.com/Lightcord/Lightcord)
 [![LTC](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/papycochob/cryptodonate/master/badges/litecoin.json&style=flat-square)](https://papycochon.github.io/cryptodonate/ltc.html?address=LNTmfMjHJgTHaB7rj8ZuWWuU1XkP2YeGCA&note=https://github.com/Lightcord/Lightcord)
 ---
+
 # Lightcord
 A simple and customizable Discord client
 
-## Summary
+# Summary
 [Lightcord](https://lightcord.org) is a simple and customizable client for Discord.
 It includes [BandagedBD](https://github.com/rauenzi/BetterDiscordApp), [Glasstron](https://github.com/AryToNeX/Glasstron) and a [discord.js-like api](https://github.com/Lightcord/Lightcord/tree/master/DiscordJS).
 
-## Features
+# Features
 * **Standalone client** - Lightcord is built to be standalone i.e. it will not break on Discord updates!
 * **BetterDiscord built in** - Use almost any BetterDiscord plugin or theme!
 * **Easy custom rich presence** - Our method of doing this ensures you won't get banned!
@@ -32,13 +33,13 @@ It includes [BandagedBD](https://github.com/rauenzi/BetterDiscordApp), [Glasstro
 * **HypeSquad Housing** - Easily change your HypeSquad house, no test required!
 * **Badges** - Important people like the developers have special badges to make sure you know who is who!
 
-### Planned Features
+## Planned Features
 * **Username History** - Keep track of your past usernames!
 * **New Plugin Directory** - Easily install or edit themes and plugins!
 
-## Installing 
+# Installing 
 
-### Windows
+## Windows
 
 You can install Lightcord with [scoop](https://github.com/lukesampson/scoop).
 
@@ -49,9 +50,9 @@ scoop install lightcord
 
 alternatively, download the installer from the [releases tab](https://github.com/Lightcord/Lightcord/releases).
 
-### Linux
+## Linux
 
-#### Arch Linux (or Arch-based)
+### Arch Linux (or Arch-based)
 You need to install the `base-devel` and `git` packages first
 
 [Latest git version](https://aur.archlinux.org/packages/lightcord-git/)
@@ -64,13 +65,13 @@ You need to install the `base-devel` and `git` packages first
 
 *AUR helper such as `yay` and `pacaur` can also be used*
 
-#### Other Linux Distributions
+### Other Linux Distributions
 
 **Warning: This installation method bypasses the package manager!** You should use this script to uninstall Lightcord!
 
 To install, paste `bash -c "$(curl -s https://raw.githubusercontent.com/Lightcord/Lightcord/master/LULI.sh)"` in terminal and press enter. The installer will guide you through the rest.
 
-## Running From Source
+# Running From Source
 Prerequisites: [Node.js](https://nodejs.org/en/) and NPM
 To run from source, follow these instructions:
 ```bash
