@@ -1,12 +1,21 @@
-#!/bin/bash
-# Original script by https://github.com/GermanBread
-# Lightcord unified Linux installer by Germanbread
+#!/usr/bin/env bash
+# Lightcord unified Linux installer by https://github.com/GermanBread
 
-# Some variables
+#
+#	CHANGE STUFF HERE
+#
+
+# Change this to anything other than "false" to allow installing under NixOS
+# Ideally you'd also change $GLOBAL_INSTALL_DIR while you're at it
 ALLOW_NIXOS='false'
 
+# Make sure to trim the trailing forward-slash (/)
 GLOBAL_INSTALL_DIR='/opt'
 LOCAL_INSTALL_DIR="$HOME/.lightcord"
+
+#
+#	DON'T TOUCH BELOW HERE
+#
 
 # URL for downloads
 ICON='https://raw.githubusercontent.com/Lightcord/Lightcord/master/discord.png'
