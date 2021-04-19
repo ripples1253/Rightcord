@@ -108,7 +108,7 @@ done
 if [[ $method == 1 ]]; then
     # If there isn't a indicator file present, refuse to continue
     if ([ -d /opt/lightcord ] || [ -d /opt/Lightcord ]) && [ ! -e $GLOBAL_INSTALL_DIR/Lightcord/script_check ] && [ $BYPASS_PACKAGEMANAGER == 'false' ]; then
-        Error "Lightcord has been installed via a package manager; refusing to continue.\n\tChange variable BYPASS_PACKAGEMANAGER to anything other than \"false\""
+        Error "Lightcord has been installed via a package manager; refusing to continue.\n\tChange variable BYPASS_PACKAGEMANAGER to anything other than \"false\" if you believe that this is a false positive"
         exit 1
     fi
     
