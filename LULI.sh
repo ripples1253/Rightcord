@@ -9,6 +9,9 @@
 # Ideally you'd also change $GLOBAL_INSTALL_DIR while you're at it
 ALLOW_NIXOS='false'
 
+# If set to anything other than "false" this will allow you to modify the Lightcord installation even if it was
+BYPASS_PACKAGEMANAGER='false'
+
 # Make sure to trim the trailing forward-slash (/)
 GLOBAL_INSTALL_DIR='/opt'
 LOCAL_INSTALL_DIR="$HOME/.lightcord"
@@ -103,10 +106,16 @@ do
 done
 
 if [[ $method == 1 ]]; then
+    # If there isn't a indicator file present, refuse to continue
+    if ([ -d /opt/lightcord ] || [ -d /opt/Lightcord ]) && [ ! -e $GLOBAL_INSTALL_DIR/Lightcord/script_check ] && [ $BYPASS_PACKAGEMANAGER == 'false' ]; then
+        Error "Lightcord has been installed via a package manager; refusing to continue.\n\tChange variable BYPASS_PACKAGEMANAGER to anything other than \"false\" if you believe that this is a false positive"
+        exit 1
+    fi
+    
     Warning "Warning:\n\tBlindly running software as root is a massive security issue.\n\tIf you don't fully trust the software you're running DON'T RUN IT AS ROOT.\n\tIf you know exactly what you are doing, continue.\n\tOtherwise restart this script and choose the second option."
     if [ -d "/nix" ] && [ $ALLOW_NIXOS == 'false' ]; then
-        Error "Error:\n\tUsing the global install option on NixOS is not supported due to the way this distribution handles software not present in the repositories.\n\tUse the AppImage install method instead.\n\tIf you still plan on installing Lightcord this way, change the \"ALLOW_NIXOS\" variable in this script to any value other than \"false\".\n\tYou should also modify the installation path variables if you want LC to not be wiped by NixOS."
-        exit;
+        Error "Error:\n\tUsing the global install option on NixOS is not supported due to the way this distribution handles software not present in the repositories.\n\tUse the AppImage install method instead.\n\tIf you still plan on installing Lightcord this way, change the \"ALLOW_NIXOS\" variable in this script to any value other than \"false\".\n\tYou should also modify the installation path variables if you want LC to not be wiped automatically at boot."
+        exit 1
     fi  # We want to prevent NixOS users from installing LC this way because:
         # A) NixOS is very "special" i.e. it blocks LC from running
         # B) /opt gets cleared upon boot
@@ -175,6 +184,7 @@ case $method in
         rm -rf Lightcord.*;
         rm -rf Lightcord;
         rm -rf lightcord-linux-x64.*;
+        sudo touch $GLOBAL_INSTALL_DIR/Lightcord/script_check
         ;;
 
         2) # Uninstall LC
@@ -211,6 +221,7 @@ case $method in
         rm -rf Lightcord.*;
         rm -rf Lightcord;
         rm -rf lightcord-linux-x64.*;
+        sudo touch $GLOBAL_INSTALL_DIR/Lightcord/script_check
         ;;
 
         *) # Do nothing
