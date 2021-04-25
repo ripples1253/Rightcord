@@ -1,5 +1,6 @@
-#!/usr/bin/env bash
+#!/bin/sh
 # Lightcord unified Linux installer by https://github.com/GermanBread
+# POSIX compliance by https://github.com/pryme-svg
 
 #
 #	CHANGE STUFF HERE
@@ -29,7 +30,7 @@ ALT_LC_APPIMAGE='https://github.com/Lightcord/Lightcord/releases/latest/download
 ALT_LC='https://github.com/Lightcord/Lightcord/releases/latest/download/lightcord-linux-x64.zip'
 
 # Some helper funtions
-function Info {
+Info() {
     tput setaf 8
     tput bold
     printf "==> "
@@ -37,13 +38,13 @@ function Info {
     printf "$1\n"
     tput sgr0
 }
-function SubInfo {
+SubInfo() {
     tput setaf 8
     printf "> "
     printf "$1\n"
     tput sgr0
 }
-function Warning {
+Warning() {
     tput setaf 3
     tput bold
     printf "==> "
@@ -51,7 +52,7 @@ function Warning {
     printf "$1\n"
     tput sgr0
 }
-function Error {
+Error() {
     tput setaf 1
     tput bold
     printf "==> "
@@ -60,11 +61,11 @@ function Error {
     tput sgr0
 }
 
-if [[ $TERM == dumb ]]; then
+if [ "$TERM" = dumb ]; then
     exit
 fi
 
-if [[ "$(whoami)" == "root" ]]; then
+if [ $(id -u) -eq 0 ]; then
     Error "Don't run this script as root"
     exit
 fi
@@ -72,7 +73,7 @@ fi
 # Check if unzip is installed
 if [ ! -e /usr/bin/unzip ]; then
     Warning "Unzip does not seem to be installed!\n\tThis script depends on this package.\n\tInstall unzip and restart this script.\n\tPress enter if you believe that this is a false-positive."
-    read
+    read -r REPLY
 fi
 
 cat << "logo_end"
@@ -92,11 +93,11 @@ printf "2: Install Lightcord only for you (Appimage install)\n"
 printf "\n"
 
 #Repeat only if the user hasn't entered an integer...
-while ! [[ $method =~ ^[0-9]+$ ]]; 
+while ! echo $method | grep -Eq "^[0-9]";
 do
-    read method;
+    read -r method;
     # If the entered value was not an integer, prompt the user again
-    if ! [[ $method =~ ^[0-9]+$ ]]; then
+    if ! echo $method | grep -Eq "^[0-9]"; then
         sleep 1
         printf "$(tput setaf 9)Please try again$(tput sgr0)\n"
         printf "1: Install Lightcord for all users\n"
@@ -105,15 +106,15 @@ do
     fi
 done
 
-if [[ $method == 1 ]]; then
+if [ "$method" = 1 ]; then
     # If there isn't a indicator file present, refuse to continue
-    if ([ -d /opt/lightcord ] || [ -d /opt/Lightcord ]) && [ ! -e $GLOBAL_INSTALL_DIR/Lightcord/script_check ] && [ $BYPASS_PACKAGEMANAGER == 'false' ]; then
+    if { [ -d /opt/lightcord ] || [ -d /opt/Lightcord ]; } && [ ! -e $GLOBAL_INSTALL_DIR/Lightcord/script_check ] && [ $BYPASS_PACKAGEMANAGER = 'false' ]; then
         Error "Lightcord has been installed via a package manager; refusing to continue.\n\tChange variable BYPASS_PACKAGEMANAGER to anything other than \"false\" if you believe that this is a false positive"
         exit 1
     fi
-    
+
     Warning "Warning:\n\tBlindly running software as root is a massive security issue.\n\tIf you don't fully trust the software you're running DON'T RUN IT AS ROOT.\n\tIf you know exactly what you are doing, continue.\n\tOtherwise restart this script and choose the second option."
-    if [ -d "/nix" ] && [ $ALLOW_NIXOS == 'false' ]; then
+    if [ -d "/nix" ] && [ $ALLOW_NIXOS = 'false' ]; then
         Error "Error:\n\tUsing the global install option on NixOS is not supported due to the way this distribution handles software not present in the repositories.\n\tUse the AppImage install method instead.\n\tIf you still plan on installing Lightcord this way, change the \"ALLOW_NIXOS\" variable in this script to any value other than \"false\".\n\tYou should also modify the installation path variables if you want LC to not be wiped automatically at boot."
         exit 1
     fi  # We want to prevent NixOS users from installing LC this way because:
@@ -121,7 +122,7 @@ if [[ $method == 1 ]]; then
         # B) /opt gets cleared upon boot
     Info "Please enter your password to proceed"
     sudo -K
-    if [[ "$(sudo whoami)" != "root" ]]; then
+    if [ "$(sudo whoami)" != "root" ]; then
         Error "Authentication failed"
         exit
     fi
@@ -140,11 +141,11 @@ case $method in
     printf "\n"
 
     #Repeat only if the user hasn't entered an integer...
-    while ! [[ $selection =~ ^[0-9]+$ ]]; 
+    while ! echo $selection | grep -Eq "^[0-9]";
     do
-        read selection;
+        read -r selection;
         # If the entered value was not an integer, prompt the user again
-        if ! [[ $selection =~ ^[0-9]+$ ]]; then
+        if ! echo $method | grep -Eq "^[0-9]"; then
             sleep 1;
             printf "$(tput setaf 9)Please try again$(tput sgr0)\n";
             printf "1: Install Lightcord\n";
@@ -167,17 +168,17 @@ case $method in
             SubInfo "Trying alternate URL"
             wget -qO lightcord-linux-x64.zip $ALT_LC;
         fi
-        unzip -qq lightcord-linux-x64.zip -d Lightcord; 
-        cd Lightcord; 
-        chmod +x ./lightcord; 
-        cd ..; 
-        sudo mv Lightcord/ $GLOBAL_INSTALL_DIR; 
+        unzip -qq lightcord-linux-x64.zip -d Lightcord;
+        cd Lightcord;
+        chmod +x ./lightcord;
+        cd ..;
+        sudo mv Lightcord/ $GLOBAL_INSTALL_DIR;
         SubInfo "Downloading Lightcord icon"
         wget -qO lightcord.png $ICON;
         sudo mkdir -p /usr/share/pixmaps;
-        sudo mv lightcord.png /usr/share/pixmaps; 
+        sudo mv lightcord.png /usr/share/pixmaps;
         SubInfo "Creating Desktop entry"
-        echo -e "[Desktop Entry]\nName=Lightcord\nComment[fr_FR]=Un client Discord simple et personalisable\nComment=A simple - customizable - Discord Client\nExec=$GLOBAL_INSTALL_DIR/Lightcord/lightcord\nIcon=lightcord\nTerminal=false\nType=Application\nCategories=Network;InstantMessaging;P2P;" > Lightcord.desktop
+        printf "[Desktop Entry]\nName=Lightcord\nComment[fr_FR]=Un client Discord simple et personalisable\nComment=A simple - customizable - Discord Client\nExec=$GLOBAL_INSTALL_DIR/Lightcord/lightcord\nIcon=lightcord\nTerminal=false\nType=Application\nCategories=Network;InstantMessaging;P2P;" > Lightcord.desktop
         sudo mv Lightcord.desktop /usr/share/applications/Lightcord.desktop
         sudo chmod +x /usr/share/applications/Lightcord.desktop;
         SubInfo "Cleaning up"
@@ -212,11 +213,11 @@ case $method in
             SubInfo "Trying alternate URL"
             wget -qO lightcord-linux-x64.zip $ALT_LC;
         fi
-        unzip -qq lightcord-linux-x64.zip -d Lightcord; 
-        cd Lightcord; 
-        chmod +x ./lightcord; 
-        cd ..; 
-        sudo mv Lightcord/ $GLOBAL_INSTALL_DIR; 
+        unzip -qq lightcord-linux-x64.zip -d Lightcord;
+        cd Lightcord;
+        chmod +x ./lightcord;
+        cd ..;
+        sudo mv Lightcord/ $GLOBAL_INSTALL_DIR;
         SubInfo "Cleaning up"
         rm -rf Lightcord.*;
         rm -rf Lightcord;
@@ -232,7 +233,7 @@ case $method in
 
     2)
     # Appimage installer
-    if [[ $TERM == dumb ]]; then
+    if [ "$TERM" = dumb ]; then
         exit;
     fi
 
@@ -246,11 +247,11 @@ case $method in
     printf "3: Update Lightcord\n"
     printf "\n";
 
-    while ! [[ $selection =~ ^[0-9]+$ ]];
+    while ! echo $selection | grep -Eq "^[0-9]";
     do
-        read selection;
+        read -r selection;
         # If the entered value was not an integer, prompt the user again
-        if ! [[ $selection =~ ^[0-9]+$ ]]; then
+        if ! echo $method | grep -Eq "^[0-9]"; then
             sleep 1;
             printf "$(tput setaf 9)Please try again$(tput sgr0)\n";
             printf "1: Install Lightcord\n";
@@ -272,20 +273,20 @@ case $method in
         fi
         SubInfo "Downloading Lightcord icon"
         wget -qO lightcord.png $ICON;
-        mkdir -p $LOCAL_INSTALL_DIR;
-        mv lightcord.AppImage $LOCAL_INSTALL_DIR;
-        chmod +x $LOCAL_INSTALL_DIR/lightcord.AppImage ;
+        mkdir -p "$LOCAL_INSTALL_DIR";
+        mv lightcord.AppImage "$LOCAL_INSTALL_DIR";
+        chmod +x "$LOCAL_INSTALL_DIR/lightcord.AppImage";
         mkdir -p ~/.local/share/icons/hicolor/512x512/apps
         mv lightcord.png ~/.local/share/icons/hicolor/512x512/apps;
         SubInfo "Creating local desktop entry"
-        echo -e "[Desktop Entry]\nName=Lightcord\nComment[fr_FR]=Un client Discord simple et personalisable\nComment=A simple - customizable - Discord Client\nExec=$LOCAL_INSTALL_DIR/lightcord.AppImage\nIcon=lightcord\nTerminal=false\nType=Application\nCategories=Network;InstantMessaging;P2P;" >> ~/.local/share/applications/lightcord.desktop;
+        printf "[Desktop Entry]\nName=Lightcord\nComment[fr_FR]=Un client Discord simple et personalisable\nComment=A simple - customizable - Discord Client\nExec=$LOCAL_INSTALL_DIR/lightcord.AppImage\nIcon=lightcord\nTerminal=false\nType=Application\nCategories=Network;InstantMessaging;P2P;" >> ~/.local/share/applications/lightcord.desktop;
         SubInfo "Cleaning up"
         ;;
 
         2) # Uninstall LC
         Info 'Uninstalling Lightcord'
         SubInfo "Deleting Lightcord folder"
-        rm -r $LOCAL_INSTALL_DIR;
+        rm -r "$LOCAL_INSTALL_DIR";
         SubInfo "Deleting Lightcord icon"
         rm ~/.local/share/icons/hicolor/512x512/apps/lightcord.png;
         SubInfo "Deleting desktop entry"
@@ -295,19 +296,19 @@ case $method in
         3) # Update LC
         Info 'Updating Lightcord'
         SubInfo "Deleting Lightcord"
-        rm $LOCAL_INSTALL_DIR/lightcord.AppImage;
+        rm "$LOCAL_INSTALL_DIR"/lightcord.AppImage;
         SubInfo "Downloading Lightcord"
         wget -qO lightcord.AppImage $LC_APPIMAGE;
         if [ ! $? ]; then
             SubInfo "Trying alternate URL"
             wget -qO lightcord.AppImage $ALT_LC_APPIMAGE;
         fi
-        mkdir -p $LOCAL_INSTALL_DIR;
-        mv lightcord.AppImage $LOCAL_INSTALL_DIR;
-        chmod +x $LOCAL_INSTALL_DIR/lightcord.AppImage;
+        mkdir -p "$LOCAL_INSTALL_DIR";
+        mv lightcord.AppImage "$LOCAL_INSTALL_DIR";
+        chmod +x "$LOCAL_INSTALL_DIR/lightcord.AppImage";
         SubInfo "Cleaning up"
         ;;
-        
+
         *)
         Error 'Aborting install'
         ;;
