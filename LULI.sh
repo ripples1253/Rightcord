@@ -65,7 +65,7 @@ if [ "$TERM" = dumb ]; then
     exit
 fi
 
-if [ "$(whoami)" = "root" ]; then
+if [ $(id -u) -eq 0 ]; then
     Error "Don't run this script as root"
     exit
 fi
