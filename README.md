@@ -69,7 +69,7 @@ You need to install the `base-devel` and `git` packages first
 
 **Warning: This installation method bypasses the package manager!** You should use this script to uninstall Lightcord!
 
-To install, paste `bash -c "$(curl -s https://raw.githubusercontent.com/Lightcord/Lightcord/master/LULI.sh)"` in terminal and press enter. The installer will guide you through the rest.
+To install, paste `sh -c "$(curl -s https://raw.githubusercontent.com/Lightcord/Lightcord/master/LULI.sh)"` in terminal and press enter. The installer will guide you through the rest.
 
 # Running From Source
 
