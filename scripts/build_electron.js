@@ -1,4 +1,4 @@
-const spawn = require("cross-spawn")
+const child_process = require("child_process")
 const path = require("path")
 const { existsSync, promises: fsPromises, createWriteStream } = require("fs")
 const yazl = require("yazl")
@@ -121,7 +121,8 @@ switch(process.platform){
 
 function awaitExec(command, args = []){
     return new Promise((resolve, reject) => {
-        const child = spawn.spawn(command, args, {
+        if(process.platform === "win32")command += ".cmd"
+        const child = child_process.spawn(command, args, {
             env: process.env,
             cwd: process.cwd(),
             stdio: "inherit"

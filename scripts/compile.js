@@ -1,7 +1,11 @@
-const spawn = require("cross-spawn")
 const { mkdirSync, existsSync } = require("fs")
 const { join, resolve } = require("path")
+const child_process = require("child_process")
 
+const spawn = (...args) => {
+    if(process.platform === "win32")args[0] += ".cmd"
+    return child_process.spawnSync(...args)
+}
 
 const PROJECT_DIR = resolve(__dirname, "..");
 /** Main Project */

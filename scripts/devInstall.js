@@ -25,14 +25,14 @@ let result;
 spawnProcess("npm", "rm", "electron")
 spawnProcess("npm", "i")
 if (process.platform === "win32"){
-    result = spawnProcess("npm", "i", "--save-dev", "--arch=ia32", "electron@9.3.1")
+    result = spawnProcess("npm", "i", "--save-dev", "--arch=ia32", "electron@9")
 } else {
-    result = spawnProcess("npm", "i", "--save-dev", "--arch=x64", "electron@9.3.1")
+    result = spawnProcess("npm", "i", "--save-dev", "--arch=x64", "electron@9")
 }
 
 let runString = "`npm test`"
 
-spawnProcess("node", join(PROJECT_DIRNAME,"scripts", "installSubModules.js"))
+spawnProcess("node", join(PROJECT_DIRNAME, "scripts", "installSubModules.js"))
 
 
 console.log("Everything is installed. You should be able to do "+runString+" to compile everything and launch.")
