@@ -97,7 +97,7 @@ export default class V2C_PluginCard extends BDV2.reactComponent {
         let settingPanel
         if(typeof this.settingsPanel === "object"){
             if(this.settingsPanel instanceof Node){
-                settingPanel = BVD2.react.createElement("div", {id: `plugin-settings-${this.name}`, className: "plugin-settings", ref: (elem) => {
+                settingPanel = BDV2.react.createElement("div", {id: `plugin-settings-${this.name}`, className: "plugin-settings", ref: (elem) => {
                     elem.appendChild(this.settingsPanel)
                 }})
             }else{
@@ -105,7 +105,7 @@ export default class V2C_PluginCard extends BDV2.reactComponent {
                 this.settingsPanel)
             }
         }else if(typeof this.settingsPanel === "string"){
-            settingPanel = BVD2.react.createElement("div", {id: `plugin-settings-${this.name}`, className: "plugin-settings", dangerouslySetInnerHTML: {__html: this.settingsPanel}})
+            settingPanel = BDV2.react.createElement("div", {id: `plugin-settings-${this.name}`, className: "plugin-settings", dangerouslySetInnerHTML: {__html: this.settingsPanel}})
         }
         return BDV2.react.createElement("div", {className: "bd-card bd-addon-card settings-open ui-switch-item", ref: "cardNode"},
                 BDV2.react.createElement("div", {style: {"float": "right", "cursor": "pointer"}, onClick: () => {
