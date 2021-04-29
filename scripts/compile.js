@@ -4,7 +4,7 @@ const child_process = require("child_process")
 
 const spawn = (...args) => {
     if(process.platform === "win32")args[0] += ".cmd"
-    return child_process.spawnSync(...args)
+    return child_process.spawn(...args)
 }
 
 const PROJECT_DIR = resolve(__dirname, "..");
