@@ -87,7 +87,7 @@ fi
 # Bedrock Linux warning
 if [ -d /bedrock ]; then
     Info "Detected Bedrock Linux."
-    SubInfo "This script is executed in the $(tput bold && brl which && tput sgr0 && tput setaf 8) stratum. Mention this when filing a bug report!"
+    SubInfo "This script is executed in the $(tput bold && brl which | tr -d '\n' && tput sgr0 && tput setaf 8) stratum. Mention this when filing a bug report!"
 fi
 
 cat << "logo_end"
