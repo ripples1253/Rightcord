@@ -70,6 +70,12 @@ if [ $(id -u) -eq 0 ]; then
     exit 0
 fi
 
+# Bedrock Linux warning
+if [ -d /bedrock ]; then
+    Info "Bedrock Linux detected. Here be dragons..."
+    SubInfo "This script is executed in the $(tput bold && tput setaf 15 && brl which | tr -d '\n') stratum$(tput sgr0 && tput setaf 8). Mention this when filing a bug report!"
+fi
+
 # Check if unzip is installed
 if [ ! -e /bin/unzip ]; then
     Warning "Unzip does not seem to be installed!\n\tThis script depends on this package.\n\tInstall unzip and restart this script."
@@ -88,12 +94,6 @@ if [ ! -e /lib/libnspr4.so ] || [ ! -e /lib/libnss3.so ]; then
     fi
     Info "Press enter if you believe that this is a false-positive."
     read -r REPLY
-fi
-
-# Bedrock Linux warning
-if [ -d /bedrock ]; then
-    Info "Detected Bedrock Linux."
-    SubInfo "This script is executed in the $(tput bold && tput setaf 15 && brl which | tr -d '\n') stratum$(tput sgr0 && tput setaf 8). Mention this when filing a bug report!"
 fi
 
 cat << "logo_end"
