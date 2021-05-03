@@ -51,25 +51,7 @@ Alternatively, download the installer from the [releases tab](https://github.com
 
 ## Linux
 
-### Arch Linux (or Arch-based)
-
-You need to install the `base-devel` and `git` packages first
-
-[Latest git version](https://aur.archlinux.org/packages/lightcord-git/)
-
-`git clone https://aur.archlinux.org/lightcord-git.git && cd lightcord-git && makepkg -si`
-
-[Precompiled binaries](https://aur.archlinux.org/packages/lightcord-bin/)
-
-`git clone https://aur.archlinux.org/lightcord-bin.git && cd lightcord-bin && makepkg -si`
-
-*AUR helper such as `yay` and `pacaur` can also be used*
-
-### Other Linux Distributions
-
-**Warning: This installation method bypasses the package manager!** You should use this script to uninstall Lightcord!
-
-To install, paste `sh -c "$(curl -s https://raw.githubusercontent.com/Lightcord/Lightcord/master/LULI.sh)"` in terminal and press enter. The installer will guide you through the rest.
+[This part has moved!](https://github.com/Lightcord/lc-installer-linux)
 
 # Running From Source
 
