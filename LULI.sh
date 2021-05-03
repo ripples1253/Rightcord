@@ -62,17 +62,37 @@ Error() {
 }
 
 if [ "$TERM" = dumb ]; then
-    exit
+    exit 0
 fi
 
 if [ $(id -u) -eq 0 ]; then
     Error "Don't run this script as root"
-    exit
+    exit 0
+fi
+
+# Bedrock Linux warning
+if [ -d /bedrock ]; then
+    Info "Bedrock Linux detected. Here be dragons..."
+    SubInfo "This script is executed in the $(tput bold && tput setaf 15 && brl which | tr -d '\n') stratum$(tput sgr0 && tput setaf 8). Mention this when filing a bug report!"
 fi
 
 # Check if unzip is installed
-if [ ! -e /usr/bin/unzip ]; then
-    Warning "Unzip does not seem to be installed!\n\tThis script depends on this package.\n\tInstall unzip and restart this script.\n\tPress enter if you believe that this is a false-positive."
+if [ ! -e /bin/unzip ]; then
+    Warning "Unzip does not seem to be installed!\n\tThis script depends on this package.\n\tInstall unzip and restart this script."
+    Info "Press enter if you believe that this is a false-positive."
+    read -r REPLY
+fi
+
+# Library checks (should prevent issues like https://github.com/Lightcord/Lightcord/issues/240)
+if [ ! -e /lib/libnspr4.so ] || [ ! -e /lib/libnss3.so ]; then
+    Warning "Some required libraries seem to not be installed!\n\tMake sure that both 'libnspr4.so' and 'libnss3.so' are present in '/lib'"
+    if [ -e /bin/pacman ]; then
+        SubInfo "$(tput setaf 12 && tput bold)Arch Linux or Arch-based$(tput sgr0 && tput setaf 15) sudo pacman -S nss nspr"
+    fi
+    if [ -e /bin/apt ]; then
+        SubInfo "$(tput setaf 13 && tput bold)Debian or Debian-based$(tput sgr0 && tput setaf 15) sudo apt install libnspr4 libnss3"
+    fi
+    Info "Press enter if you believe that this is a false-positive."
     read -r REPLY
 fi
 
