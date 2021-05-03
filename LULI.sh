@@ -80,6 +80,12 @@ fi
 # Library checks (should prevent issues like https://github.com/Lightcord/Lightcord/issues/240)
 if [ ! -e /lib/libnspr4.so ] || [ ! -e /lib/libnss3.so ]; then
     Warning "Some required libraries seem to not be installed!\n\tMake sure that both 'libnspr4.so' and 'libnss3.so' are present in '/lib'"
+    if [ -e /bin/pacman ]; then
+        SubInfo "$(tput setaf 12 && tput bold)Arch Linux or Arch-based$(tput sgr0 && tput setaf 15) sudo pacman -S nss nspr"
+    fi
+    if [ -e /bin/apt ]; then
+        SubInfo "$(tput setaf 13 && tput bold)Debian or Debian-based$(tput sgr0 && tput setaf 15) sudo apt install libnspr4 libnss3"
+    fi
     Info "Press enter if you believe that this is a false-positive."
     read -r REPLY
 fi
