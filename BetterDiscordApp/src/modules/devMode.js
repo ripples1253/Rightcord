@@ -95,7 +95,11 @@ export default new class DevMode {
                 }
                 const cmWrap = cm.parentElement
                 
-                const scroller = cm.childNodes[0].childNodes[0]
+                if ([...cm.childNodes[0].childNodes].length > 1) {
+                    var scroller = cm.childNodes[0].childNodes[1]
+                } else {
+                    var scroller = cm.childNodes[0].childNodes[0]
+                }
                 const cmg = DOM.createElement(`<div role="group"></div>`);
                 /**
                  * @type {HTMLElement}
