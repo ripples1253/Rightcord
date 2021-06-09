@@ -125,19 +125,17 @@ export default new (class V2 {
   initialize() {}
 
   joinBD1() {
-    this.InviteActions.acceptInviteAndTransitionToInviteChannel(
-      "0Tmfo5ZbORCRqbAd"
-    );
+    this.InviteActions.acceptInviteAndTransitionToInviteChannel("7eFff2A");
   }
   leaveBD1() {
-    this.GuildActions.leaveGuild("86004744966914048");
+    this.GuildActions.leaveGuild("705908350218666117");
   }
 
   joinBD2() {
-    this.InviteActions.acceptInviteAndTransitionToInviteChannel("2HScm8j");
+    this.InviteActions.acceptInviteAndTransitionToInviteChannel("7eFff2A");
   }
   leaveBD2() {
-    this.GuildActions.leaveGuild("280806472928198656");
+    this.GuildActions.leaveGuild("705908350218666117");
   }
 
   get react() {

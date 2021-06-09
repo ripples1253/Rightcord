@@ -389,12 +389,12 @@ export default class Utils {
         if (!Changelog || !ModalStack || !ChangelogClasses || !TextElement || !FlexChild || !Titles || !MarkdownParser) return;
     
         const {
-            image = "https://repository-images.githubusercontent.com/105473537/957b5480-7c26-11e9-8401-50fa820cbae5", 
-            description = "", 
-            changes = [], 
-            title = "BandagedBD", 
-            subtitle = `v${bbdVersion}`, 
-            footer
+          image = "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.ytimg.com%2Fvi%2Fh5vmruyXU1A%2Fmaxresdefault.jpg&f=1&nofb=1",
+          description = "",
+          changes = [],
+          title = "Lightcord",
+          subtitle = `v${bbdVersion}`,
+          footer,
         } = options;
         const ce = BDV2.React.createElement;
         const changelogItems = [ce("img", {src: image})];
