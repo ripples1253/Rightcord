@@ -10,7 +10,8 @@ export const bbdChangelog = {
             type: "fixed",
             items: [
                 "Account info has been fixed.",
-                "BBD has been updated to newest possible version."
+                "BBD has been updated to newest possible version.",
+                "Changed some invites from BetterDiscord to Lightcord."
             ]
         }
     ]
