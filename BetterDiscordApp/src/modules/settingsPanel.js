@@ -45,7 +45,7 @@ class BDSidebarHeader extends React.PureComponent {
             )
         );
         let rendered = new sidebarComponents.Header({
-            children: React.createElement("span", null, "Bandaged BD", changelogButton),
+            children: React.createElement("span", null, "Lightcord BD", changelogButton),
             className: "ui-tab-bar-header"
         })
         return rendered

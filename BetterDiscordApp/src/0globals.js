@@ -3,14 +3,15 @@ export const currentDiscordVersion = (window.DiscordNative && window.DiscordNati
 export const minSupportedVersion = "0.3.0";
 export const bbdVersion = "0.3.5";
 export const bbdChangelog = {
-    description: "Big things are coming.",
+    description: "Updated BBD, AccountInfo fix and more!.",
     changes: [
         {
             title: "Bug Fixes",
             type: "fixed",
             items: [
-                "Some fixes related to showing modals in the `BdApi`.",
-                "Fixed the open folder buttons for plugins and themes"
+                "Account info has been fixed.",
+                "BBD has been updated to newest possible version.",
+                "Changed some invites from BetterDiscord to Lightcord."
             ]
         }
     ]
