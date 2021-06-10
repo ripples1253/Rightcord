@@ -9,8 +9,7 @@ const buildTargets = {
 }
 
 export const releaseChannel:branch = "stable"
-export let version
-    buildTargets[process.platform] || "0.0.308"
+export let version = buildTargets[process.platform] || "0.0.308"
 export const commit = getCommitID()
 export default {
     releaseChannel,
