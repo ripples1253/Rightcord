@@ -54,12 +54,12 @@ Core.prototype.init = async function() {
     }
 
     if (window.ED) {
-        Utils.alert("Not Supported", "BandagedBD does not work with EnhancedDiscord. Please uninstall one of them.");
+        Utils.alert("Not Supported", "LightcordBD does not work with EnhancedDiscord. Please uninstall one of them.");
         return;
     }
 
     if (window.WebSocket && window.WebSocket.name && window.WebSocket.name.includes("Patched")) {
-        Utils.alert("Not Supported", "BandagedBD does not work with Powercord. Please uninstall one of them.");
+        Utils.alert("Not Supported", "LightcordBD does not work with Powercord. Please uninstall one of them.");
         return;
     }
 

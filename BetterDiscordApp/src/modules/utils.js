@@ -54,15 +54,15 @@ export default class Utils {
     }
 
     static log(moduleName, message) {
-        console.log(`%c[BandagedBD]%c [${moduleName}]%c ${message}`, "color: #3a71c1; font-weight: 700;", "color: #3a71c1;", "");
+        console.log(`%c[LightcordBD]%c [${moduleName}]%c ${message}`, "color: #3a71c1; font-weight: 700;", "color: #3a71c1;", "");
     }
 
     static warn(moduleName, message) {
-        console.warn(`%c[BandagedBD]%c [${moduleName}]%c ${message}`, "color: #E8A400; font-weight: 700;", "color: #E8A400;", "");
+        console.warn(`%c[LightcordBD]%c [${moduleName}]%c ${message}`, "color: #E8A400; font-weight: 700;", "color: #E8A400;", "");
     }
 
     static err(moduleName, message, error) {
-        console.log(`%c[BandagedBD]%c [${moduleName}]%c ${message}`, "color: red; font-weight: 700;", "color: red;", "");
+        console.log(`%c[LightcordBD]%c [${moduleName}]%c ${message}`, "color: red; font-weight: 700;", "color: red;", "");
         if (error) {
             console.groupCollapsed("%cError: " + error.message, "color: red;");
             console.error(error.stack);
