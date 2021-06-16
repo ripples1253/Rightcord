@@ -175,7 +175,7 @@ Core.prototype.patchAttributes = async function() {
                         )
                     )
                 );
-            } else if (props.user.id === "696481194443014174" || props.user.id === "696003456611385396"){ // Not Thomiz: Lightcord Developer, Phorcys: Lightcord Developer
+            } else if (props.user.id === "696481194443014174" || props.user.id === "363022107753578496"|| props.user.id === "424639027606585356"){ // Not Thomiz: Lightcord Developer, Phorcys: Lightcord Developer, smartfridge: Lightcord Dev
                 children.push(
                     BDV2.React.createElement(TooltipWrap, {color: "black", side: "top", text: "Lightcord Developer"},
                         BDV2.React.createElement(Anchor, {className: "bd-chat-badge", href: "https://github.com/Lightcord/Lightcord", title: "Lightcord", target: "_blank"},
