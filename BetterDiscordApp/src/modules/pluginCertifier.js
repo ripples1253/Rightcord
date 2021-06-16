@@ -79,6 +79,7 @@ export function checkViruses(hash, data, resultCallback, removeCallback, filenam
         const scrpt = removeComment === 1 ? no_comments : data
         if(test.exec(scrpt)){
             isHarmful = threats[type]
+            Utils.showToast(`${hashToUrl[hash].split("/").pop()} failed at test`, test, ". Marked as", threats[type])
             console.log(`${hashToUrl[hash].split("/").pop()} failed at test`, test, ". Marked as", threats[type])
             break
         }
@@ -93,7 +94,7 @@ export function checkViruses(hash, data, resultCallback, removeCallback, filenam
         hash: hash,
         filename
     }
-    
+    Utils.showToast(`Found potentially dangerous ${cache[hash].type.toLowerCase()}: ${cache[hash].name}`)
     console.log(`Found potentially dangerous ${cache[hash].type.toLowerCase()}: ${cache[hash].name}`)
 
     resultCallback(cache[hash])
