@@ -54,12 +54,12 @@ Core.prototype.init = async function() {
     }
 
     if (window.ED) {
-        Utils.alert("Not Supported", "BandagedBD does not work with EnhancedDiscord. Please uninstall one of them.");
+        Utils.alert("Not Supported", "LightcordBD does not work with EnhancedDiscord. Please uninstall one of them.");
         return;
     }
 
     if (window.WebSocket && window.WebSocket.name && window.WebSocket.name.includes("Patched")) {
-        Utils.alert("Not Supported", "BandagedBD does not work with Powercord. Please uninstall one of them.");
+        Utils.alert("Not Supported", "LightcordBD does not work with Powercord. Please uninstall one of them.");
         return;
     }
 
@@ -485,22 +485,52 @@ Core.prototype.patchMessageHeader = function() {
         if (!children || !author || !author.id)return
         // if (header && header.className) header.className += " "
         if (!Array.isArray(children)) return;
-        if (author.id === "249746236008169473") { // Rauenzi: BandagedBD Developer
-            children.push(
-                BDV2.React.createElement(TooltipWrap, {color: "black", side: "top", text: "BandagedBD Developer"},
-                    BDV2.React.createElement(Anchor, {className: "bd-chat-badge", href: "https://github.com/rauenzi/BetterDiscordApp", title: "BandagedBD", target: "_blank"},
-                        BDV2.React.createElement(BDLogo, {size: "16px", className: "bd-logo"})
-                    )
-                )
-            );
-        } else if (author.id === "696481194443014174" || author.id === "696003456611385396"){ // Not Thomiz: Lightcord Developer, Phorcys: Lightcord Developer
-            children.push(
-                BDV2.React.createElement(TooltipWrap, {color: "black", side: "top", text: "Lightcord Developer"},
-                    BDV2.React.createElement(Anchor, {className: "bd-chat-badge", href: "https://github.com/Lightcord/Lightcord", title: "Lightcord", target: "_blank"},
-                        BDV2.React.createElement(LightcordLogo, {size: "16px", className: "bd-logo"})
-                    )
-                )
-            );
+        if (author.id === "249746236008169473") {
+          // Rauenzi: BandagedBD Developer
+          children.push(
+            BDV2.React.createElement(
+              TooltipWrap,
+              { color: "black", side: "top", text: "BandagedBD Developer" },
+              BDV2.React.createElement(
+                Anchor,
+                {
+                  className: "bd-chat-badge",
+                  href: "https://github.com/rauenzi/BetterDiscordApp",
+                  title: "BandagedBD",
+                  target: "_blank",
+                },
+                BDV2.React.createElement(BDLogo, {
+                  size: "16px",
+                  className: "bd-logo",
+                })
+              )
+            )
+          ); //(props.user.id === "696481194443014174" || props.user.id === "363022107753578496"|| props.user.id === "424639027606585356"){ // Not Thomiz: Lightcord Developer, Phorcys: Lightcord Developer, smartfridge: Lightcord Dev
+        } else if (
+          author.id === "696481194443014174" ||
+          author.id === "363022107753578496" ||
+          author.id === "424639027606585356"
+        ) {
+          // Not Thomiz: Lightcord Developer, Phorcys: Lightcord Developer
+          children.push(
+            BDV2.React.createElement(
+              TooltipWrap,
+              { color: "black", side: "top", text: "Lightcord Developer" },
+              BDV2.React.createElement(
+                Anchor,
+                {
+                  className: "bd-chat-badge",
+                  href: "https://github.com/Lightcord/Lightcord",
+                  title: "Lightcord",
+                  target: "_blank",
+                },
+                BDV2.React.createElement(LightcordLogo, {
+                  size: "16px",
+                  className: "bd-logo",
+                })
+              )
+            )
+          );
         }
         const id = uuidv4()
         children.push(
