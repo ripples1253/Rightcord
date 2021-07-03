@@ -3,18 +3,19 @@ export const currentDiscordVersion = (window.DiscordNative && window.DiscordNati
 export const minSupportedVersion = "0.3.0";
 export const bbdVersion = "0.3.5";
 export const bbdChangelog = {
-    description: "Updated BBD, AccountInfo fix and more!.",
-    changes: [
-        {
-            title: "Bug Fixes",
-            type: "fixed",
-            items: [
-                "Account info has been fixed.",
-                "BBD has been updated to newest possible version.",
-                "Changed some invites from BetterDiscord to Lightcord."
-            ]
-        }
-    ]
+  description: "Security updates and more!",
+  changes: [
+    {
+      title: "Bug Fixes & More.",
+      type: "fixed",
+      items: [
+        "Updated various dependencies.",
+        "Added badges to new devs.",
+        "Change BandageBD naming inside Lightcord to LightcordBD",
+        "New release system that allows us to spend more time on actually developing rather than compiling packages ;)",
+      ],
+    },
+  ],
 };
 
 export const settings = {
