@@ -49,7 +49,7 @@ scoop install lightcord
 
 Alternatively, download the installer from the [releases tab](https://github.com/Lightcord/Lightcord/releases).
 
-## Linux
+## Linux (and ChromeOS)
 
 [This part has moved!](https://github.com/Lightcord/lc-installer-linux)
 
