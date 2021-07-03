@@ -66,10 +66,10 @@ module.exports = {
   optimization: {
     minimizer: [
       new TerserPlugin({
+        sourceMap: true,
         terserOptions: {
           compress: {drop_debugger:false}
         },
-        sourceMap: true
       })
     ]
   }
