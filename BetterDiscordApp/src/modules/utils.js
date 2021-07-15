@@ -231,7 +231,7 @@ export default class Utils {
         let headerModule = BDModules.get(e => e.header && e.responsiveWidthMobile && e.hideOnFullscreen)[0]
         let footer2Module = BDModules.get(e => e.header && e.responsiveWidthMobile && e.focusLock)[0]
         const modal = DOM.createElement(`<div class="bd-modal-wrapper theme-dark">
-                        <div class="bd-backdrop ${BDModules.get(e => e.backdrop && e.backdropWithLayer)[0].backdrop}"></div>
+                        <div class="bd-backdrop ${BDModules.get(e => e.backdrop && e.withLayer)[0].backdrop}"></div>
                         <div class="bd-modal ${modalModule.modal}">
                             <div class="bd-modal-inner ${modalModule.inner}">
                                 <div class="header ${headerModule.header}">
