@@ -11,6 +11,8 @@
 [![ETH](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/papycochon/cryptodonate/master/badges/ethereum.json&style=flat-square)](https://papycochon.github.io/cryptodonate/eth.html?address=0xEFE45F22Ee844bf2Ba0E4d853FA0bC8c028fAfFe&note=https://github.com/Lightcord/Lightcord)
 [![LTC](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/papycochob/cryptodonate/master/badges/litecoin.json&style=flat-square)](https://papycochon.github.io/cryptodonate/ltc.html?address=LNTmfMjHJgTHaB7rj8ZuWWuU1XkP2YeGCA&note=https://github.com/Lightcord/Lightcord)
 
+# Lightcord has been abandoned and no longer receives support or updates!
+
 # About
 
 [Lightcord](https://lightcord.org) is a simple and customizable client for Discord.
@@ -33,8 +35,7 @@ It includes [BandagedBD](https://github.com/rauenzi/BetterDiscordApp), [Glasstro
 
 ## Planned Features
 
-* **Username History** - Keep track of your past usernames!
-* **New Plugin Directory** - Easily install or edit themes and plugins!
+Lightcord is no longer updated
 
 # Installing 
 
